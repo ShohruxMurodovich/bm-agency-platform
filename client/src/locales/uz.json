@@ -1,0 +1,343 @@
+{
+    "common": {
+        "dashboard": "Boshqaruv paneli",
+        "orders": "Buyurtmalar",
+        "products": "Mahsulotlar",
+        "stores": "Do‘konlar",
+        "settings": "Sozlamalar",
+        "logout": "Chiqish",
+        "save": "Saqlash",
+        "cancel": "Bekor qilish",
+        "edit": "Tahrirlash",
+        "to_be_returned": "Qaytarilishi kerak",
+        "connected": "Uhlangan",
+        "operational": "Ishlamoqda",
+        "delete": "O‘chirish",
+        "view": "Ko‘rish",
+        "export": "Eksport",
+        "back": "Orqaga",
+        "loading": "Yuklanmoqda...",
+        "created_on": "Yaratilgan:",
+        "units": "dona",
+        "accept_all": "Hammasini qabul qilish",
+        "success_approved": "Muvaffaqiyatli tasdiqlandi",
+        "error_generic": "Xatolik yuz berdi",
+        "error_load_data": "Ma'lumotlarni yuklashda xatolik",
+        "confirm_receipt": "Qabulni tasdiqlash",
+        "sending": "Yuborilmoqda...",
+        "send_request": "So'rov yuborish",
+        "search_products": "Mahsulotlarni qidirish...",
+        "loading_products": "Mahsulotlar yuklanmoqda...",
+        "no_products_found_query": "So'rov bo'yicha mahsulot topilmadi: {query}",
+        "select": "Tanlash",
+        "added": "Qo'shildi",
+        "qty": "Soni",
+        "notes_optional": "Izohlar (ixtiyoriy)",
+        "notes_placeholder": "Izoh qo'shish...",
+        "error_load_products": "Mahsulotlarni yuklashda xatolik",
+        "out_of_stock": "Omborda yo'q",
+        "submitting": "Yuborilmoqda...",
+        "add_all_visible": "Barchasini qo'shish",
+        "added_count": "{count} ta mahsulot qo'shildi",
+        "search": "Qidirish"
+    },
+    "menu": {
+        "dashboard": "Boshqaruv paneli",
+        "orders": "Buyurtmalar",
+        "users": "Foydalanuvchilar",
+        "settings": "Sozlamalar",
+        "logout": "Chiqish",
+        "users_roles": "Foydalanuvchilar va rollar",
+        "send_products": "Tovarlarni yuborish",
+        "receive_products": "Tovarlarni qabul qilish",
+        "return_products": "Tovarlarni qaytarish",
+        "accept_returns": "Qaytarishni qabul qilish",
+        "parent_products": "Ota mahsulotlar",
+        "stores": "Do'konlar",
+        "sellers": "Sotuvchilar",
+        "my_stores": "Mening do'konlarim",
+        "overview": "Umumiy ko'rinish",
+        "inventory": "Inventar",
+        "operations": "Operatsiyalar",
+        "sales": "Sotuvlar",
+        "administration": "Ma'muriyat"
+    },
+    "status": {
+        "pending": "Kutilmoqda",
+        "processing": "Jarayonda",
+        "shipped": "Yuborilgan",
+        "completed": "Bajarilgan",
+        "cancelled": "Bekor qilingan",
+        "rejected": "Rad etilgan",
+        "operational": "Ishlamoqda",
+        "connected": "Uhlangan",
+        "to_be_returned": "Qaytarilishi kerak"
+    },
+    "dashboard": {
+        "welcome": "Xush kelibsiz",
+        "role_desc": {
+            "admin": "Platforma ko'rinishi va boshqaruv markazi",
+            "seller": "Mahsulotlar, buyurtmalar va qaytarishlarni boshqaring.",
+            "courier": "Yetkazib berish, olib ketish va qaytarishlarni kuzating.",
+            "default": "BM Agency platformasiga xush kelibsiz"
+        },
+        "stats": {
+            "revenue": "Tushum",
+            "active_orders": "Faol buyurtmalar",
+            "pending_orders": "Kutilayotgan buyurtmalar",
+            "returns": "Qaytarishlar",
+            "total_products": "Jami mahsulotlar",
+            "active_sellers": "Faol sotuvchilar",
+            "pending_pickups": "Kutilayotgan olib ketishlar",
+            "active_deliveries": "Faol yetkazib berishlar",
+            "returns_process": "Jarayondagi qaytarishlar",
+            "completed_jobs": "Bajarilgan ishlar"
+        },
+        "sections": {
+            "recent_orders": "So'nggi buyurtmalar",
+            "recent_activity": "So'nggi faollik",
+            "recent_orders_subtitle": "So'nggi tranzaksiyalar va status yangilanishlari",
+            "recent_activity_subtitle": "Sizning so'nggi olib ketish va yetkazib berish vazifalaringiz",
+            "quick_actions": "Tezkor harakatlar",
+            "quick_actions_subtitle": "Rolingiz uchun umumiy vazifalar",
+            "platform_health": "Platforma salomatligi"
+        },
+        "actions": {
+            "view_all_tasks": "Barcha vazifalar",
+            "view_all_orders": "Barcha buyurtmalar"
+        },
+        "quick_actions": {
+            "add_product": "Yangi mahsulot qo'shish",
+            "manage_users": "Foydalanuvchilarni boshqarish"
+        },
+        "health": {
+            "system": "Tizim holati",
+            "version": "Versiya"
+        },
+        "table": {
+            "id": "ID",
+            "item": "Mahsulot/Vazifa",
+            "status": "Holat",
+            "amount": "Summa",
+            "from": "Qayerdan"
+        }
+    },
+    "products": {
+        "title": "Asosiy tovarlar",
+        "subtitle": "Ichki tovar catalogini boshqarish",
+        "add": "Tovar qo'shish",
+        "loading": "Katalog yuklanmoqda...",
+        "empty_start": "Katalogga yangi tovar qo'shishdan boshlang.",
+        "new_title": "Yangi tovar",
+        "edit_title": "Tovarni tahrirlash",
+        "form_subtitle": "Tovarni {action} uchun ma'lumotlarni to'ldiring.",
+        "create_action": "yaratish",
+        "update_action": "yangilash",
+        "sections": {
+            "seller": "Sotuvchi",
+            "basic": "Asosiy ma'lumotlar",
+            "cost_stock": "Narx va ombor",
+            "info": "Ma'lumot"
+        },
+        "send": {
+            "title": "Tovarlarni yuborish",
+            "subtitle": "Tovar harakati so'rovini yaratish",
+            "selected_count": "Tanlangan: {count}",
+            "selected_items": "Tanlangan tovarlar",
+            "empty_selection": "Tovarlar tanlanmagan",
+            "submit": "So'rovni yuborish",
+            "success": "So'rov muvaffaqiyatli yuborildi",
+            "error": "So'rov yuborishda xatolik"
+        },
+        "receive": {
+            "title": "Tovarlarni qabul qilish",
+            "subtitle": "Tovarlar qabulini tasdiqlash",
+            "no_pending": "Kutilayotgan tovarlar yo'q",
+            "all_caught_up": "Barcha tovarlar qabul qilindi",
+            "unknown_seller": "Noma'lum sotuvchi",
+            "seller_notes": "Sotuvchi izohlari",
+            "acceptance_notes": "Qabul qilish izohlari",
+            "notes_placeholder": "Izoh qo'shish..."
+        },
+        "accept_return": {
+            "title": "Qaytarishni qabul qilish",
+            "subtitle": "Kuryerlardan qaytarishlarni ishlash",
+            "no_pending": "Faol qaytarishlar yo'q",
+            "all_caught_up": "Barcha qaytarishlar ishlandi",
+            "return_id": "Qaytarish #",
+            "return_reason": "Qaytarish sababi",
+            "confirm": "Qaytarishni tasdiqlash"
+        },
+        "return": {
+            "title": "Tovarlarni qaytarish",
+            "subtitle": "Sotuvchiga qaytarish so'rovini yaratish",
+            "create": "Qaytarish so'rovini yaratish",
+            "select_seller": "Sotuvchini tanlang",
+            "select_seller_title": "Sotuvchini tanlang",
+            "select_seller_desc": "Qaytarish uchun mavjud tovarlarni ko'rish uchun sotuvchini tanlang.",
+            "no_products_seller": "Ushbu sotuvchi uchun tovarlar topilmadi.",
+            "summary": "Qaytarish xulosasi",
+            "empty_selection": "Hech narsa tanlanmadi.",
+            "reason_notes": "Sabab / Izohlar",
+            "reason_placeholder": "Qaytarish sababini yozing..."
+        },
+        "fields": {
+            "select_seller": "Sotuvchini tanlang",
+            "select_seller_placeholder": "-- Sotuvchini tanlang --",
+            "seller_immutable": "Yaratilgandan so'ng sotuvchini o'zgartirib bo'lmaydi",
+            "product_name": "Mahsulot nomi",
+            "product_name_placeholder": "Masalan, Simsiz quloqchinlar",
+            "description": "Tavsif",
+            "description_placeholder": "Mahsulot tavsifi...",
+            "cost_usd": "Tannarx (USD)",
+            "cost_uzs": "Tannarx (UZS)",
+            "stock": "Ombor",
+            "stock_hint": "💡 Tannarx ichki hisob uchun. Ombor - mavjud miqdor.",
+            "info_parent_title": "Asosiy tovar",
+            "info_parent_desc": "Bu sizning ichki tovar katalogingiz. Uni marketpleys tovarlariga bog'lang.",
+            "info_stock_title": "Ombor boshqaruvi",
+            "info_stock_desc": "Bu yerdagi ombor yangilanishlari bog'langan tovarlarga ta'sir qiladi."
+        },
+        "delete": {
+            "title": "Tovarni o'chirish",
+            "description": "Ushbu tovarni o'chirishga ishonchingiz komilmi? Bu amalni bekor qilib bo'lmaydi.",
+            "warning": "Ogohlantirish: Bu element katalogdan butunlay o'chirib tashlanadi."
+        },
+        "table": {
+            "product": "Mahsulot",
+            "product_name": "Nomi",
+            "seller": "Sotuvchi",
+            "cost_usd": "Tannarx (USD)",
+            "cost_uzs": "Tannarx (UZS)",
+            "stock": "Ombor",
+            "linked": "Bog'langan",
+            "created": "Yaratilgan",
+            "available": "Mavjud",
+            "returning": "Qaytarilmoqda (soni)",
+            "accept_qty": "Qabul qilish (soni)",
+            "requested": "So'ralgan",
+            "action": "Amal"
+        }
+    },
+    "settings": {
+        "title": "Tizim holati",
+        "subtitle": "Tizim salomatligi va loglarni kuzatish",
+        "server_status": "Server holati",
+        "api_gateway": "API Shlyuzi",
+        "database": "Ma'lumotlar bazasi",
+        "latency": "Kechikish",
+        "system_logs": "Tizim loglari",
+        "no_logs": "Loglar mavjud emas."
+    },
+    "errors": {
+        "404": {
+            "title": "404",
+            "message": "Sahifa topilmadi",
+            "back_home": "Bosh sahifaga qaytish"
+        }
+    },
+    "orders": {
+        "title": "Buyurtmalar",
+        "subtitle": "Mijoz buyurtmalarini boshqarish",
+        "table": {
+            "order_number": "Buyurtma #",
+            "product": "Mahsulot",
+            "qty": "Soni",
+            "total": "Jami",
+            "status": "Holat",
+            "actions": "Amallar"
+        },
+        "no_orders": "Buyurtmalar topilmadi",
+        "items": "Mahsulotlar"
+    },
+    "sellers": {
+        "title": "Sotuvchilar",
+        "subtitle": "Hamkorlar va sotuvchi profillarini boshqarish",
+        "add": "Sotuvchi qo'shish",
+        "no_sellers": "Sotuvchilar topilmadi",
+        "table": {
+            "name": "Ism",
+            "contact": "Aloqa",
+            "company": "Kompaniya"
+        },
+        "fields": {
+            "name": "Ism va Familiya",
+            "name_placeholder": "Ivan Ivanov",
+            "company": "Kompaniya nomi",
+            "company_placeholder": "MCHJ Romashka",
+            "email": "Email",
+            "email_placeholder": "ivan@example.com",
+            "phone": "Telefon",
+            "phone_placeholder": "+998 90 123 45 67",
+            "password": "Parol",
+            "password_placeholder": "******"
+        },
+        "dialog": {
+            "add_title": "Yangi sotuvchi",
+            "edit_title": "Sotuvchini tahrirlash",
+            "desc": "Sotuvchi akkauntini yaratish uchun ma'lumotlarni to'ldiring."
+        }
+    },
+    "stores": {
+        "title": "Do‘konlar",
+        "subtitle": "Ullangan marketpleys do‘konlari",
+        "connect": "Do‘kon ulash",
+        "table": {
+            "name": "Nomi",
+            "marketplace": "Marketpleys",
+            "owner": "Egasini",
+            "actions": "Amallar"
+        },
+        "dialog": {
+            "connect_title": "Do'konni ulash",
+            "edit_title": "Do'konni tahrirlash",
+            "desc": "Tashqi marketpleys do'konini platformaga ulang.",
+            "marketplace_label": "Marketpleys",
+            "name_label": "Do'kon nomi",
+            "name_placeholder": "Do'stona nom",
+            "external_id_label": "Tashqi ID",
+            "external_id_placeholder": "Marketpleysdan ixtiyoriy ID",
+            "owner_label": "Egasi (Email)",
+            "owner_placeholder": "email@example.com"
+        }
+    },
+    "login": {
+        "error": {
+            "invalid": "Email yoki parol noto'g'ri.",
+            "generic": "Xatolik yuz berdi. Aloqani tekshiring."
+        }
+    },
+    "users": {
+        "title": "Foydalanuvchilar va rollar",
+        "subtitle": "Tizimga kirish va huquqlarni boshqarish",
+        "invite": "Taklif qilish",
+        "table": {
+            "user": "Foydalanuvchi",
+            "role": "Rol",
+            "joined": "Qo'shilgan",
+            "actions": "Amallar"
+        },
+        "dialog": {
+            "edit_title": "Foydalanuvchini tahrirlash",
+            "invite_title": "Foydalanuvchini taklif qilish",
+            "edit_desc": "Foydalanuvchi ma'lumotlarini yangilash",
+            "invite_desc": "Jamoa a'zosi uchun hisob yaratish",
+            "email_label": "Email manzil",
+            "role_label": "Rol",
+            "password_label": "Parol",
+            "password_placeholder": "O'zgartirmaslik uchun bo'sh qoldiring",
+            "note": "Eslatma: Foydalanuvchi profili (ism, telefon) Sotuvchilar bo'limida boshqariladi."
+        },
+        "delete": {
+            "title": "Foydalanuvchini o'chirish",
+            "desc": "Ishonchingiz komilmi? Bu amalni bekor qilib bo'lmaydi.",
+            "warning": "Ogohlantirish: Bu foydalanuvchi darhol kirish huquqini yo'qotadi."
+        },
+        "roles": {
+            "admin": "Admin",
+            "staff": "Xodim",
+            "seller": "Sotuvchi",
+            "courier": "Kuryer"
+        }
+    }
+}
