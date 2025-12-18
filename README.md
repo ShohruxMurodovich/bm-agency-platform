@@ -1,4 +1,4 @@
-# Platform - Internal Automation & Admin System
+# BM Agency Platform
 
 A comprehensive multi-marketplace automation platform featuring a robust **Web Admin Panel** and **Internal API Gateway**. Designed for scalability, security, and ease of use.
 
