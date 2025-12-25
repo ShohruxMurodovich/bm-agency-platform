@@ -138,13 +138,31 @@ const toggleNotifications = () => {
 };
 
 const navItems = computed(() => {
-    const items: any[] = [
+    const items: any[] = [];
+    
+    // Courier has completely different navigation
+    if (authStore.isCourier) {
+        items.push(
+            { label: t('menu.overview'), isHeader: true },
+            { label: t('courier.dashboard.title'), path: '/courier-dashboard', icon: LayoutDashboard },
+            { label: t('menu.operations'), isHeader: true },
+            { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
+            { label: t('menu.receive_products'), path: '/receive-products', icon: Inbox },
+            { label: t('menu.return_products'), path: '/return-products', icon: CornerUpLeft },
+            { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
+            { label: t('courier.states.title'), path: '/product-states', icon: Package }
+        );
+        return items;
+    }
+    
+    // For non-courier roles:
+    items.push(
         { 
             label: t('menu.overview'),
             isHeader: true 
         },
         { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
-    ];
+    );
 
     // Parent Products for Admin/Staff only
     if (!authStore.isSeller && !authStore.isCourier) {
@@ -170,6 +188,12 @@ const navItems = computed(() => {
     if (authStore.isCourier || authStore.isAdmin) {
         items.push({ label: t('menu.receive_products'), path: '/receive-products', icon: Inbox });
         items.push({ label: t('menu.return_products'), path: '/return-products', icon: CornerUpLeft });
+    }
+    
+    // Product Movements and States for Admin (for monitoring)
+    if (authStore.isAdmin) {
+        items.push({ label: t('courier.movements.title'), path: '/product-movements', icon: Truck });
+        items.push({ label: t('courier.states.title'), path: '/product-states', icon: Package });
     }
 
     // Orders for all except courier

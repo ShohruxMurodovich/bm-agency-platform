@@ -67,4 +67,31 @@ export class ProductMovementController {
     ): Promise<ProductMovementRequest> {
         return this.productMovementService.acceptReturn(id, req.user.id, data);
     }
+    @Get('product/:id/inventory')
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER)
+    getInventorySummary(@Param('id') id: string) {
+        return this.productMovementService.getInventorySummary(id);
+    }
+
+    @Get('product/:id/movements')
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER)
+    getMovementHistory(@Param('id') id: string) {
+        return this.productMovementService.getMovementHistory(id);
+    }
+
+    @Get('movements')
+    @Roles(UserRole.ADMIN, UserRole.COURIER)
+    async getMovements(
+        @Query('product') productSearch?: string,
+        @Query('type') movementType?: string,
+        @Query('location') locationId?: string,
+        @Query('dateFrom') dateFrom?: string,
+    ) {
+        return this.productMovementService.getMovements({
+            productSearch,
+            movementType,
+            locationId,
+            dateFrom,
+        });
+    }
 }

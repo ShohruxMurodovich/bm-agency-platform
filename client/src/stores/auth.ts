@@ -20,7 +20,13 @@ export const useAuthStore = defineStore('auth', {
                 this.token = response.data.access_token;
                 localStorage.setItem('token', this.token || '');
                 await this.fetchUser();
-                router.push('/');
+
+                // Redirect based on role
+                if (this.user?.role === 'courier') {
+                    router.push('/courier-dashboard');
+                } else {
+                    router.push('/');
+                }
             } catch (error) {
                 console.error('Login failed:', error);
                 throw error;

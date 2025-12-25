@@ -99,6 +99,12 @@
               </div>
           </div>
       </div>
+
+      <!-- Inventory Section (Read-Only) -->
+      <div v-if="isEdit" class="space-y-4">
+           <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Inventory Management</h2>
+           <ProductInventory :productId="route.params.id as string" />
+      </div>
   </div>
 </template>
 
@@ -109,6 +115,7 @@ import { useI18n } from 'vue-i18n';
 import api from '../api';
 import Button from '../components/ui/Button.vue';
 import Input from '../components/ui/Input.vue';
+import ProductInventory from '../components/inventory/ProductInventory.vue';
 import { toast } from 'vue-sonner';
 
 const { t } = useI18n();

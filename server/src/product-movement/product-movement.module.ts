@@ -6,6 +6,10 @@ import { ProductMovementRequest } from './product-movement-request.entity';
 import { ProductMovementItem } from './product-movement-item.entity';
 import { ParentProduct } from '../parent-products/parent-product.entity';
 import { Seller } from '../sellers/seller.entity';
+import { ProductMovement } from './product-movement.entity';
+import { ProductState } from '../inventory/stock-snapshots/product-state.entity';
+import { LocationsModule } from '../inventory/locations/locations.module';
+import { BusinessStatusModule } from '../inventory/business-statuses/business-status.module';
 
 @Module({
     imports: [
@@ -14,7 +18,11 @@ import { Seller } from '../sellers/seller.entity';
             ProductMovementItem,
             ParentProduct,
             Seller,
+            ProductMovement,
+            ProductState
         ]),
+        LocationsModule,
+        BusinessStatusModule
     ],
     controllers: [ProductMovementController],
     providers: [ProductMovementService],
