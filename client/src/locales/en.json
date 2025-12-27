@@ -54,14 +54,22 @@
         "return_products": "Return Products",
         "accept_returns": "Accept Returns",
         "parent_products": "Parent Products",
+        "marketplace_products": "Marketplace Products",
         "stores": "Stores",
         "sellers": "Sellers",
         "my_stores": "My Stores",
         "overview": "Overview",
         "inventory": "Inventory",
+        "inventory_mgmt": "Inventory",
         "operations": "Operations",
         "sales": "Sales",
-        "administration": "Administration"
+        "administration": "Administration",
+        "logistics": "Logistics",
+        "transfer_acts": "Transfer Acts",
+        "return_acts": "Return Acts",
+        "analytics": "Analytics",
+        "notifications": "Notifications",
+        "stock_management": "Stock Management"
     },
     "status": {
         "pending": "Pending",

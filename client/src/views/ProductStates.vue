@@ -34,7 +34,7 @@
                   <label class="text-xs font-medium text-slate-600 mb-1 block">{{ t('courier.states.status') }}</label>
                   <select v-model="filters.status" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                       <option value="">{{ t('common.all') }}</option>
-                      <option v-for="status in statuses" :key="status.id" :value="status.id">{{ status.name }}</option>
+                      <option v-for="status in statuses" :key="status.id" :value="status.id">{{ status.code }}</option>
                   </select>
               </div>
           </div>
@@ -68,8 +68,8 @@
                       </td>
                       <td class="px-6 py-4 text-slate-600">{{ state.location?.name }}</td>
                       <td class="px-6 py-4">
-                          <span :class="getStatusBadgeColor(state.business_status?.name)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
-                              {{ state.business_status?.name }}
+                          <span :class="getStatusBadgeColor(state.business_status?.code)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                              {{ state.business_status?.code }}
                           </span>
                       </td>
                       <td class="px-6 py-4">
@@ -115,8 +115,8 @@
                 <p class="text-sm text-slate-600">{{ t('courier.states.location') }}: {{ selectedState.location?.name }}</p>
                 <p class="text-sm text-slate-600">
                     {{ t('courier.states.status') }}: 
-                    <span :class="getStatusBadgeColor(selectedState.business_status?.name)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ml-1">
-                        {{ selectedState.business_status?.name }}
+                    <span :class="getStatusBadgeColor(selectedState.business_status?.code)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ml-1">
+                        {{ selectedState.business_status?.code }}
                     </span>
                 </p>
             </div>
@@ -319,7 +319,7 @@ const exportStates = () => {
         s.parent_product?.sku || 'N/A',
         s.parent_product?.title || 'N/A',
         s.location?.name || 'N/A',
-        s.business_status?.name || 'N/A',
+        s.business_status?.code || 'N/A',
         s.quantity,
         formatDateTime(s.updated_at)
     ]);

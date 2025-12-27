@@ -123,7 +123,9 @@ import {
     CheckSquare,
     Inbox,
     CornerUpLeft,
-    Bell
+    Bell,
+    BarChart3,
+    FileText
 } from 'lucide-vue-next';
 
 const { t } = useI18n();
@@ -140,7 +142,9 @@ const toggleNotifications = () => {
 const navItems = computed(() => {
     const items: any[] = [];
     
-    // Courier has completely different navigation
+    // ========================================
+    // COURIER ROLE - Different navigation
+    // ========================================
     if (authStore.isCourier) {
         items.push(
             { label: t('menu.overview'), isHeader: true },
@@ -150,75 +154,84 @@ const navItems = computed(() => {
             { label: t('menu.receive_products'), path: '/receive-products', icon: Inbox },
             { label: t('menu.return_products'), path: '/return-products', icon: CornerUpLeft },
             { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
-            { label: t('courier.states.title'), path: '/product-states', icon: Package }
+            { label: t('courier.states.title'), path: '/product-states', icon: Package },
+            { label: t('menu.notifications'), path: '/notifications', icon: Bell }
         );
         return items;
     }
     
-    // For non-courier roles:
-    items.push(
-        { 
-            label: t('menu.overview'),
-            isHeader: true 
-        },
-        { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
-    );
-
-    // Parent Products for Admin/Staff only
-    if (!authStore.isSeller && !authStore.isCourier) {
-        items.push({ 
-            label: t('menu.inventory'),
-            isHeader: true 
-        });
-        items.push({ label: t('menu.parent_products'), path: '/products', icon: Package });
-    }
-
-    // Product Movement for Seller/Courier/Admin
-    if (authStore.isSeller || authStore.isAdmin || authStore.isCourier) {
-         const hasInventoryHeader = items.some(i => i.label === t('menu.inventory'));
-         if (!hasInventoryHeader) {
-             items.push({ label: t('menu.operations'), isHeader: true });
-         }
-    }
-
-    if (authStore.isSeller || authStore.isAdmin) {
-        items.push({ label: t('menu.send_products'), path: '/send-products', icon: Truck });
-        items.push({ label: t('menu.accept_returns'), path: '/accept-returns', icon: CheckSquare });
-    }
-    if (authStore.isCourier || authStore.isAdmin) {
-        items.push({ label: t('menu.receive_products'), path: '/receive-products', icon: Inbox });
-        items.push({ label: t('menu.return_products'), path: '/return-products', icon: CornerUpLeft });
+    // ========================================
+    // SELLER ROLE
+    // ========================================
+    if (authStore.isSeller) {
+        items.push(
+            { label: t('menu.overview'), isHeader: true },
+            { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
+            { label: t('menu.inventory'), isHeader: true },
+            { label: t('menu.parent_products'), path: '/products', icon: Package },
+            { label: t('menu.sales'), isHeader: true },
+            { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
+            { label: t('menu.stock_management'), isHeader: true },
+            { label: t('menu.send_products'), path: '/send-products', icon: Truck },
+            { label: t('menu.accept_returns'), path: '/accept-returns', icon: CheckSquare },
+            { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
+            { label: t('menu.notifications'), path: '/notifications', icon: Bell }
+        );
+        return items;
     }
     
-    // Product Movements and States for Admin (for monitoring)
+    // ========================================
+    // ADMIN (SUPER ADMIN) ROLE
+    // ========================================
     if (authStore.isAdmin) {
-        items.push({ label: t('courier.movements.title'), path: '/product-movements', icon: Truck });
-        items.push({ label: t('courier.states.title'), path: '/product-states', icon: Package });
-    }
-
-    // Orders for all except courier
-    if (!authStore.isCourier) {
-        items.push({ label: t('menu.sales'), isHeader: true });
-        items.push({ label: t('menu.orders'), path: '/orders', icon: ShoppingCart });
-    }
-
-    // Admin has full access
-    if (authStore.isAdmin) {
-        items.push({ label: t('menu.administration'), isHeader: true });
         items.push(
+            { label: t('menu.overview'), isHeader: true },
+            { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
+            { label: t('menu.inventory'), isHeader: true },
+            { label: t('menu.parent_products'), path: '/products', icon: Package },
+            { label: t('menu.marketplace_products'), path: '/marketplace-products', icon: ShoppingCart },
+            { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
+            { label: t('courier.states.title'), path: '/product-states', icon: Package },
+            { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
+            { label: t('menu.logistics'), isHeader: true },
+            { label: t('menu.transfer_acts'), path: '/transfer-acts', icon: FileText },
+            { label: t('menu.return_acts'), path: '/return-acts', icon: FileText },
+            { label: t('menu.sales'), isHeader: true },
+            { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
+            { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
+            { label: t('menu.administration'), isHeader: true },
             { label: t('menu.stores'), path: '/stores', icon: Store },
             { label: t('menu.sellers'), path: '/sellers', icon: Users },
             { label: t('menu.users_roles'), path: '/users', icon: Users },
-            { label: t('common.settings'), path: '/settings', icon: Settings }
+            { label: t('common.settings'), path: '/settings', icon: Settings },
+            { label: t('menu.notifications'), path: '/notifications', icon: Bell }
         );
-    } else if (authStore.user?.role === 'seller') {
-        // Seller sees own stores
-
-        items.push(
-            { label: t('menu.my_stores'), path: '/stores', icon: Store }
-        );
+        return items;
     }
-    // Staff sees only Dashboard, Products, Orders (Default items)
+    
+    // ========================================
+    // STAFF (ADMIN/EMPLOYEE) ROLE
+    // ========================================
+    // Staff has similar access to Admin but WITHOUT Sellers and Users pages
+    items.push(
+        { label: t('menu.overview'), isHeader: true },
+        { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
+        { label: t('menu.inventory'), isHeader: true },
+        { label: t('menu.parent_products'), path: '/products', icon: Package },
+        { label: t('menu.marketplace_products'), path: '/marketplace-products', icon: ShoppingCart },
+        { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
+        { label: t('courier.states.title'), path: '/product-states', icon: Package },
+        { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
+        { label: t('menu.logistics'), isHeader: true },
+        { label: t('menu.transfer_acts'), path: '/transfer-acts', icon: FileText },
+        { label: t('menu.return_acts'), path: '/return-acts', icon: FileText },
+        { label: t('menu.sales'), isHeader: true },
+        { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
+        { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
+        { label: t('menu.administration'), isHeader: true },
+        { label: t('menu.stores'), path: '/stores', icon: Store },
+        { label: t('menu.notifications'), path: '/notifications', icon: Bell }
+    );
     
     return items;
 });

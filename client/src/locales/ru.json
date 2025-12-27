@@ -64,14 +64,22 @@
         "return_products": "Вернуть товары",
         "accept_returns": "Принять возврат",
         "parent_products": "Родительские товары",
+        "marketplace_products": "Товары маркетплейса",
         "stores": "Магазины",
         "sellers": "Продавцы",
         "my_stores": "Мои магазины",
         "overview": "Обзор",
         "inventory": "Инвентарь",
+        "inventory_mgmt": "Инвентарь",
         "operations": "Операции",
         "sales": "Продажи",
-        "administration": "Администрирование"
+        "administration": "Администрирование",
+        "logistics": "Логистика",
+        "transfer_acts": "Акты передачи",
+        "return_acts": "Акты возврата",
+        "analytics": "Аналитика",
+        "notifications": "Уведомления",
+        "stock_management": "Управление складом"
     },
     "status": {
         "pending": "Ожидает",

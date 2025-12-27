@@ -64,14 +64,22 @@
         "return_products": "Tovarlarni qaytarish",
         "accept_returns": "Qaytarishni qabul qilish",
         "parent_products": "Ota mahsulotlar",
+        "marketplace_products": "Marketpleys mahsulotlari",
         "stores": "Do'konlar",
         "sellers": "Sotuvchilar",
         "my_stores": "Mening do'konlarim",
         "overview": "Umumiy ko'rinish",
         "inventory": "Inventar",
+        "inventory_mgmt": "Inventar",
         "operations": "Operatsiyalar",
         "sales": "Sotuvlar",
-        "administration": "Ma'muriyat"
+        "administration": "Ma'muriyat",
+        "logistics": "Logistika",
+        "transfer_acts": "Topshirish aktlari",
+        "return_acts": "Qaytarish aktlari",
+        "analytics": "Analitika",
+        "notifications": "Bildirishnomalar",
+        "stock_management": "Ombor boshqaruvi"
     },
     "status": {
         "pending": "Kutilmoqda",
