@@ -56,10 +56,11 @@ const status = ref<any>(null);
 const logs = ref<any[]>([]);
 
 const getLogColor = (type: string) => {
-    switch(type) {
-        case 'error': return 'border-rose-500';
-        case 'warn': return 'border-amber-500';
-        default: return 'border-indigo-500';
+    switch(type?.toUpperCase()) {
+        case 'ERROR': return 'border-rose-500 bg-rose-50/50';
+        case 'WARNING': return 'border-amber-500 bg-amber-50/50';
+        case 'SUCCESS': return 'border-emerald-500 bg-emerald-50/50';
+        default: return 'border-blue-500 bg-blue-50/50';
     }
 }
 

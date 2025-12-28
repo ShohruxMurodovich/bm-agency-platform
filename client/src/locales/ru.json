@@ -50,7 +50,35 @@
         "next": "Вперед",
         "showing": "Показано",
         "of": "из",
-        "actions": "Действия"
+        "actions": "Действия",
+        "seller": "Продавец",
+        "store": "Магазин",
+        "all_sellers": "Все продавцы",
+        "all_stores": "Все магазины",
+        "status": "Статус",
+        "date_from": "Дата с",
+        "date_to": "Дата по",
+        "product": "Товар",
+        "search_by_sku_title": "Поиск по SKU или названию...",
+        "all_statuses": "Все статусы",
+        "parent_product": "Родительский товар",
+        "all_products": "Все товары",
+        "location": "Локация",
+        "all_locations": "Все локации",
+        "business_status": "Бизнес статус",
+        "from_location": "Откуда (локация)",
+        "to_location": "Куда (локация)",
+        "movement_type": "Тип перемещения",
+        "initiator": "Инициатор",
+        "date_range": "Диапазон дат",
+        "stock_status": "Статус склада",
+        "yes": "Да",
+        "no": "Нет",
+        "confirm_delete": "Подтвердите удаление",
+        "select_seller": "Выберите продавца",
+        "search_stores": "Поиск магазинов...",
+        "search_marketplace_products": "Поиск товаров маркетплейса...",
+        "no_marketplace_products_found": "Товары маркетплейса не найдены"
     },
     "menu": {
         "dashboard": "Дашборд",
@@ -66,6 +94,7 @@
         "parent_products": "Родительские товары",
         "marketplace_products": "Товары маркетплейса",
         "stores": "Магазины",
+        "reporting": "Отчеты",
         "sellers": "Продавцы",
         "my_stores": "Мои магазины",
         "overview": "Обзор",
@@ -85,6 +114,7 @@
         "pending": "Ожидает",
         "processing": "В обработке",
         "shipped": "Отправлен",
+        "delivered": "Доставлен",
         "completed": "Завешен",
         "cancelled": "Отменен",
         "rejected": "Отклонен",
@@ -106,6 +136,9 @@
             "pending_orders": "Ожидающие заказы",
             "returns": "Возвраты",
             "total_products": "Всего товаров",
+            "total_sellers": "Всего продавцов",
+            "total_stores": "Всего магазинов",
+            "staff_members": "Сотрудники",
             "active_sellers": "Активные продавцы",
             "pending_pickups": "Ожидающие заборы",
             "active_deliveries": "Активные доставки",
@@ -119,11 +152,16 @@
             "recent_activity_subtitle": "Ваши последние задачи по забору и доставке",
             "quick_actions": "Быстрые действия",
             "quick_actions_subtitle": "Частые задачи для вашей роли",
-            "platform_health": "Здоровье платформы"
+            "platform_health": "Здоровье платформы",
+            "recent_movements": "Недавние перемещения",
+            "daily_orders_chart": "График заказов по дням",
+            "daily_orders_subtitle": "История суммы заказов по дням"
         },
         "actions": {
             "view_all_tasks": "Все задачи",
-            "view_all_orders": "Все заказы"
+            "view_all_orders": "Все заказы",
+            "view_all_movements": "Все перемещения",
+            "view_full_analysis": "Полный анализ"
         },
         "quick_actions": {
             "add_product": "Добавить товар",
@@ -138,13 +176,18 @@
             "item": "Товар/Задача",
             "status": "Статус",
             "amount": "Сумма",
-            "from": "Откуда"
+            "from": "Откуда",
+            "store": "Магазин"
         }
     },
     "products": {
         "title": "Родительские товары",
         "subtitle": "Управление внутренним каталогом товаров",
         "add": "Добавить товар",
+        "tabs": {
+            "parent_products": "Родительские товары",
+            "marketplace_products": "Товары маркетплейса"
+        },
         "loading": "Загрузка каталога...",
         "empty_start": "Начните с добавления нового товара в каталог.",
         "new_title": "Новый товар",
@@ -227,16 +270,34 @@
         "product": "Товар",
         "product_name": "Название",
         "seller": "Продавец",
+        "cost": "Себест.",
         "cost_usd": "Себест. (USD)",
         "cost_uzs": "Себест. (UZS)",
         "stock": "Склад",
         "linked": "Связанные товары",
         "created": "Создано",
+        "image": "Изображение",
+        "title": "Название",
+        "sku_id": "SKU ID",
+        "sku_name": "SKU название",
+        "price": "Цена",
+        "has_parent": "Есть родитель",
         "available": "Доступно",
         "returning": "Возврат (кол-во)",
         "accept_qty": "Принять (кол-во)",
         "requested": "Запрошено",
-        "action": "Действие"
+        "action": "Действие",
+        "date": "Дата",
+        "parent_product": "Родительский товар",
+        "from_location": "Откуда",
+        "to_location": "Куда",
+        "quantity": "Количество",
+        "movement_type": "Тип перемещения",
+        "order_id": "ID заказа",
+        "initiator": "Инициатор",
+        "last_updated": "Обновлено",
+        "status": "Статус",
+        "store": "Магазин"
     },
     "settings": {
         "title": "Статус системы",
@@ -267,6 +328,8 @@
             "actions": "Действия"
         },
         "no_orders": "Заказов не найдено",
+        "loading": "Загрузка заказов...",
+        "order_items": "Товары заказа",
         "items": "Товары"
     },
     "sellers": {
@@ -305,11 +368,19 @@
             "name": "Название",
             "marketplace": "Маркетплейс",
             "owner": "Владелец",
+            "seller": "Продавец",
+            "external_id": "Внешний ID",
+            "connection_status": "Статус подключения",
+            "last_sync": "Последняя синхронизация",
             "actions": "Действия"
         },
+        "loading": "Загрузка магазинов...",
+        "no_stores": "Магазины не найдены",
         "dialog": {
             "connect_title": "Подключить Магазин",
             "edit_title": "Редактировать Магазин",
+            "view_title": "Информация о магазине",
+            "view_desc": "Полная информация о магазине",
             "desc": "Свяжите внешний магазин маркетплейса с платформой.",
             "marketplace_label": "Маркетплейс",
             "name_label": "Название магазина",
@@ -317,7 +388,8 @@
             "external_id_label": "Внешний ID",
             "external_id_placeholder": "Необязательный ID из маркетплейса",
             "owner_label": "Владелец (Email пользователя)",
-            "owner_placeholder": "email@example.com"
+            "owner_placeholder": "email@example.com",
+            "seller_label": "Продавец"
         }
     },
     "login": {
@@ -422,15 +494,16 @@
             }
         },
         "states": {
-            "title": "Состояния товаров",
-            "subtitle": "Текущие остатки по локациям и статусам",
+            "title": "Складские остатки",
+            "subtitle": "Текущее количество товара по складам и статусам",
             "product": "Товар",
+            "product_code": "Код товара",
             "location": "Локация",
             "status": "Статус",
             "qty": "Кол-во",
             "last_updated": "Обновлено",
             "search_sku": "Поиск по артикулу или названию...",
-            "show_zero_qty": "Показать нулевые остатки",
+            "show_zero_qty": "Показывать товары с нулевым остатком",
             "no_states": "Состояния не найдены",
             "total_products": "Всего товаров",
             "total_quantity": "Общее количество",
@@ -438,15 +511,32 @@
             "details_subtitle": "Текущее состояние и недавняя активность",
             "current_quantity": "Текущее количество",
             "last_movement_id": "ID последнего перемещения",
-            "recent_movements": "Недавние перемещения",
+            "recent_movements": "Последние изменения по товару",
             "last_5": "Последние 5",
             "qty_change": "Изменение",
-            "new_total": "Новый остаток",
+            "new_total": "Остаток после операции",
             "view_all_movements": "Все перемещения",
             "no_recent_movements": "Нет недавних перемещений",
             "just_now": "Только что",
             "ago": "назад",
             "yesterday": "Вчера"
+        }
+    },
+    "inventory": {
+        "title": "Инвентарь",
+        "subtitle": "Контроль остатков и корректировки склада",
+        "loading": "Загрузка инвентаря...",
+        "no_items": "Записи инвентаря не найдены",
+        "in_stock": "В наличии",
+        "low_stock": "Заканчивается",
+        "out_of_stock": "Закончилось"
+    },
+    "movements": {
+        "type": {
+            "transfer": "Передача",
+            "return": "Возврат",
+            "adjustment": "Корректировка",
+            "status_change": "Изменение статуса"
         }
     }
 }

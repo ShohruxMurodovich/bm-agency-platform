@@ -589,6 +589,11 @@ export class ProductMovementService {
         movementType?: string;
         locationId?: string;
         dateFrom?: string;
+        sellerId?: string;
+        productId?: string;
+        fromLocationId?: string;
+        toLocationId?: string;
+        initiatorId?: string;
     }): Promise<ProductMovement[]> {
         const query = this.movementsRepo.createQueryBuilder('movement')
             .leftJoinAndSelect('movement.parent_product', 'product')
@@ -618,6 +623,28 @@ export class ProductMovementService {
 
         if (filters?.dateFrom) {
             query.andWhere('movement.occurred_at >= :dateFrom', { dateFrom: filters.dateFrom });
+        }
+
+        // New Filters
+        if (filters?.sellerId) {
+            // Filter by parent_product's seller_id
+            query.andWhere('product.seller_id = :sellerId', { sellerId: filters.sellerId });
+        }
+
+        if (filters?.productId) {
+            query.andWhere('movement.parent_product_id = :productId', { productId: filters.productId });
+        }
+
+        if (filters?.fromLocationId) {
+            query.andWhere('movement.from_location_id = :fromLocId', { fromLocId: filters.fromLocationId });
+        }
+
+        if (filters?.toLocationId) {
+            query.andWhere('movement.to_location_id = :toLocId', { toLocId: filters.toLocationId });
+        }
+
+        if (filters?.initiatorId) {
+            query.andWhere('movement.initiator_id = :initiatorId', { initiatorId: filters.initiatorId });
         }
 
         return query

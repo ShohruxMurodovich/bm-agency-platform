@@ -82,14 +82,18 @@
                    
                    <div class="text-sm text-slate-600 space-y-3">
                        <div class="flex items-start">
-                           <span class="font-medium mr-2">📦</span>
+                           <div class="mt-0.5 mr-3 p-1.5 bg-amber-50 rounded-lg">
+                               <Package class="w-5 h-5 text-amber-600" />
+                           </div>
                            <div>
                                <div class="font-medium text-slate-900">{{ t('products.fields.info_parent_title') }}</div>
                                <p class="text-xs mt-1">{{ t('products.fields.info_parent_desc') }}</p>
                            </div>
                        </div>
-                       <div class="flex items-start mt-3">
-                           <span class="font-medium mr-2">📊</span>
+                       <div class="flex items-start mt-4">
+                           <div class="mt-0.5 mr-3 p-1.5 bg-blue-50 rounded-lg">
+                               <BarChart3 class="w-5 h-5 text-blue-600" />
+                           </div>
                            <div>
                                <div class="font-medium text-slate-900">{{ t('products.fields.info_stock_title') }}</div>
                                <p class="text-xs mt-1">{{ t('products.fields.info_stock_desc') }}</p>
@@ -117,6 +121,7 @@ import Button from '../components/ui/Button.vue';
 import Input from '../components/ui/Input.vue';
 import ProductInventory from '../components/inventory/ProductInventory.vue';
 import { toast } from 'vue-sonner';
+import { Package, BarChart3 } from 'lucide-vue-next';
 
 const { t } = useI18n();
 const route = useRoute();

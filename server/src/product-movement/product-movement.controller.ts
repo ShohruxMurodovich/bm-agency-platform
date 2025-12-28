@@ -86,12 +86,22 @@ export class ProductMovementController {
         @Query('type') movementType?: string,
         @Query('location') locationId?: string,
         @Query('dateFrom') dateFrom?: string,
+        @Query('seller_id') sellerId?: string,
+        @Query('product_id') productId?: string,
+        @Query('from_location_id') fromLocationId?: string,
+        @Query('to_location_id') toLocationId?: string,
+        @Query('initiator_id') initiatorId?: string,
     ) {
         return this.productMovementService.getMovements({
             productSearch,
             movementType,
             locationId,
             dateFrom,
+            sellerId,
+            productId,
+            fromLocationId,
+            toLocationId,
+            initiatorId,
         });
     }
 }

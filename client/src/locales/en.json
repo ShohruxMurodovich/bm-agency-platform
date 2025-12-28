@@ -408,6 +408,7 @@
             "title": "Product States",
             "subtitle": "Current inventory by location and status",
             "product": "Product",
+            "product_code": "Product Code",
             "location": "Location",
             "status": "Status",
             "qty": "Qty",

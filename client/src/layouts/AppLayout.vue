@@ -114,7 +114,6 @@ import {
     LayoutDashboard, 
     ShoppingCart, 
     Users, 
-    Settings, 
     LogOut, 
     X, 
     Store,
@@ -125,7 +124,8 @@ import {
     CornerUpLeft,
     Bell,
     BarChart3,
-    FileText
+    FileText,
+    Settings
 } from 'lucide-vue-next';
 
 const { t } = useI18n();
@@ -155,7 +155,8 @@ const navItems = computed(() => {
             { label: t('menu.return_products'), path: '/return-products', icon: CornerUpLeft },
             { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
             { label: t('courier.states.title'), path: '/product-states', icon: Package },
-            { label: t('menu.notifications'), path: '/notifications', icon: Bell }
+            { label: t('menu.notifications'), path: '/notifications', icon: Bell },
+            { label: t('menu.settings'), path: '/settings', icon: Settings }
         );
         return items;
     }
@@ -175,7 +176,8 @@ const navItems = computed(() => {
             { label: t('menu.send_products'), path: '/send-products', icon: Truck },
             { label: t('menu.accept_returns'), path: '/accept-returns', icon: CheckSquare },
             { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
-            { label: t('menu.notifications'), path: '/notifications', icon: Bell }
+            { label: t('menu.notifications'), path: '/notifications', icon: Bell },
+            { label: t('menu.settings'), path: '/settings', icon: Settings }
         );
         return items;
     }
@@ -187,24 +189,23 @@ const navItems = computed(() => {
         items.push(
             { label: t('menu.overview'), isHeader: true },
             { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
+            { label: t('menu.administration'), isHeader: true },
+            { label: t('menu.sellers'), path: '/sellers', icon: Users },
+            { label: t('menu.users_roles'), path: '/users', icon: Users },
+            { label: t('menu.stores'), path: '/stores', icon: Store },
             { label: t('menu.inventory'), isHeader: true },
             { label: t('menu.parent_products'), path: '/products', icon: Package },
-            { label: t('menu.marketplace_products'), path: '/marketplace-products', icon: ShoppingCart },
+            { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
             { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
             { label: t('courier.states.title'), path: '/product-states', icon: Package },
             { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
             { label: t('menu.logistics'), isHeader: true },
             { label: t('menu.transfer_acts'), path: '/transfer-acts', icon: FileText },
             { label: t('menu.return_acts'), path: '/return-acts', icon: FileText },
-            { label: t('menu.sales'), isHeader: true },
-            { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
+            { label: t('menu.reporting'), isHeader: true },
             { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
-            { label: t('menu.administration'), isHeader: true },
-            { label: t('menu.stores'), path: '/stores', icon: Store },
-            { label: t('menu.sellers'), path: '/sellers', icon: Users },
-            { label: t('menu.users_roles'), path: '/users', icon: Users },
-            { label: t('common.settings'), path: '/settings', icon: Settings },
-            { label: t('menu.notifications'), path: '/notifications', icon: Bell }
+            { label: t('menu.notifications'), path: '/notifications', icon: Bell },
+            { label: t('menu.settings'), path: '/settings', icon: Settings }
         );
         return items;
     }
@@ -230,7 +231,8 @@ const navItems = computed(() => {
         { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
         { label: t('menu.administration'), isHeader: true },
         { label: t('menu.stores'), path: '/stores', icon: Store },
-        { label: t('menu.notifications'), path: '/notifications', icon: Bell }
+        { label: t('menu.notifications'), path: '/notifications', icon: Bell },
+        { label: t('menu.settings'), path: '/settings', icon: Settings }
     );
     
     return items;

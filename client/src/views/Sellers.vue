@@ -41,12 +41,12 @@
                       </td>
                       <td class="px-6 py-4 text-slate-600">
                           <div class="flex flex-col">
-                              <span class="text-slate-900">{{ seller.email }}</span>
-                              <span class="text-xs text-slate-400">{{ seller.phone || '-' }}</span>
+                              <span class="text-slate-900">{{ seller.user?.email || '-' }}</span>
+                              <span class="text-xs text-slate-400">{{ seller.phone_number || '-' }}</span>
                           </div>
                       </td>
                       <td class="px-6 py-4 text-slate-600">
-                          {{ seller.company_name || '-' }}
+                          {{ seller.name || '-' }}
                       </td>
                        <td class="px-6 py-4 text-right space-x-2">
                           <Button variant="ghost" size="icon" @click="openEditModal(seller)" class="hover:bg-indigo-50 hover:text-indigo-600">

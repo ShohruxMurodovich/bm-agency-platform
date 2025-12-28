@@ -50,7 +50,35 @@
         "next": "Keyingi",
         "showing": "Ko'rsatilmoqda",
         "of": "dan",
-        "actions": "Amallar"
+        "actions": "Amallar",
+        "seller": "Sotuvchi",
+        "store": "Do'kon",
+        "all_sellers": "Barcha sotuvchilar",
+        "all_stores": "Barcha do'konlar",
+        "status": "Holat",
+        "date_from": "Sanadan",
+        "date_to": "Sanagacha",
+        "product": "Mahsulot",
+        "search_by_sku_title": "SKU yoki nom bo'yicha qidirish...",
+        "all_statuses": "Barcha holatlar",
+        "parent_product": "Asosiy mahsulot",
+        "all_products": "Barcha mahsulotlar",
+        "location": "Joylashuv",
+        "all_locations": "Barcha joylar",
+        "business_status": "Biznes holati",
+        "from_location": "Qayerdan (joylashuv)",
+        "to_location": "Qayerga (joylashuv)",
+        "movement_type": "Harakat turi",
+        "initiator": "Boshlang'ich",
+        "date_range": "Sana oralig'i",
+        "stock_status": "Ombor holati",
+        "yes": "Ha",
+        "no": "Yo'q",
+        "confirm_delete": "O'chirishni tasdiqlaysizmi?",
+        "select_seller": "Sotuvchini tanlang",
+        "search_stores": "Do'konlarni qidirish...",
+        "search_marketplace_products": "Marketpleys mahsulotlarini qidirish...",
+        "no_marketplace_products_found": "Marketpleys mahsulotlari topilmadi"
     },
     "menu": {
         "dashboard": "Boshqaruv paneli",
@@ -66,6 +94,7 @@
         "parent_products": "Ota mahsulotlar",
         "marketplace_products": "Marketpleys mahsulotlari",
         "stores": "Do'konlar",
+        "reporting": "Hisobotlar",
         "sellers": "Sotuvchilar",
         "my_stores": "Mening do'konlarim",
         "overview": "Umumiy ko'rinish",
@@ -85,6 +114,7 @@
         "pending": "Kutilmoqda",
         "processing": "Jarayonda",
         "shipped": "Yuborilgan",
+        "delivered": "Yetkazilgan",
         "completed": "Bajarilgan",
         "cancelled": "Bekor qilingan",
         "rejected": "Rad etilgan",
@@ -106,6 +136,9 @@
             "pending_orders": "Kutilayotgan buyurtmalar",
             "returns": "Qaytarishlar",
             "total_products": "Jami mahsulotlar",
+            "total_sellers": "Jami sotuvchilar",
+            "total_stores": "Jami do'konlar",
+            "staff_members": "Xodimlar",
             "active_sellers": "Faol sotuvchilar",
             "pending_pickups": "Kutilayotgan olib ketishlar",
             "active_deliveries": "Faol yetkazib berishlar",
@@ -119,11 +152,16 @@
             "recent_activity_subtitle": "Sizning so'nggi olib ketish va yetkazib berish vazifalaringiz",
             "quick_actions": "Tezkor harakatlar",
             "quick_actions_subtitle": "Rolingiz uchun umumiy vazifalar",
-            "platform_health": "Platforma salomatligi"
+            "platform_health": "Platforma salomatligi",
+            "recent_movements": "So'nggi harakatlar",
+            "daily_orders_chart": "Kunlik buyurtmalar grafigi",
+            "daily_orders_subtitle": "Kunlik buyurtmalar summasining tarixiy grafikasi"
         },
         "actions": {
             "view_all_tasks": "Barcha vazifalar",
-            "view_all_orders": "Barcha buyurtmalar"
+            "view_all_orders": "Barcha buyurtmalar",
+            "view_all_movements": "Barcha harakatlar",
+            "view_full_analysis": "To'liq tahlil"
         },
         "quick_actions": {
             "add_product": "Yangi mahsulot qo'shish",
@@ -138,13 +176,18 @@
             "item": "Mahsulot/Vazifa",
             "status": "Holat",
             "amount": "Summa",
-            "from": "Qayerdan"
+            "from": "Qayerdan",
+            "store": "Do'kon"
         }
     },
     "products": {
         "title": "Asosiy tovarlar",
         "subtitle": "Ichki tovar catalogini boshqarish",
         "add": "Tovar qo'shish",
+        "tabs": {
+            "parent_products": "Asosiy tovarlar",
+            "marketplace_products": "Marketpleys tovarlari"
+        },
         "loading": "Katalog yuklanmoqda...",
         "empty_start": "Katalogga yangi tovar qo'shishdan boshlang.",
         "new_title": "Yangi tovar",
@@ -226,11 +269,18 @@
             "product": "Mahsulot",
             "product_name": "Nomi",
             "seller": "Sotuvchi",
+            "cost": "Tannarx",
             "cost_usd": "Tannarx (USD)",
             "cost_uzs": "Tannarx (UZS)",
             "stock": "Ombor",
             "linked": "Bog'langan",
             "created": "Yaratilgan",
+            "image": "Rasm",
+            "title": "Sarlavha",
+            "sku_id": "SKU ID",
+            "sku_name": "SKU nomi",
+            "price": "Narx",
+            "has_parent": "Asosiy bor",
             "available": "Mavjud",
             "returning": "Qaytarilmoqda (soni)",
             "accept_qty": "Qabul qilish (soni)",
@@ -258,6 +308,7 @@
     "orders": {
         "title": "Buyurtmalar",
         "subtitle": "Mijoz buyurtmalarini boshqarish",
+        "loading": "Buyurtmalar yuklanmoqda...",
         "table": {
             "order_number": "Buyurtma #",
             "product": "Mahsulot",
@@ -267,6 +318,7 @@
             "actions": "Amallar"
         },
         "no_orders": "Buyurtmalar topilmadi",
+        "order_items": "Buyurtma mahsulotlari",
         "items": "Mahsulotlar"
     },
     "sellers": {
@@ -305,11 +357,19 @@
             "name": "Nomi",
             "marketplace": "Marketpleys",
             "owner": "Egasini",
+            "seller": "Sotuvchi",
+            "external_id": "Tashqi ID",
+            "connection_status": "Ulanish holati",
+            "last_sync": "Oxirgi sinxronlash",
             "actions": "Amallar"
         },
+        "loading": "Do'konlar yuklanmoqda...",
+        "no_stores": "Do'konlar topilmadi",
         "dialog": {
             "connect_title": "Do'konni ulash",
             "edit_title": "Do'konni tahrirlash",
+            "view_title": "Do'kon ma'lumotlari",
+            "view_desc": "Do'kon to'liq ma'lumotlari",
             "desc": "Tashqi marketpleys do'konini platformaga ulang.",
             "marketplace_label": "Marketpleys",
             "name_label": "Do'kon nomi",
@@ -317,7 +377,8 @@
             "external_id_label": "Tashqi ID",
             "external_id_placeholder": "Marketpleysdan ixtiyoriy ID",
             "owner_label": "Egasi (Email)",
-            "owner_placeholder": "email@example.com"
+            "owner_placeholder": "email@example.com",
+            "seller_label": "Sotuvchi"
         }
     },
     "login": {
@@ -415,15 +476,16 @@
             }
         },
         "states": {
-            "title": "Tovarlar holati",
-            "subtitle": "Joylashuv va holat bo'yicha joriy qoldiqlar",
+            "title": "Ombor qoldiqlari",
+            "subtitle": "Sklad bo‘yicha mavjud mahsulot miqdori",
             "product": "Tovar",
+            "product_code": "Tovar kodi",
             "location": "Joylashuv",
             "status": "Holat",
             "qty": "Soni",
             "last_updated": "Yangilangan",
             "search_sku": "Artikul yoki nom bo'yicha qidir...",
-            "show_zero_qty": "Nol qoldiqlarni ko'rsatish",
+            "show_zero_qty": "Nol qoldiqlarni ko‘rsatish",
             "no_states": "Holatlar topilmadi",
             "total_products": "Jami tovarlar",
             "total_quantity": "Umumiy miqdor",
@@ -431,15 +493,48 @@
             "details_subtitle": "Joriy holat va so'nggi faollik",
             "current_quantity": "Joriy miqdor",
             "last_movement_id": "So'nggi harakat ID",
-            "recent_movements": "So'nggi harakatlar",
+            "recent_movements": "So‘nggi o‘zgarishlar",
             "last_5": "So'nggi 5",
             "qty_change": "O'zgarish",
-            "new_total": "Yangi qoldiq",
+            "new_total": "Operatsiyadan keyingi qoldiq",
             "view_all_movements": "Barcha harakatlar",
             "no_recent_movements": "So'nggi harakatlar yo'q",
             "just_now": "Hozirgina",
             "ago": "oldin",
             "yesterday": "Kecha"
+        }
+    },
+    "table": {
+        "date": "Sana",
+        "parent_product": "Asosiy mahsulot",
+        "from_location": "Qayerdan",
+        "to_location": "Qayerga",
+        "quantity": "Miqdor",
+        "movement_type": "Harakat turi",
+        "order_id": "Buyurtma ID",
+        "initiator": "Boshlang'ich",
+        "sku_name": "SKU nomi",
+        "last_updated": "Yangilangan",
+        "action": "Amal",
+        "status": "Holat",
+        "store": "Do'kon",
+        "price": "Narx"
+    },
+    "inventory": {
+        "title": "Inventar",
+        "subtitle": "Ombordagi qoldiqlarni kuzatish va boshqarish",
+        "loading": "Inventar yuklanmoqda...",
+        "no_items": "Inventar yozuvlari topilmadi",
+        "in_stock": "Omborда bor",
+        "low_stock": "Kam qolgan",
+        "out_of_stock": "Tugagan"
+    },
+    "movements": {
+        "type": {
+            "transfer": "O'tkazish",
+            "return": "Qaytarish",
+            "adjustment": "Tuzatish",
+            "status_change": "Holat o'zgarishi"
         }
     }
 }
