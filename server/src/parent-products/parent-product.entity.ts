@@ -2,8 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Jo
 import { Seller } from '../sellers/seller.entity';
 import { ProductMapping } from '../product-mapping/product-mapping.entity';
 import { Inventory } from '../inventory/inventory.entity';
+import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
 @Entity('parent_products')
+@TenantScoped()
 export class ParentProduct {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -29,6 +31,9 @@ export class ParentProduct {
 
     @Column({ type: 'integer', default: 0 })
     stock: number;
+
+    @Column({ type: 'boolean', default: false })
+    is_archived: boolean;
 
     @CreateDateColumn()
     created_at: Date;

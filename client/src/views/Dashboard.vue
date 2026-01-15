@@ -1,5 +1,8 @@
 <template>
   <div class="space-y-8 animate-fade-in">
+       <!-- Onboarding Banner -->
+       <OnboardingBanner />
+       
        <!-- Header -->
        <div>
          <h1 class="text-3xl font-bold tracking-tight text-slate-900">
@@ -158,6 +161,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import api from '../api';
+import OnboardingBanner from '../components/OnboardingBanner.vue';
 import { useAuthStore } from '../stores/auth';
 import { 
     Users, 

@@ -108,7 +108,10 @@
         "return_acts": "Qaytarish aktlari",
         "analytics": "Analitika",
         "notifications": "Bildirishnomalar",
-        "stock_management": "Ombor boshqaruvi"
+        "stock_management": "Ombor boshqaruvi",
+        "product_management": "Mahsulotlarni boshqarish",
+        "account": "Hisob",
+        "subscription": "Obuna va to'lov"
     },
     "status": {
         "pending": "Kutilmoqda",
@@ -298,6 +301,61 @@
         "system_logs": "Tizim loglari",
         "no_logs": "Loglar mavjud emas."
     },
+    "subscription": {
+        "title": "Obuna va to'lov",
+        "subtitle": "Rejangizni boshqaring, foydalanishni ko'ring va yangilang",
+        "current_plan": "Joriy reja",
+        "trial_active": "Sinov faol",
+        "forever_free": "Abadiy bepul",
+        "trial_ends": "Sinov tugaydi",
+        "days_left": "kun qoldi",
+        "store_limit": "Do'konlar chegarasi",
+        "stores_connected": "do'konlar ulangan",
+        "store_limit_reached": "Siz do'konlar chegarasiga yetdingiz!",
+        "upgrade_now": "Hozir yangilash",
+        "available_plans": "Mavjud rejalar",
+        "most_popular": "Eng mashhur",
+        "per_month": "/oy",
+        "upgrade": "Yangilash",
+        "contact_sales": "Sotuvlar bilan bog'lanish",
+        "custom": "Maxsus",
+        "plans": {
+            "free": "Bepul reja",
+            "starter": "Boshlang'ich reja",
+            "premium": "Premium reja",
+            "vip": "VIP reja"
+        },
+        "plan_names": {
+            "free": "Bepul",
+            "starter": "Boshlang'ich",
+            "premium": "Premium",
+            "vip": "VIP"
+        },
+        "features": {
+            "up_to_stores": "{count} tagacha do'konlar",
+            "unlimited_stores": "Cheksiz do'konlar",
+            "basic_analytics": "Asosiy analitika",
+            "advanced_analytics": "Ilg'or analitika",
+            "premium_analytics": "Premium analitika",
+            "stock_sync": "Ombor sinxronizatsiyasi",
+            "realtime_sync": "Real vaqtda sinxronizatsiya",
+            "email_support": "Email orqali qo'llab-quvvatlash",
+            "priority_support": "Ustuvor qo'llab-quvvatlash",
+            "api_access": "API kirishi",
+            "custom_integrations": "Maxsus integratsiyalar",
+            "account_manager": "Maxsus hisob menejeri",
+            "phone_support": "24/7 telefon qo'llab-quvvatlash"
+        },
+        "faq": {
+            "title": "Tez-tez so'raladigan savollar",
+            "billing_q": "To'lov qanday ishlaydi?",
+            "billing_a": "Barcha rejalar oylik to'lanadi. Siz istalgan vaqtda rejani yangilashingiz yoki pasaytirishingiz mumkin va o'zgarishlar darhol kuchga kiradi.",
+            "trial_q": "Sotib olishdan oldin sinab ko'rsam bo'ladimi?",
+            "trial_a": "Ha! Barcha yangi hisoblar Premium rejaning 14 kunlik bepul sinov davridan boshlanadi.",
+            "limit_q": "Do'konlar chegarasiga yetganimda nima bo'ladi?",
+            "limit_a": "Qo'shimcha do'konlarni ulash uchun yuqori rejaga yangilash kerak bo'ladi. Mavjud do'konlaringiz oddiy davom etadi."
+        }
+    },
     "errors": {
         "404": {
             "title": "404",
@@ -417,7 +475,8 @@
             "admin": "Admin",
             "staff": "Xodim",
             "seller": "Sotuvchi",
-            "courier": "Kuryer"
+            "courier": "Kuryer",
+            "public_user": "PUBLIC_USER"
         }
     },
     "courier": {

@@ -1,8 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, Index } from 'typeorm';
 import { Store } from '../stores/store.entity';
 import { OrderItem } from '../order-items/order-item.entity';
+import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
 @Entity('orders')
+@TenantScoped()
 @Index(['store_id', 'external_order_id'], { unique: true })
 export class Order {
     @PrimaryGeneratedColumn('uuid')
@@ -20,6 +22,9 @@ export class Order {
 
     @Column({ nullable: false })
     status: string;
+
+    @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+    total_amount: number;
 
     @CreateDateColumn()
     created_at: Date;

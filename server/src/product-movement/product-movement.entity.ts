@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Jo
 import { ParentProduct } from '../parent-products/parent-product.entity';
 import { Location } from '../inventory/locations/location.entity';
 import { BusinessStatus } from '../inventory/business-statuses/business-status.entity';
+import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
 export enum MovementType {
     SELLER_TO_BM = 'SELLER_TO_BM',
@@ -20,7 +21,9 @@ export enum InitiatorType {
     USER = 'USER',
 }
 
+
 @Entity('product_movements')
+@TenantScoped()
 export class ProductMovement {
     @PrimaryGeneratedColumn('uuid')
     id: string;

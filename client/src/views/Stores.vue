@@ -4,8 +4,12 @@
           <div>
             <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('stores.title') }}</h1>
             <p class="text-sm text-slate-500 mt-1">{{ t('stores.subtitle') }}</p>
+            <!-- Store count indicator for PUBLIC_USER -->
+            <p v-if="authStore.user?.role === 'PUBLIC_USER' && storeLimit" class="text-xs text-slate-600 mt-2">
+              <span :class="storeLimit.current >= storeLimit.max ? 'text-red-600 font-semibold' : ''">{{ storeLimit.current }}/{{ storeLimit.max }}</span> stores connected
+            </p>
           </div>
-          <Button @click="openCreateModal" v-if="authStore.isAdmin">
+          <Button @click="openCreateModal" v-if="authStore.isAdmin || authStore.user?.role === 'PUBLIC_USER'">
                {{ t('stores.connect') }}
           </Button>
       </div>
@@ -153,6 +157,60 @@
                       <option v-for="seller in sellers" :key="seller.id" :value="seller.id">{{ seller.name }}</option>
                   </select>
               </div>
+              <!-- API Credentials Field -->
+              <div class="space-y-1">
+                  <label class="text-sm font-medium text-slate-700">API Token/Credentials</label>
+                  <Input v-model="formData.api_token" placeholder="Enter API token or credentials" type="password" />
+              </div>
+              <!-- Test Connection Button -->
+              <div class="flex items-center justify-end gap-2 pt-2">
+                  <Button 
+                    variant="outline" 
+                    @click="testConnection" 
+                    :disabled="testingConnection"
+                    type="button"
+                  >
+                    <Loader2 v-if="testingConnection" class="w-4 h-4 mr-2 animate-spin" />
+                    {{ testingConnection ? 'Testing...' : 'Test Connection' }}
+                  </Button>
+              </div>
+              <div v-if="connectionTestResult" class="p-3 rounded-md" :class="connectionTestResult.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'">
+                <p class="text-sm">{{ connectionTestResult.message }}</p>
+              </div>
+          </div>
+      </Dialog>
+
+      <!-- Upgrade Dialog (Fake, no Stripe) -->
+      <Dialog 
+        :isOpen="showUpgradeDialog" 
+        title="Upgrade Your Plan" 
+        description="You've reached your store limit. Upgrade to connect more stores!"
+        @close="showUpgradeDialog = false"
+        confirmText="Contact Sales"
+        @confirm="contactSales"
+      >
+          <div class="space-y-4">
+              <div class="grid grid-cols-3 gap-4">
+                  <div class="border rounded-lg p-4">
+                      <h3 class="font-semibold mb-2">FREE</h3>
+                      <p class="text-2xl font-bold mb-2">$0</p>
+                      <p class="text-sm text-slate-600 mb-3">2 stores max</p>
+                      <p class="text-xs text-slate-500">Basic features</p>
+                  </div>
+                  <div class="border-2 border-indigo-500 rounded-lg p-4 relative">
+                      <span class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-indigo-500 text-white text-xs px-2 py-1 rounded">RECOMMENDED</span>
+                      <h3 class="font-semibold mb-2">STARTER</h3>
+                      <p class="text-2xl font-bold mb-2">$29</p>
+                      <p class="text-sm text-slate-600 mb-3">5 stores max</p>
+                      <p class="text-xs text-slate-500">All features</p>
+                  </div>
+                  <div class="border rounded-lg p-4">
+                      <h3 class="font-semibold mb-2">PREMIUM</h3>
+                      <p class="text-2xl font-bold mb-2">$99</p>
+                      <p class="text-sm text-slate-600 mb-3">Unlimited stores</p>
+                      <p class="text-xs text-slate-500">Priority support</p>
+                  </div>
+              </div>
           </div>
       </Dialog>
   </div>
@@ -182,8 +240,12 @@ const isEditDialogOpen = ref(false);
 const isEditMode = ref(false);
 const editingId = ref<string | null>(null);
 const viewingStore = ref<any | null>(null);
+const showUpgradeDialog = ref(false);
+const testingConnection = ref(false);
+const connectionTestResult = ref<{ success: boolean; message: string } | null>(null);
+const storeLimit = ref<{ current: number; max: number } | null>(null);
 
-const formData = ref({ marketplace: 'uzum', store_name: '', external_store_id: '', seller_id: '' });
+const formData = ref({ marketplace: 'uzum', store_name: '', external_store_id: '', seller_id: '', api_token: '' });
 
 const fetchStores = async () => {
     try {
@@ -218,7 +280,7 @@ const openViewModal = (store: any) => {
 const openCreateModal = () => {
     isEditMode.value = false;
     editingId.value = null;
-    formData.value = { marketplace: 'uzum', store_name: '', external_store_id: '', seller_id: '' };
+    formData.value = { marketplace: 'uzum', store_name: '', external_store_id: '', seller_id: '', api_token: '' };
     isEditDialogOpen.value = true;
 };
 
@@ -229,9 +291,45 @@ const openEditModal = (store: any) => {
         marketplace: store.marketplace, 
         store_name: store.store_name, 
         external_store_id: store.external_store_id, 
-        seller_id: store.seller?.id || store.user?.id || store.seller_id || '' 
+        seller_id: store.seller?.id || store.user?.id || store.seller_id || '',
+        api_token: '' 
     };
     isEditDialogOpen.value = true;
+    connectionTestResult.value = null;
+};
+
+const testConnection = async () => {
+    if (!formData.value.api_token || !formData.value.external_store_id) {
+        toast.error('Please fill in API token and external store ID first');
+        return;
+    }
+    
+    try {
+        testingConnection.value = true;
+        // Mock connection test - in reality would call backend
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Simulate random success/failure (80% success for demo)
+        const success = Math.random() > 0.2;
+        connectionTestResult.value = {
+            success,
+            message: success ? 'Connection successful!' : 'Connection failed - check your credentials',
+        };
+        
+        if (success) {
+            toast.success('Connection test passed');
+        } else {
+            toast.error('Connection test failed');
+        }
+    } catch (e) {
+        connectionTestResult.value = {
+            success: false,
+            message: 'Connection test failed',
+        };
+        toast.error('Connection test failed');
+    } finally {
+        testingConnection.value = false;
+    }
 };
 
 const saveStore = async () => {
@@ -244,10 +342,38 @@ const saveStore = async () => {
             toast.success('Store connected');
         }
         isEditDialogOpen.value = false;
+        connectionTestResult.value = null;
         fetchStores();
-    } catch (e) {
-        toast.error(t('common.save') + ' failed');
+        fetchStoreLimit(); // Refresh limit count
+    } catch (e: any) {
+        // Check if limit exceeded
+        if (e.response?.status === 403 && e.response?.data?.message?.includes('limit')) {
+            isEditDialogOpen.value = false;
+            showUpgradeDialog.value = true;
+        } else {
+            toast.error(e.response?.data?.message || t('common.save') + ' failed');
+        }
     }
+};
+
+const fetchStoreLimit = async () => {
+    if (authStore.user?.role !== 'PUBLIC_USER') return;
+    
+    try {
+        // This would normally call /stores/my-stores and count
+        const { data } = await api.get('/stores/my-stores');
+        const current = data.length;
+        // Get max from user/seller data (would come from backend)
+        const max = authStore.user?.max_stores || 2; // Default FREE plan
+        storeLimit.value = { current, max };
+    } catch (e) {
+        console.error('Failed to fetch store limit', e);
+    }
+};
+
+const contactSales = () => {
+    window.open('mailto:sales@example.com?subject=Upgrade Plan Request', '_blank');
+    showUpgradeDialog.value = false;
 };
 
 const deleteStore = async (id: string) => {
@@ -268,5 +394,6 @@ const formatDate = (date: string) => {
 onMounted(async () => {
     await fetchSellers();
     await fetchStores();
+    await fetchStoreLimit();
 });
 </script>

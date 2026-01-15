@@ -39,6 +39,7 @@ export const useAuthStore = defineStore('auth', {
                 const response = await api.get('/auth/me');
                 this.user = response.data;
             } catch (error) {
+                console.error('Failed to fetch user:', error);
                 this.logout();
             }
         },

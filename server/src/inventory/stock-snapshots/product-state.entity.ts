@@ -2,8 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, Unique, ManyT
 import { ParentProduct } from '../../parent-products/parent-product.entity';
 import { Location } from '../locations/location.entity';
 import { BusinessStatus } from '../business-statuses/business-status.entity';
+import { TenantScoped } from '../../auth/tenant-scoped.decorator';
 
 @Entity('product_states')
+@TenantScoped()
 @Unique(['parent_product_id', 'location_id', 'business_status_id'])
 export class ProductState {
     @PrimaryGeneratedColumn('uuid')

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards, Request } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../../auth/roles.decorator';
 import { RolesGuard } from '../../auth/roles.guard';
@@ -11,18 +11,21 @@ export class ProductStateController {
     constructor(private readonly productStateService: ProductStateService) { }
 
     @Get()
-    @Roles(UserRole.ADMIN, UserRole.COURIER)
-    findAll(
-        @Query('product') productSearch?: string,
-        @Query('location') locationId?: string,
-        @Query('status') statusId?: string,
-        @Query('showZeroQty') showZeroQty?: string,
+    @Roles(UserRole.ADMIN, UserRole.COURIER, UserRole.PUBLIC_USER)
+    async findAll(
+        @Query('parent_product_id') parentProductId?: string,
+        @Query('location_id') locationId?: string,
+        @Query('status_id') statusId?: string,
+        @Query('show_zero_qty') showZeroQty?: string,
+        @Request() req?: any,
     ) {
         return this.productStateService.findAll({
-            productSearch,
+            parentProductId,
             locationId,
             statusId,
             showZeroQty: showZeroQty === 'true',
+            sellerId: req?.user?.seller_id,
+            userRole: req?.user?.role,
         });
     }
 

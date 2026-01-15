@@ -45,10 +45,7 @@
                   <label class="text-xs font-medium text-slate-600">{{ t('common.movement_type') }}</label>
                   <select v-model="filterMovementType" @change="fetchMovements" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                       <option value="">{{ t('common.all') }}</option>
-                      <option value="TRANSFER">{{ t('movements.type.transfer') }}</option>
-                      <option value="RETURN">{{ t('movements.type.return') }}</option>
-                      <option value="ADJUSTMENT">{{ t('movements.type.adjustment') }}</option>
-                      <option value="STATUS_CHANGE">{{ t('movements.type.status_change') }}</option>
+                      <option v-for="type in movementTypes" :key="type.value" :value="type.value">{{ type.label }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
@@ -171,6 +168,7 @@ const searchQuery = ref('');
 const products = ref<any[]>([]);
 const locations = ref<any[]>([]);
 const users = ref<any[]>([]);
+const movementTypes = ref<any[]>([]);
 
 // Movements
 const movements = ref<any[]>([]);
@@ -191,14 +189,26 @@ const fetchSellers = async () => {
 // Fetch filter options
 const fetchFilterOptions = async () => {
     try {
-        const [productsRes, locationsRes, usersRes] = await Promise.all([
+        // Use public endpoints for PUBLIC_USER
+        const isPublicUser = authStore.user?.role === 'PUBLIC_USER' || authStore.user?.role === 'public_user';
+        const locationsEndpoint = isPublicUser ? '/locations/public' : '/locations';
+        const movementTypesEndpoint = isPublicUser ? '/product-movement/movement-types/public' : '/product-movement/movement-types';
+        
+        const [productsRes, locationsRes, usersRes, movementTypesRes] = await Promise.all([
             api.get('/parent-products'),
-            api.get('/locations'),
-            api.get('/users'),
+            api.get(locationsEndpoint),
+            isPublicUser ? Promise.resolve({ data: [] }) : api.get('/users'), // Skip /users for PUBLIC_USER
+            api.get(movementTypesEndpoint),
         ]);
         products.value = productsRes.data;
         locations.value = locationsRes.data;
-        users.value = usersRes.data;
+        users.value = usersRes.data; // Empty array for PUBLIC_USER
+        
+        // Transform movement types to dropdown format
+        movementTypes.value = movementTypesRes.data.map((type: any) => ({
+            value: type.value || type.code || type.name,
+            label: type.name || type.label,
+        }));
     } catch (e) {
         console.error('Failed to load filter options', e);
     }

@@ -5,6 +5,14 @@ export enum UserRole {
     STAFF = 'staff',
     SELLER = 'seller',
     COURIER = 'courier',
+    PUBLIC_USER = 'public_user',
+}
+
+export enum SubscriptionPlan {
+    FREE = 'FREE',
+    STARTER = 'STARTER',
+    PREMIUM = 'PREMIUM',
+    VIP = 'VIP',
 }
 
 @Entity('users')
@@ -23,6 +31,12 @@ export class User {
 
     @Column({ type: 'text', nullable: true })
     name: string;
+
+    @Column({ type: 'enum', enum: SubscriptionPlan, nullable: true })
+    subscription_plan: SubscriptionPlan;
+
+    @Column({ type: 'timestamptz', nullable: true })
+    trial_ends_at: Date;
 
     @CreateDateColumn()
     created_at: Date;

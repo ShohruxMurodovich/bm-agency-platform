@@ -4,8 +4,10 @@ import { Marketplace } from '../marketplaces/marketplace.entity';
 import { StoreCredential } from '../store-credentials/store-credential.entity';
 import { MarketplaceProduct } from '../marketplace-products/marketplace-product.entity';
 import { Order } from '../orders/order.entity';
+import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
 @Entity('stores')
+@TenantScoped()
 @Index(['seller_id', 'marketplace_id', 'external_shop_id'], { unique: true })
 export class Store {
     @PrimaryGeneratedColumn('uuid')

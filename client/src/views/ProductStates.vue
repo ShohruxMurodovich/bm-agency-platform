@@ -182,10 +182,15 @@ const fetchSellers = async () => {
 // Fetch filter options
 const fetchFilterOptions = async () => {
     try {
+        // Use public endpoints for PUBLIC_USER
+        const isPublicUser = authStore.user?.role === 'PUBLIC_USER' || authStore.user?.role === 'public_user';
+        const locationsEndpoint = isPublicUser ? '/locations/public' : '/locations';
+        const statusesEndpoint = isPublicUser ? '/business-statuses/public' : '/business-statuses';
+        
         const [productsRes, locationsRes, statusesRes] = await Promise.all([
             api.get('/parent-products'),
-            api.get('/locations'),
-            api.get('/business-statuses'),
+            api.get(locationsEndpoint),
+            api.get(statusesEndpoint),
         ]);
         products.value = productsRes.data;
         locations.value = locationsRes.data;

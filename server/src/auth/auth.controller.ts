@@ -24,4 +24,22 @@ export class AuthController {
     getProfile(@Request() req: any) {
         return req.user;
     }
+
+    /**
+     * POST /auth/register
+     * Public registration endpoint for new PUBLIC_USER accounts.
+     * Creates user + seller, starts trial, returns JWT.
+     */
+    @Post('register')
+    async register(@Body() dto: {
+        email: string;
+        password: string;
+        business_name?: string;
+        phone?: string;
+    }) {
+        this.logger.log(`Registration attempt for email: ${dto.email}`);
+        const result = await this.authService.registerPublicUser(dto);
+        this.logger.log(`Registration successful for email: ${dto.email}`);
+        return result;
+    }
 }

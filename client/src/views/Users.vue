@@ -71,6 +71,7 @@
                    <select v-model="form.role" class="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                        <option value="staff">{{ t('users.roles.staff') }}</option>
                        <option value="seller">{{ t('users.roles.seller') }}</option>
+                        <option value="public_user">{{ t('users.roles.public_user') }}</option>
                        <option value="courier">{{ t('users.roles.courier') }}</option>
                        <option value="admin">{{ t('users.roles.admin') }}</option>
                    </select>
@@ -181,6 +182,8 @@ const getRoleColor = (role: string) => {
         case 'admin': return 'bg-purple-50 text-purple-700 border-purple-200';
         case 'staff': return 'bg-blue-50 text-blue-700 border-blue-200';
         case 'seller': return 'bg-orange-50 text-orange-700 border-orange-200';
+        case 'public_user': return 'bg-green-50 text-green-700 border-green-200';
+        case 'courier': return 'bg-cyan-50 text-cyan-700 border-cyan-200';
         default: return 'bg-slate-100';
     }
 }

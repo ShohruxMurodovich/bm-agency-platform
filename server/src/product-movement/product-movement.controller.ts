@@ -5,6 +5,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { UserRole } from '../users/user.entity';
 import { ProductMovementService } from './product-movement.service';
 import { ProductMovementRequest } from './product-movement-request.entity';
+import { MovementType } from './product-movement.entity';
 
 @Controller('product-movement')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -38,7 +39,17 @@ export class ProductMovementController {
     }
 
     @Get()
+    @Roles(UserRole.ADMIN, UserRole.COURIER, UserRole.PUBLIC_USER)
     findAll(@Request() req, @Query('type') type?: string): Promise<ProductMovementRequest[]> {
+        return this.productMovementService.findAll(req.user, type);
+    }
+
+    /**
+     * Alias route for compatibility with frontend
+     */
+    @Get('movements')
+    @Roles(UserRole.ADMIN, UserRole.COURIER, UserRole.PUBLIC_USER)
+    findAllMovements(@Request() req, @Query('type') type?: string): Promise<ProductMovementRequest[]> {
         return this.productMovementService.findAll(req.user, type);
     }
 
@@ -103,5 +114,28 @@ export class ProductMovementController {
             toLocationId,
             initiatorId,
         });
+    }
+
+    /**
+     * GET /product-movement/movement-types/public
+     * Returns only public-allowed movement types.
+     * 
+     * Allowed: MARKETPLACE_SALE, CUSTOMER_RETURN, WRITE_OFF, ADJUSTMENT
+     * Blocked: SELLER_TO_BM, BM_TO_MARKETPLACE, MARKETPLACE_TO_BM_RETURN, BM_TO_SELLER
+     */
+    @Get('movement-types/public')
+    getPublicMovementTypes() {
+        const allowedTypes = [
+            MovementType.MARKETPLACE_SALE,
+            MovementType.CUSTOMER_RETURN,
+            MovementType.WRITE_OFF,
+            MovementType.ADJUSTMENT,
+        ];
+
+        // Return as array of strings for frontend consumption
+        return allowedTypes.map(type => ({
+            value: type,
+            label: type.replace(/_/g, ' '), // Convert MARKETPLACE_SALE to "MARKETPLACE SALE"
+        }));
     }
 }

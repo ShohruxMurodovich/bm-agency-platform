@@ -12,13 +12,29 @@ export class InventoryController {
     constructor(private readonly inventoryService: InventoryService) { }
 
     @Get()
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.PUBLIC_USER)
     findAll(
+        @Request() req,
         @Query('seller_id') seller_id?: string,
         @Query('store_id') store_id?: string,
         @Query('search') search?: string,
         @Query('stock_status') stock_status?: string,
     ): Promise<Inventory[]> {
-        return this.inventoryService.findAll({ seller_id, store_id, search, stock_status });
+        // Enforce tenant isolation for PUBLIC_USER
+        const userRole = req.user.role;
+        let effectiveSellerId = seller_id;
+
+        if (userRole === 'public_user' && req.user.seller_id) {
+            // Force PUBLIC_USER to only see their own inventory
+            effectiveSellerId = req.user.seller_id;
+        }
+
+        return this.inventoryService.findAll({
+            seller_id: effectiveSellerId,
+            store_id,
+            search,
+            stock_status
+        });
     }
 
     @Get(':id')

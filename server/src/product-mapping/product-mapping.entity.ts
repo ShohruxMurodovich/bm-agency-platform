@@ -2,8 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Jo
 import { ParentProduct } from '../parent-products/parent-product.entity';
 import { MarketplaceProduct } from '../marketplace-products/marketplace-product.entity';
 import { User } from '../users/user.entity';
+import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
 @Entity('product_mapping')
+@TenantScoped()
 export class ProductMapping {
     @PrimaryGeneratedColumn('uuid')
     id: string;

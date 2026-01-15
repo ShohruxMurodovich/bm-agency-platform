@@ -21,7 +21,10 @@ import { SystemModule } from './system/system.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductMovementModule } from './product-movement/product-movement.module';
 import { LoggingInterceptor } from './system/logging.interceptor';
+import { TenantIsolationInterceptor } from './auth/tenant-isolation.interceptor';
+import { PublicSaasGuard } from './auth/public-saas.guard';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -53,6 +56,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AuthModule,
     ProductMovementModule,
     DashboardModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [
@@ -61,6 +65,11 @@ import { DashboardModule } from './dashboard/dashboard.module';
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
     },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TenantIsolationInterceptor,
+    },
+    PublicSaasGuard, // Available for injection in controllers
   ],
 })
 export class AppModule { }

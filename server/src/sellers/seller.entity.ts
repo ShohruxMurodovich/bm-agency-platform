@@ -4,8 +4,10 @@ import { Store } from '../stores/store.entity';
 import { ParentProduct } from '../parent-products/parent-product.entity';
 import { Inventory } from '../inventory/inventory.entity';
 import { SyncLog } from '../sync-logs/sync-log.entity';
+import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
 @Entity('sellers')
+@TenantScoped()
 export class Seller {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -22,6 +24,18 @@ export class Seller {
 
     @Column({ nullable: true })
     phone_number: string;
+
+    @Column({ type: 'integer', default: 5 })
+    max_stores: number;
+
+    @Column({ type: 'boolean', default: false })
+    is_public_saas_user: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    is_archived: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    onboarding_completed: boolean;
 
     @CreateDateColumn()
     created_at: Date;

@@ -60,6 +60,16 @@
              </Button>
           </div>
         </form>
+
+        <!-- Register Link -->
+        <div class="mt-6 text-center">
+          <p class="text-sm text-slate-600">
+            {{ t('login.no_account') }}
+            <router-link to="/register" class="text-indigo-600 hover:text-indigo-700 font-semibold">
+              {{ t('login.start_trial') }}
+            </router-link>
+          </p>
+        </div>
       </div>
     </div>
   </div>

@@ -15,8 +15,13 @@
         </div>
 
         <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-            <template v-for="item in navItems" :key="item.path">
-                <router-link :to="item.path" 
+            <template v-for="item in navItems" :key="item.label">
+                <!-- Header items (non-clickable section labels) -->
+                <div v-if="item.isHeader" class="px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4">
+                    {{ item.label }}
+                </div>
+                <!-- Navigation links -->
+                <router-link v-else :to="item.path" 
                     class="flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-all duration-200 group"
                     :class="isActive(item.path) ? 'bg-indigo-50 text-indigo-700 shadow-sm ring-1 ring-indigo-200/50' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'"
                 >
@@ -32,7 +37,7 @@
                      {{ userInitials }}
                  </div>
                  <div class="flex-1 min-w-0">
-                     <p class="text-sm font-medium text-slate-900 truncate">{{ authStore.user?.name || 'Admin User' }}</p>
+                     <p class="text-sm font-medium text-slate-900 truncate">{{ authStore.user?.name || authStore.user?.email?.split('@')[0] || 'User' }}</p>
                      <p class="text-xs text-slate-500 truncate">{{ authStore.user?.email }}</p>
                  </div>
             </div>
@@ -157,6 +162,28 @@ const navItems = computed(() => {
             { label: t('courier.states.title'), path: '/product-states', icon: Package },
             { label: t('menu.notifications'), path: '/notifications', icon: Bell },
             { label: t('menu.settings'), path: '/settings', icon: Settings }
+        );
+        return items;
+    }
+    
+    // ========================================
+    // PUBLIC_USER ROLE - SaaS User Navigation
+    // ========================================
+    if (authStore.user?.role === 'PUBLIC_USER' ||authStore.user?.role === 'public_user') {
+        items.push(
+            { label: t('menu.overview'), isHeader: true },
+            { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
+            { label: t('menu.product_management'), isHeader: true },
+            { label: t('menu.stores'), path: '/stores', icon: Store },
+            { label: t('menu.parent_products'), path: '/parent-products', icon: Package },
+            { label: t('menu.marketplace_products'), path: '/products', icon: ShoppingCart },
+            { label: t('menu.operations'), isHeader: true },
+            { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
+            { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
+            { label: t('courier.states.title'), path: '/product-states', icon: Package },
+            { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
+            { label: t('menu.account'), isHeader: true },
+            { label: t('menu.subscription'), path: '/subscription', icon: FileText }
         );
         return items;
     }

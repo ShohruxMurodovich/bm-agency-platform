@@ -11,15 +11,30 @@ export class OrdersService {
     ) { }
 
     async findAll(user: any): Promise<Order[]> {
-        if (user.role === 'seller') {
-            const seller = await this.ordersRepository.manager.findOne('Seller', { where: { user_id: user.id } });
-            if (!seller) return [];
-            return this.ordersRepository.find({
-                where: { store: { seller_id: (seller as any).id } },
-                relations: ['store', 'order_items', 'order_items.marketplace_product']
-            });
+        const queryBuilder = this.ordersRepository.createQueryBuilder('order')
+            .leftJoinAndSelect('order.store', 'store')
+            .leftJoinAndSelect('store.marketplace', 'marketplace')
+            .leftJoinAndSelect('store.seller', 'seller')
+            .leftJoinAndSelect('order.order_items', 'order_items')
+            .leftJoinAndSelect('order_items.marketplace_product', 'marketplace_product');
+
+        // Tenant isolation: seller/public_user only see their own orders
+        if (user.role === 'seller' || user.role === 'public_user') {
+            const sellerId = user.seller_id;
+
+            if (!sellerId) {
+                // If no seller_id, try to find by user_id
+                const seller = await this.ordersRepository.manager.findOne('Seller', { where: { user_id: user.userId } });
+                if (!seller) return [];
+                queryBuilder.andWhere('store.seller_id = :sellerId', { sellerId: (seller as any).id });
+            } else {
+                queryBuilder.andWhere('store.seller_id = :sellerId', { sellerId });
+            }
         }
-        return this.ordersRepository.find({ relations: ['store', 'order_items', 'order_items.marketplace_product'] });
+
+        return queryBuilder
+            .orderBy('order.created_at', 'DESC')
+            .getMany();
     }
 
     async findOne(id: string): Promise<Order | null> {

@@ -69,7 +69,10 @@
         "return_acts": "Return Acts",
         "analytics": "Analytics",
         "notifications": "Notifications",
-        "stock_management": "Stock Management"
+        "stock_management": "Stock Management",
+        "product_management": "Product Management",
+        "account": "Account",
+        "subscription": "Subscription & Billing"
     },
     "status": {
         "pending": "Pending",
@@ -238,6 +241,61 @@
         "system_logs": "System Logs",
         "no_logs": "No logs available."
     },
+    "subscription": {
+        "title": "Subscription & Billing",
+        "subtitle": "Manage your plan, view usage, and upgrade",
+        "current_plan": "Current Plan",
+        "trial_active": "Trial Active",
+        "forever_free": "Forever Free",
+        "trial_ends": "Trial ends",
+        "days_left": "days left",
+        "store_limit": "Store Limit",
+        "stores_connected": "stores connected",
+        "store_limit_reached": "You've reached your store limit!",
+        "upgrade_now": "Upgrade Now",
+        "available_plans": "Available Plans",
+        "most_popular": "Most Popular",
+        "per_month": "/month",
+        "upgrade": "Upgrade",
+        "contact_sales": "Contact Sales",
+        "custom": "Custom",
+        "plans": {
+            "free": "Free Plan",
+            "starter": "Starter Plan",
+            "premium": "Premium Plan",
+            "vip": "VIP Plan"
+        },
+        "plan_names": {
+            "free": "Free",
+            "starter": "Starter",
+            "premium": "Premium",
+            "vip": "VIP"
+        },
+        "features": {
+            "up_to_stores": "Up to {count} stores",
+            "unlimited_stores": "Unlimited stores",
+            "basic_analytics": "Basic analytics",
+            "advanced_analytics": "Advanced analytics",
+            "premium_analytics": "Premium analytics",
+            "stock_sync": "Stock sync",
+            "realtime_sync": "Real-time sync",
+            "email_support": "Email support",
+            "priority_support": "Priority support",
+            "api_access": "API access",
+            "custom_integrations": "Custom integrations",
+            "account_manager": "Dedicated account manager",
+            "phone_support": "24/7 phone support"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "billing_q": "How does billing work?",
+            "billing_a": "All plans are billed monthly. You can upgrade or downgrade at any time, and changes take effect immediately.",
+            "trial_q": "Can I try before I buy?",
+            "trial_a": "Yes! All new accounts start with a 14-day free trial of the Premium plan.",
+            "limit_q": "What happens when I reach my store limit?",
+            "limit_a": "You'll need to upgrade to a higher plan to connect additional stores. Your existing stores will continue working normally."
+        }
+    },
     "errors": {
         "404": {
             "title": "404",
@@ -311,10 +369,48 @@
         }
     },
     "login": {
+        "title": "Sign In",
+        "subtitle": "Welcome back",
+        "email": "Email",
+        "password": "Password",
+        "remember_me": "Remember me",
+        "forgot_password": "Forgot password?",
+        "submit": "Sign In",
+        "no_account": "Don't have an account?",
+        "start_trial": "Start Free Trial",
         "error": {
             "invalid": "Invalid email or password.",
             "generic": "An error occurred. Please check your connection."
         }
+    },
+    "register": {
+        "title": "Create Account",
+        "subtitle": "Start your 14-day free trial",
+        "brand": "BM Agency",
+        "email": "Email Address",
+        "email_placeholder": "you@company.com",
+        "password": "Password",
+        "password_placeholder": "Minimum 6 characters",
+        "business_name": "Business Name",
+        "business_name_optional": "(optional)",
+        "business_name_placeholder": "My Store",
+        "phone": "Phone Number",
+        "phone_optional": "(optional)",
+        "phone_placeholder": "+998 90 123 45 67",
+        "submit": "Start Free Trial",
+        "submitting": "Creating Account...",
+        "have_account": "Already have an account?",
+        "sign_in": "Sign In",
+        "trial_info": {
+            "title": "What's included in your trial:",
+            "item1": "14 days full access",
+            "item2": "Up to 2 marketplace stores",
+            "item3": "Unlimited products",
+            "item4": "Real-time stock sync",
+            "item5": "Analytics dashboard"
+        },
+        "terms": "By signing up, you agree to our Terms of Service and Privacy Policy",
+        "success": "Account created successfully! Welcome aboard! 🎉"
     },
     "users": {
         "title": "Users & Roles",
@@ -346,7 +442,8 @@
             "admin": "Admin",
             "staff": "Staff",
             "seller": "Seller",
-            "courier": "Courier"
+            "courier": "Courier",
+            "public_user": "PUBLIC_USER"
         }
     },
     "courier": {

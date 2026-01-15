@@ -98,9 +98,9 @@
                           <div v-else @click="startEdit(item)" class="cursor-pointer group flex items-center gap-2">
                               <span 
                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                :class="getStockClass(item.stock)"
+                                :class="getStockClass(item.parent_product?.stock || 0)"
                               >
-                                  {{ item.quantity || 0 }}
+                                  {{ item.parent_product?.stock || 0 }} units
                               </span>
                               <Pencil class="w-3 h-3 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </div>
@@ -194,7 +194,7 @@ const fetchInventory = async () => {
 // Inline editing functions
 const startEdit = (item: any) => {
     editingItemId.value = item.id;
-    editingValue.value = item.quantity || 0;
+    editingValue.value = item.parent_product?.stock || 0;
     nextTick(() => {
         if (stockInput.value) {
             stockInput.value.focus();
@@ -216,20 +216,30 @@ const saveStock = async (item: any) => {
     }
 
     try {
-        // Backend should create a product_movements record with type=ADJUSTMENT
-        await api.put(`/inventory/${item.id}`, { quantity: editingValue.value });
+        // Call PATCH /parent-products/:id/stock
+        const parentProductId = item.parent_product?.id || item.parent_product_id;
+        if (!parentProductId) {
+            toast.error('Parent product ID not found');
+            return;
+        }
+
+        const { data } = await api.patch(`/parent-products/${parentProductId}/stock`, {
+            stock: editingValue.value
+        });
         
-        // Update local state
-        const index = inventory.value.findIndex(i => i.id === item.id);
-        if (index !== -1) {
-            inventory.value[index].quantity = editingValue.value;
-            inventory.value[index].updated_at = new Date().toISOString();
+        // Show sync results
+        const failedSyncs = data.sync_results?.filter((r: any) => !r.success) || [];
+        if (failedSyncs.length > 0) {
+            toast.warning(`Stock updated, but ${failedSyncs.length} SKU sync(s) failed`);
+        } else {
+            toast.success(`Stock updated successfully`);
         }
         
-        toast.success('Stock updated');
+        // Refresh inventory to get latest data
+        await fetchInventory();
         cancelEdit();
-    } catch (e) {
-        toast.error('Failed to update stock');
+    } catch (e: any) {
+        toast.error(e.response?.data?.message || 'Failed to update stock');
         console.error(e);
     }
 };

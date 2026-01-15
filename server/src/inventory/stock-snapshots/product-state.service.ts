@@ -10,40 +10,50 @@ export class ProductStateService {
         private productStateRepo: Repository<ProductState>,
     ) { }
 
-    async findAll(filters?: {
-        productSearch?: string;
+    async findAll(filters: {
+        parentProductId?: string;
         locationId?: string;
         statusId?: string;
         showZeroQty?: boolean;
+        sellerId?: string;
+        userRole?: string;
     }): Promise<ProductState[]> {
-        const query = this.productStateRepo.createQueryBuilder('state')
-            .leftJoinAndSelect('state.parent_product', 'product')
+        const query = this.productStateRepo
+            .createQueryBuilder('state')
+            .leftJoinAndSelect('state.parent_product', 'parent_product')
+            .leftJoinAndSelect('parent_product.seller', 'seller')
             .leftJoinAndSelect('state.location', 'location')
-            .leftJoinAndSelect('state.business_status', 'status');
+            .leftJoinAndSelect('state.business_status', 'business_status');
 
-        // Apply filters
-        if (filters?.productSearch) {
-            query.andWhere(
-                '(product.product_name ILIKE :search OR product.id::text ILIKE :search)',
-                { search: `%${filters.productSearch}%` }
-            );
+        // Tenant isolation for PUBLIC_USER
+        if (filters.userRole === 'public_user' && filters.sellerId) {
+            query.andWhere('parent_product.seller_id = :sellerId', { sellerId: filters.sellerId });
         }
 
-        if (filters?.locationId) {
-            query.andWhere('state.location_id = :locationId', { locationId: filters.locationId });
+        if (filters.parentProductId) {
+            query.andWhere('state.parent_product_id = :parentProductId', {
+                parentProductId: filters.parentProductId,
+            });
         }
 
-        if (filters?.statusId) {
-            query.andWhere('state.business_status_id = :statusId', { statusId: filters.statusId });
+        if (filters.locationId) {
+            query.andWhere('state.location_id = :locationId', {
+                locationId: filters.locationId,
+            });
         }
 
-        if (!filters?.showZeroQty) {
+        if (filters.statusId) {
+            query.andWhere('state.business_status_id = :statusId', {
+                statusId: filters.statusId,
+            });
+        }
+
+        if (!filters.showZeroQty) {
             query.andWhere('state.quantity > 0');
         }
 
         return query
-            .orderBy('product.product_name', 'ASC')
-            .addOrderBy('location.name', 'ASC')
+            .orderBy('state.updated_at', 'DESC')
             .getMany();
     }
 
