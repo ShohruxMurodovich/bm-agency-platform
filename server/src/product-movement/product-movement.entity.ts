@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
 import { ParentProduct } from '../parent-products/parent-product.entity';
 import { Location } from '../inventory/locations/location.entity';
 import { BusinessStatus } from '../inventory/business-statuses/business-status.entity';
@@ -24,6 +24,8 @@ export enum InitiatorType {
 
 @Entity('product_movements')
 @TenantScoped()
+@Index(['parent_product_id', 'occurred_at'])
+@Index(['movement_type'])
 export class ProductMovement {
     @PrimaryGeneratedColumn('uuid')
     id: string;

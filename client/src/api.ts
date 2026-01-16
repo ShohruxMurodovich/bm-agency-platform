@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -14,5 +14,21 @@ api.interceptors.request.use((config) => {
     }
     return config;
 });
+
+// Response interceptor for error handling
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            // Only redirect if not already on login page and not during initial fetch
+            const currentPath = window.location.pathname;
+            if (currentPath !== '/login' && error.config?.url !== '/auth/me') {
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            }
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default api;

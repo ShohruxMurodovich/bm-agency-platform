@@ -2,10 +2,23 @@ import { defineStore } from 'pinia';
 import api from '../api';
 import router from '../router';
 
+export interface User {
+    id: string;
+    email: string;
+    name?: string;
+    role: 'admin' | 'staff' | 'seller' | 'courier' | 'public_user';
+    seller_id?: string;
+}
+
+export interface LoginCredentials {
+    email: string;
+    password: string;
+}
+
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         token: localStorage.getItem('token') || null,
-        user: null as any,
+        user: null as User | null,
     }),
     getters: {
         isAuthenticated: (state) => !!state.token,
@@ -15,7 +28,7 @@ export const useAuthStore = defineStore('auth', {
         isStaff: (state) => state.user?.role === 'staff' || state.user?.role === 'admin',
     },
     actions: {
-        async login(credentials: any) {
+        async login(credentials: LoginCredentials) {
             try {
                 const response = await api.post('/auth/login', credentials);
                 this.token = response.data.access_token;
@@ -29,7 +42,6 @@ export const useAuthStore = defineStore('auth', {
                     router.push('/');
                 }
             } catch (error) {
-                console.error('Login failed:', error);
                 throw error;
             }
         },
@@ -39,7 +51,6 @@ export const useAuthStore = defineStore('auth', {
                 const response = await api.get('/auth/me');
                 this.user = response.data;
             } catch (error) {
-                console.error('Failed to fetch user:', error);
                 this.logout();
             }
         },

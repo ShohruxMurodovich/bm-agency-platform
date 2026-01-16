@@ -21,8 +21,16 @@ export class AuthController {
 
     @UseGuards(AuthGuard('jwt'))
     @Get('me')
-    getProfile(@Request() req: any) {
-        return req.user;
+    async getProfile(@Request() req: any) {
+        // Fetch full user data from database instead of just returning JWT payload
+        const user = await this.authService.getUserById(req.user.userId);
+        if (!user) {
+            throw new UnauthorizedException('User not found');
+        }
+
+        // Return user data without password hash
+        const { password_hash, ...userData } = user;
+        return userData;
     }
 
     /**

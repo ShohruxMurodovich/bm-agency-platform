@@ -240,24 +240,24 @@ const navItems = computed(() => {
     // ========================================
     // STAFF (ADMIN/EMPLOYEE) ROLE
     // ========================================
-    // Staff has similar access to Admin but WITHOUT Sellers and Users pages
+    // Staff has same access as Admin but WITHOUT Users menu
     items.push(
         { label: t('menu.overview'), isHeader: true },
         { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },
+        { label: t('menu.administration'), isHeader: true },
+        { label: t('menu.sellers'), path: '/sellers', icon: Users },
+        { label: t('menu.stores'), path: '/stores', icon: Store },
         { label: t('menu.inventory'), isHeader: true },
         { label: t('menu.parent_products'), path: '/products', icon: Package },
-        { label: t('menu.marketplace_products'), path: '/marketplace-products', icon: ShoppingCart },
+        { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
         { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
         { label: t('courier.states.title'), path: '/product-states', icon: Package },
         { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
         { label: t('menu.logistics'), isHeader: true },
         { label: t('menu.transfer_acts'), path: '/transfer-acts', icon: FileText },
         { label: t('menu.return_acts'), path: '/return-acts', icon: FileText },
-        { label: t('menu.sales'), isHeader: true },
-        { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
+        { label: t('menu.reporting'), isHeader: true },
         { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
-        { label: t('menu.administration'), isHeader: true },
-        { label: t('menu.stores'), path: '/stores', icon: Store },
         { label: t('menu.notifications'), path: '/notifications', icon: Bell },
         { label: t('menu.settings'), path: '/settings', icon: Settings }
     );

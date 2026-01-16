@@ -22,6 +22,10 @@ export class AuthService {
         return null;
     }
 
+    async getUserById(userId: string) {
+        return await this.usersService.findOneById(userId);
+    }
+
     async login(user: any) {
         // Get seller_id if user is a seller or public_user
         let sellerId = null;

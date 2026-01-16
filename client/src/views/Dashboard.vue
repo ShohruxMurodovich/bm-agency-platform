@@ -6,7 +6,7 @@
        <!-- Header -->
        <div>
          <h1 class="text-3xl font-bold tracking-tight text-slate-900">
-             {{ getGreeting() }}, {{ authStore.user?.name?.split(' ')[0] || 'User' }}
+             {{ getGreeting() }}, {{ getUserDisplayName() }}
          </h1>
          <p class="text-slate-500 mt-2">{{ getRoleDescription() }}</p>
        </div>
@@ -30,7 +30,7 @@
                            <TrendingDown class="w-3 h-3 mr-1" v-else />
                            {{ Math.abs(stat.trend) }}%
                        </span>
-                       <span class="text-slate-400 ml-2">vs last month</span>
+                       <span class="text-slate-400 ml-2">{{ t('common.vs_last_month') }}</span>
                    </div>
                </div>
            </template>
@@ -53,7 +53,7 @@
                
                <div class="p-8 text-center" v-if="loading">
                    <Loader2 class="w-8 h-8 animate-spin mx-auto text-slate-300" />
-                   <p class="text-slate-500 mt-2">Loading data...</p>
+                   <p class="text-slate-500 mt-2">{{ t('common.loading') }}</p>
                </div>
                
                <div v-else class="overflow-x-auto">
@@ -205,6 +205,25 @@ const getRoleDescription = () => {
     if (authStore.isCourier) return t('dashboard.role_desc.courier');
     return t('dashboard.role_desc.default');
 };
+
+const getUserDisplayName = () => {
+    // If name is set, use first name
+    if (authStore.user?.name) {
+        return authStore.user.name.split(' ')[0];
+    }
+    
+    // Otherwise, extract username from email (part before @)
+    if (authStore.user?.email) {
+        const emailUsername = authStore.user.email.split('@')[0];
+        // Capitalize first letter
+        if (emailUsername) {
+            return emailUsername.charAt(0).toUpperCase() + emailUsername.slice(1);
+        }
+    }
+    
+    return 'User';
+};
+
 
 // Admin gets exactly 4 stats per TZ
 const currentStats = computed(() => {

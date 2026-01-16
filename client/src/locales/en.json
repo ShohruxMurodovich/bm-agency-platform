@@ -40,7 +40,9 @@
         "submitting": "Submitting...",
         "add_all_visible": "Add All Visible",
         "added_count": "Added {count} items",
-        "search": "Search"
+        "search": "Search",
+        "vs_last_month": "vs last month",
+        "vs_last_week": "vs last week"
     },
     "menu": {
         "dashboard": "Dashboard",
@@ -444,7 +446,8 @@
             "seller": "Seller",
             "courier": "Courier",
             "public_user": "PUBLIC_USER"
-        }
+        },
+        "account_type": "User Account"
     },
     "courier": {
         "dashboard": {
@@ -529,5 +532,10 @@
             "ago": "ago",
             "yesterday": "Yesterday"
         }
+    },
+    "analytics": {
+        "title": "Analytics Dashboard",
+        "subtitle": "Business intelligence and analytics dashboard",
+        "placeholder_message": "This page is under construction. Analytics and reporting functionality will be added soon."
     }
 }

@@ -10,10 +10,6 @@ import { UserRole } from '../users/user.entity';
 export class AnalyticsController {
     constructor(private readonly analyticsService: AnalyticsService) { }
 
-    /**
-     * GET /analytics/overview
-     * Returns basic analytics for PUBLIC_USER (tenant-filtered)
-     */
     @Get('overview')
     @Roles(UserRole.PUBLIC_USER, UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER)
     async getOverview(@Request() req: any) {

@@ -10,7 +10,7 @@
         "cancel": "Bekor qilish",
         "edit": "Tahrirlash",
         "to_be_returned": "Qaytarilishi kerak",
-        "connected": "Uhlangan",
+        "connected": "Ulangan",
         "operational": "Ishlamoqda",
         "delete": "O‘chirish",
         "view": "Ko‘rish",
@@ -78,7 +78,9 @@
         "select_seller": "Sotuvchini tanlang",
         "search_stores": "Do'konlarni qidirish...",
         "search_marketplace_products": "Marketpleys mahsulotlarini qidirish...",
-        "no_marketplace_products_found": "Marketpleys mahsulotlari topilmadi"
+        "no_marketplace_products_found": "Marketpleys mahsulotlari topilmadi",
+        "vs_last_month": "o'tgan oy bilan",
+        "vs_last_week": "o'tgan hafta bilan"
     },
     "menu": {
         "dashboard": "Boshqaruv paneli",
@@ -122,7 +124,7 @@
         "cancelled": "Bekor qilingan",
         "rejected": "Rad etilgan",
         "operational": "Ishlamoqda",
-        "connected": "Uhlangan",
+        "connected": "Ulangan",
         "to_be_returned": "Qaytarilishi kerak"
     },
     "dashboard": {
@@ -477,7 +479,8 @@
             "seller": "Sotuvchi",
             "courier": "Kuryer",
             "public_user": "PUBLIC_USER"
-        }
+        },
+        "account_type": "Foydalanuvchi hisobi"
     },
     "courier": {
         "dashboard": {
@@ -595,5 +598,10 @@
             "adjustment": "Tuzatish",
             "status_change": "Holat o'zgarishi"
         }
+    },
+    "analytics": {
+        "title": "Analitika paneli",
+        "subtitle": "Biznes tahlil va analitika paneli",
+        "placeholder_message": "Bu sahifa ishlab chiqilmoqda. Analitika va hisobot funksiyalari tez orada qo'shiladi."
     }
 }

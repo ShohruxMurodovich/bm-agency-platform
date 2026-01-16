@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToOne, JoinColumn, OneToMany, Index } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Store } from '../stores/store.entity';
 import { ParentProduct } from '../parent-products/parent-product.entity';
@@ -8,6 +8,8 @@ import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
 @Entity('sellers')
 @TenantScoped()
+@Index(['user_id'], { unique: true })
+@Index(['created_at'])
 export class Seller {
     @PrimaryGeneratedColumn('uuid')
     id: string;

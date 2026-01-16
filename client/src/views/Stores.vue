@@ -5,11 +5,11 @@
             <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('stores.title') }}</h1>
             <p class="text-sm text-slate-500 mt-1">{{ t('stores.subtitle') }}</p>
             <!-- Store count indicator for PUBLIC_USER -->
-            <p v-if="authStore.user?.role === 'PUBLIC_USER' && storeLimit" class="text-xs text-slate-600 mt-2">
+            <p v-if="authStore.user?.role === 'public_user' && storeLimit" class="text-xs text-slate-600 mt-2">
               <span :class="storeLimit.current >= storeLimit.max ? 'text-red-600 font-semibold' : ''">{{ storeLimit.current }}/{{ storeLimit.max }}</span> stores connected
             </p>
           </div>
-          <Button @click="openCreateModal" v-if="authStore.isAdmin || authStore.user?.role === 'PUBLIC_USER'">
+          <Button @click="openCreateModal" v-if="authStore.isAdmin || authStore.user?.role === 'public_user'">
                {{ t('stores.connect') }}
           </Button>
       </div>
@@ -357,14 +357,14 @@ const saveStore = async () => {
 };
 
 const fetchStoreLimit = async () => {
-    if (authStore.user?.role !== 'PUBLIC_USER') return;
+    if (authStore.user?.role !== 'public_user') return;
     
     try {
         // This would normally call /stores/my-stores and count
         const { data } = await api.get('/stores/my-stores');
         const current = data.length;
         // Get max from user/seller data (would come from backend)
-        const max = authStore.user?.max_stores || 2; // Default FREE plan
+        const max = (authStore.user as any)?.max_stores || 2; // Default FREE plan
         storeLimit.value = { current, max };
     } catch (e) {
         console.error('Failed to fetch store limit', e);

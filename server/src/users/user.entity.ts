@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index } from 'typeorm';
 
 export enum UserRole {
     ADMIN = 'admin',
@@ -16,6 +16,8 @@ export enum SubscriptionPlan {
 }
 
 @Entity('users')
+@Index(['email'], { unique: true })
+@Index(['role'])
 export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;

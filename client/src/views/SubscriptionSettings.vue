@@ -278,10 +278,24 @@ const maxStores = ref(2);
 
 const fetchSubscriptionInfo = async () => {
   try {
-    const { data } = await api.get('/sellers/me');
-    planName.value = data.subscription_plan || 'FREE';
-    trialEndsAt.value = data.trial_ends_at;
-    maxStores.value = data.max_stores || 2;
+    // First, get user data (includes trial_ends_at for public_users)
+    const userRes = await api.get('/auth/me');
+    const userData = userRes.data;
+    
+    // Set trial info from user data
+    planName.value = userData.subscription_plan || 'FREE';
+    trialEndsAt.value = userData.trial_ends_at;
+    
+    // If user has a seller role or public_user, try to get seller-specific data
+    if (userData.role === 'seller' || userData.role === 'public_user') {
+      try {
+        const sellerRes = await api.get('/sellers/me');
+        maxStores.value = sellerRes.data.max_stores || 2;
+      } catch (e) {
+        // If seller endpoint fails, use default
+        maxStores.value = 2;
+      }
+    }
     
     // Fetch store count
     const storesRes = await api.get('/stores/my-stores');

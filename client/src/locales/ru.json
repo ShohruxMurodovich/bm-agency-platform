@@ -78,7 +78,9 @@
         "select_seller": "Выберите продавца",
         "search_stores": "Поиск магазинов...",
         "search_marketplace_products": "Поиск товаров маркетплейса...",
-        "no_marketplace_products_found": "Товары маркетплейса не найдены"
+        "no_marketplace_products_found": "Товары маркетплейса не найдены",
+        "vs_last_month": "vs прошлого месяца",
+        "vs_last_week": "vs прошлой недели"
     },
     "menu": {
         "dashboard": "Дашборд",
@@ -526,7 +528,8 @@
             "seller": "Продавец",
             "courier": "Курьер",
             "public_user": "Пользователь"
-        }
+        },
+        "account_type": "Аккаунт пользователя"
     },
     "courier": {
         "dashboard": {
@@ -628,5 +631,10 @@
             "adjustment": "Корректировка",
             "status_change": "Изменение статуса"
         }
+    },
+    "analytics": {
+        "title": "Дашборд Аналитики",
+        "subtitle": "Бизнес-аналитика и панель управления аналитикой",
+        "placeholder_message": "Эта страница находится в разработке. Функциональность аналитики и отчетности будет добавлена в ближайшее время."
     }
 }

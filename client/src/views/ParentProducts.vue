@@ -2,12 +2,12 @@
   <div class="space-y-6 animate-fade-in">
     <div class="flex justify-between items-center">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">Parent Products</h1>
-        <p class="text-sm text-slate-500 mt-1">Manage your unified product catalog across all marketplaces</p>
+        <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $t('products.title') }}</h1>
+        <p class="text-sm text-slate-500 mt-1">{{ $t('products.subtitle') }}</p>
       </div>
       <Button @click="openCreateModal">
         <Plus class="w-4 h-4 mr-2" />
-        Create Parent Product
+        {{ $t('products.add') }}
       </Button>
     </div>
 
@@ -15,11 +15,11 @@
     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-4">
       <div class="relative flex-1">
         <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-        <Input placeholder="Search by product name or description..." class="pl-9" v-model="searchQuery" @keyup.enter="fetchProducts" />
+        <Input :placeholder="$t('common.search_products')" class="pl-9" v-model="searchQuery" @keyup.enter="fetchProducts" />
       </div>
       <Button class="w-auto" @click="fetchProducts">
         <Search class="w-4 h-4 mr-2" />
-        Search
+        {{ $t('common.search') }}
       </Button>
     </div>
 
@@ -27,21 +27,21 @@
     <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       <div v-if="loading" class="p-12 flex justify-center text-slate-500">
         <Loader2 class="w-6 h-6 animate-spin mr-2" />
-        Loading products...
+        {{ $t('products.loading') }}
       </div>
       <div v-else-if="products.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
         <Package class="w-8 h-8 text-slate-300 mb-3" />
-        <h3 class="text-lg font-medium text-slate-900">No products found</h3>
-        <p class="text-sm text-slate-500 mt-1">Create your first parent product to get started</p>
+        <h3 class="text-lg font-medium text-slate-900">{{ $t('common.no_products_found') }}</h3>
+        <p class="text-sm text-slate-500 mt-1">{{ $t('products.empty_start') }}</p>
       </div>
       <table v-else class="w-full text-sm text-left">
         <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
           <tr>
-            <th class="px-6 py-4 font-medium">Product Name</th>
-            <th class="px-6 py-4 font-medium">Stock</th>
-            <th class="px-6 py-4 font-medium">Mapped SKUs</th>
-            <th class="px-6 py-4 font-medium">Created At</th>
-            <th class="px-6 py-4 font-medium text-right">Actions</th>
+            <th class="px-6 py-4 font-medium">{{ $t('products.table.product_name') }}</th>
+            <th class="px-6 py-4 font-medium">{{ $t('products.table.stock') }}</th>
+            <th class="px-6 py-4 font-medium">{{ $t('products.table.linked') }}</th>
+            <th class="px-6 py-4 font-medium">{{ $t('products.table.created') }}</th>
+            <th class="px-6 py-4 font-medium text-right">{{ $t('common.actions') }}</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-slate-100">
@@ -77,11 +77,11 @@
     <!-- Create/Edit Product Dialog -->
     <Dialog 
       :isOpen="isEditDialogOpen" 
-      :title="isEditMode ? 'Edit Parent Product' : 'Create Parent Product'" 
-      description="Manage your unified product and map to marketplace SKUs"
+      :title="isEditMode ? $t('products.edit_title') : $t('products.new_title')" 
+      :description="$t('products.subtitle')"
       @close="closeEditModal"
       @confirm="saveProduct"
-      :confirmText="isEditMode ? 'Update' : 'Create'"
+      :confirmText="isEditMode ? $t('common.save') : $t('common.save')"
       size="large"
     >
       <div class="space-y-6">

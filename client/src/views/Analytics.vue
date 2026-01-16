@@ -3,7 +3,7 @@
     <!-- Header -->
     <div>
       <h1 class="text-3xl font-bold text-slate-900">{{ $t('menu.analytics') }}</h1>
-      <p class="text-slate-600 mt-1">Business intelligence and analytics dashboard</p>
+      <p class="text-slate-600 mt-1">{{ $t('analytics.subtitle') }}</p>
     </div>
 
     <!-- Placeholder Content -->
@@ -12,9 +12,9 @@
         <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <BarChart3 class="w-8 h-8 text-indigo-600" />
         </div>
-        <h3 class="text-lg font-semibold text-slate-900 mb-2">Analytics Dashboard</h3>
+        <h3 class="text-lg font-semibold text-slate-900 mb-2">{{ $t('analytics.title') }}</h3>
         <p class="text-slate-600 text-sm">
-          This page is under construction. Analytics and reporting functionality will be added soon.
+          {{ $t('analytics.placeholder_message') }}
         </p>
       </div>
     </div>

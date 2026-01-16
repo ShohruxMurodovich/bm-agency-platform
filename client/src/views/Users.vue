@@ -29,7 +29,7 @@
                               </div>
                               <div>
                                   <div class="font-medium text-slate-900">{{ user.email }}</div>
-                                  <div class="text-xs text-slate-500">User Account</div>
+                                  <div class="text-xs text-slate-500">{{ t('users.account_type') }}</div>
                               </div>
                           </div>
                       </td>
