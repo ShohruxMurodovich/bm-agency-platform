@@ -634,5 +634,18 @@
         "title": "Analytics Dashboard",
         "subtitle": "Business intelligence and analytics dashboard",
         "placeholder_message": "This page is under construction. Analytics and reporting functionality will be added soon."
+    },
+    "inventory": {
+        "title": "Inventory",
+        "subtitle": "Inventory control and stock adjustments",
+        "loading": "Loading inventory...",
+        "no_items": "No inventory items found",
+        "in_stock": "In Stock",
+        "low_stock": "Low Stock",
+        "out_of_stock": "Out of Stock"
+    },
+    "operations": {
+        "title": "Operations",
+        "subtitle": "Manage warehouse operations"
     }
 }
