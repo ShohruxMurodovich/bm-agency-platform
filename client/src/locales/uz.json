@@ -316,7 +316,7 @@
         "store_limit_reached": "Siz do'konlar chegarasiga yetdingiz!",
         "upgrade_now": "Hozir yangilash",
         "available_plans": "Mavjud rejalar",
-        "most_popular": "Eng mashhur",
+        "most_popular": "Eng yaxshi tanlov",
         "per_month": "/oy",
         "upgrade": "Yangilash",
         "contact_sales": "Sotuvlar bilan bog'lanish",
@@ -598,6 +598,17 @@
             "adjustment": "Tuzatish",
             "status_change": "Holat o'zgarishi"
         }
+    },
+    "onboarding": {
+        "welcome_title": "BM Agency platformasiga xush kelibsiz! 🎉",
+        "welcome_subtitle": "Keling, marketpleyslarni boshqarishni sozlashni boshlaylik",
+        "step1_title": "1. Do'koningizni ulang",
+        "step1_desc": "Birinchi marketpleys akkauntingizni ulang",
+        "step2_title": "2. Mahsulot yarating",
+        "step2_desc": "Yagona mahsulot katalogini yarating",
+        "step3_title": "3. SKU bilan bog'lang",
+        "step3_desc": "Marketpleys mahsulotlarini asosiy mahsulotlarga bog'lang",
+        "dismiss": "Yopish"
     },
     "analytics": {
         "title": "Analitika paneli",

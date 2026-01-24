@@ -2,17 +2,17 @@
   <div class="space-y-6 animate-fade-in">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('products.send.title') }}</h1>
-            <p class="text-sm text-slate-500 mt-1">{{ t('products.send.subtitle') }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('products.send.title') }}</h1>
+            <p class="text-sm text-muted-foreground mt-1">{{ t('products.send.subtitle') }}</p>
           </div>
           <div class="flex items-center gap-2" v-if="selectedProducts.length > 0">
-               <span class="text-sm font-medium text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full">
+               <span class="text-sm font-medium text-muted-foreground bg-muted px-3 py-1.5 rounded-full">
                    {{ t('products.send.selected_count', { count: selectedProducts.length }) }}
                </span>
                <Button 
                   @click="submitRequest" 
                   :disabled="submitting || selectedProducts.length === 0"
-                  class="bg-indigo-600 hover:bg-indigo-700 text-white"
+                  class="bg-primary hover:bg-primary/90 text-primary-foreground"
                >
                   <Loader2 v-if="submitting" class="w-4 h-4 mr-2 animate-spin" />
                   {{ submitting ? t('common.sending') : t('common.send_request') }}
@@ -24,9 +24,9 @@
           <!-- Left Column: Product Selection -->
           <div class="lg:col-span-2 space-y-4">
               <!-- Search Bar -->
-              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-4">
+              <div class="bg-card p-4 rounded-xl border border-border shadow-sm flex gap-4">
                   <div class="relative flex-1">
-                      <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                      <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input :placeholder="t('common.search_products')" class="pl-9" v-model="searchQuery" />
                   </div>
                   <Button variant="outline" @click="addAllVisible" class="whitespace-nowrap hidden sm:flex">
@@ -35,32 +35,32 @@
               </div>
 
               <!-- Products List -->
-              <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden min-h-[400px]">
-                  <div v-if="loading" class="p-12 flex justify-center text-slate-500">
+              <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden min-h-[400px]">
+                  <div v-if="loading" class="p-12 flex justify-center text-muted-foreground">
                       <Loader2 class="w-6 h-6 animate-spin mr-2" />
                       {{ t('common.loading_products') }}
                   </div>
-                  <div v-else-if="filteredProducts.length === 0" class="p-12 text-center text-slate-500">
-                      <Search class="w-8 h-8 mx-auto mb-3 text-slate-300" />
+                  <div v-else-if="filteredProducts.length === 0" class="p-12 text-center text-muted-foreground">
+                      <Search class="w-8 h-8 mx-auto mb-3 text-muted-foreground/50" />
                       <p>{{ t('common.no_products_found_query', { query: searchQuery }) }}</p>
                   </div>
                   <div v-else class="overflow-x-auto">
                       <table class="w-full text-sm text-left">
-                          <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+                          <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                               <tr>
                                   <th class="px-6 py-4 font-medium">{{ t('table.product') }}</th>
                                   <th class="px-6 py-4 font-medium">{{ t('table.available') }}</th>
                                   <th class="px-6 py-4 font-medium text-right">{{ t('table.action') }}</th>
                               </tr>
                           </thead>
-                          <tbody class="divide-y divide-slate-100">
-                              <tr v-for="product in filteredProducts" :key="product.id" class="hover:bg-slate-50/50 transition-colors group">
-                                  <td class="px-6 py-4 font-medium text-slate-900">
+                          <tbody class="divide-y divide-border">
+                              <tr v-for="product in filteredProducts" :key="product.id" class="hover:bg-muted/50 transition-colors group">
+                                  <td class="px-6 py-4 font-medium text-foreground">
                                       {{ product.product_name }}
                                   </td>
                                   <td class="px-6 py-4">
                                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                            :class="product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
+                                            :class="product.stock > 0 ? 'bg-green-500/10 text-green-700 dark:text-green-400' : 'bg-destructive/10 text-destructive dark:text-red-400'">
                                           {{ product.stock || 0 }}
                                       </span>
                                   </td>
@@ -70,11 +70,11 @@
                                           @click="addProduct(product)"
                                           variant="ghost"
                                           size="sm"
-                                          class="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50"
+                                          class="text-primary hover:text-primary hover:bg-primary/10"
                                       >
                                           {{ t('common.select') }}
                                       </Button>
-                                      <span v-else class="text-emerald-600 text-xs font-medium bg-emerald-50 px-2 py-1 rounded-full">
+                                      <span v-else class="text-emerald-600 dark:text-emerald-400 text-xs font-medium bg-emerald-500/10 px-2 py-1 rounded-full">
                                           ✓ {{ t('common.added') }}
                                       </span>
                                   </td>
@@ -87,60 +87,60 @@
 
           <!-- Right Column: Summary (Sticky) -->
           <div class="lg:col-span-1">
-              <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sticky top-6 space-y-6">
-                  <h3 class="text-lg font-bold text-slate-900">{{ t('products.send.selected_items') }}</h3>
+              <div class="bg-card rounded-xl border border-border shadow-sm p-6 sticky top-6 space-y-6">
+                  <h3 class="text-lg font-bold text-foreground">{{ t('products.send.selected_items') }}</h3>
                   
-                  <div v-if="selectedProducts.length === 0" class="text-center py-8 text-slate-500 bg-slate-50 rounded-lg border border-dashed border-slate-200">
+                  <div v-if="selectedProducts.length === 0" class="text-center py-8 text-muted-foreground bg-muted/30 rounded-lg border border-dashed border-border">
                       <p class="text-sm">{{ t('products.send.empty_selection') }}</p>
                   </div>
 
                   <div v-else class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
                       <div v-for="item in selectedProducts" :key="item.product.id" 
-                           class="bg-slate-50 rounded-lg p-3 border border-slate-100 transition-all hover:border-indigo-100 flex flex-col gap-3">
+                           class="bg-muted/30 rounded-lg p-3 border border-border transition-all hover:border-primary/30 flex flex-col gap-3">
                           
                           <div class="flex justify-between items-start">
-                              <span class="font-medium text-slate-900 text-sm truncate pr-2">{{ item.product.product_name }}</span>
-                              <button @click="removeProduct(item.product.id)" class="text-slate-400 hover:text-red-500 transition-colors p-1">
+                              <span class="font-medium text-foreground text-sm truncate pr-2">{{ item.product.product_name }}</span>
+                              <button @click="removeProduct(item.product.id)" class="text-muted-foreground hover:text-destructive transition-colors p-1">
                                   <X class="w-4 h-4" />
                               </button>
                           </div>
                           
-                          <div class="flex items-center justify-between gap-3 bg-white p-2 rounded border border-slate-200">
-                              <div class="text-xs text-slate-500 font-medium pl-1">
+                          <div class="flex items-center justify-between gap-3 bg-card p-2 rounded border border-border">
+                              <div class="text-xs text-muted-foreground font-medium pl-1">
                                   Stock: {{ item.product.stock }}
                               </div>
                               <div class="flex items-center gap-2">
-                                  <button @click="setMaxQuantity(item)" class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded hover:bg-indigo-100 uppercase tracking-wide">
+                                  <button @click="setMaxQuantity(item)" class="text-[10px] font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded hover:bg-primary/20 uppercase tracking-wide">
                                       MAX
                                   </button>
-                                  <div class="h-4 w-px bg-slate-200"></div>
+                                  <div class="h-4 w-px bg-border"></div>
                                   <input 
                                       v-model.number="item.quantity"
                                       type="number"
                                       min="1"
                                       :max="item.product.stock"
-                                      class="w-16 text-right text-sm border-0 p-0 focus:ring-0 text-slate-900 font-bold"
+                                      class="w-16 text-right text-sm border-0 p-0 focus:ring-0 text-foreground bg-transparent font-bold"
                                   />
                               </div>
                           </div>
                       </div>
                   </div>
 
-                  <div class="border-t pt-4 space-y-4">
+                  <div class="border-t border-border pt-4 space-y-4">
                       <div class="space-y-2">
-                          <label class="text-sm font-medium text-slate-700">{{ t('common.notes_optional') }}</label>
+                          <label class="text-sm font-medium text-foreground">{{ t('common.notes_optional') }}</label>
                           <textarea
                               v-model="notes"
                               rows="3"
                               :placeholder="t('common.notes_placeholder')"
-                              class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
+                              class="w-full px-3 py-2 border border-input rounded-lg text-sm focus:ring-2 focus:ring-ring focus:border-input bg-background text-foreground resize-none"
                           ></textarea>
                       </div>
 
                       <Button 
                           @click="submitRequest"
                           :disabled="selectedProducts.length === 0 || submitting"
-                          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm"
+                          class="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm"
                           size="lg"
                       >
                           <Loader2 v-if="submitting" class="w-4 h-4 mr-2 animate-spin" />

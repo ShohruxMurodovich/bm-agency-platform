@@ -3,8 +3,8 @@
       <!-- Header -->
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('products.title') }}</h1>
-            <p class="text-sm text-slate-500 mt-1">{{ t('products.subtitle') }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('products.title') }}</h1>
+            <p class="text-sm text-muted-foreground mt-1">{{ t('products.subtitle') }}</p>
           </div>
           <div class="flex items-center gap-2 w-full sm:w-auto" v-if="!authStore.isSeller">
               <Button @click="$router.push('/products/new')">
@@ -25,10 +25,10 @@
       <!-- Parent Products Tab -->
       <div v-if="activeTab === 0">
           <!-- Header Filter: Seller -->
-          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-4" v-if="authStore.isAdmin">
+          <div class="bg-card p-4 rounded-xl border border-border shadow-sm mb-4" v-if="authStore.isAdmin">
               <div class="flex items-center gap-2">
-                  <label class="text-sm font-medium text-slate-700 min-w-[80px]">{{ t('common.seller') }}:</label>
-                  <select v-model="selectedSeller" @change="fetchParentProducts" class="flex-1 h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-sm font-medium text-foreground min-w-[80px]">{{ t('common.seller') }}:</label>
+                  <select v-model="selectedSeller" @change="fetchParentProducts" class="flex-1 h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all_sellers') }}</option>
                       <option v-for="seller in sellers" :key="seller.id" :value="seller.id">{{ seller.name }}</option>
                   </select>
@@ -36,9 +36,9 @@
           </div>
 
           <!-- Filter Row: Search -->
-          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-4 mb-4">
+          <div class="bg-card p-4 rounded-xl border border-border shadow-sm flex flex-col sm:flex-row gap-4 mb-4">
               <div class="relative flex-1">
-                  <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                  <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input :placeholder="t('common.search_products')" class="pl-9" v-model="parentSearchQuery" @keyup.enter="fetchParentProducts" />
               </div>
               <Button class="w-full sm:w-auto" @click="fetchParentProducts">
@@ -48,20 +48,20 @@
           </div>
 
           <!-- Parent Products Table -->
-          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div v-if="parentLoading" class="p-12 flex justify-center text-slate-500">
+          <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+              <div v-if="parentLoading" class="p-12 flex justify-center text-muted-foreground">
                   <Loader2 class="w-6 h-6 animate-spin mr-2" />
                   {{ t('products.loading') }}
               </div>
-              <div v-else-if="parentError" class="p-8 text-center text-red-500">{{ parentError }}</div>
-              <div v-else-if="parentProducts.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
-                  <Package class="w-8 h-8 text-slate-300 mb-3" />
-                  <h3 class="text-lg font-medium text-slate-900">{{ t('common.no_products_found') }}</h3>
+              <div v-else-if="parentError" class="p-8 text-center text-destructive">{{ parentError }}</div>
+              <div v-else-if="parentProducts.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-muted-foreground">
+                  <Package class="w-8 h-8 text-muted-foreground/50 mb-3" />
+                  <h3 class="text-lg font-medium text-foreground">{{ t('common.no_products_found') }}</h3>
                   <p class="text-sm mt-1">{{ t('products.empty_start') }}</p>
               </div>
               <div v-else class="overflow-x-auto">
                    <table class="w-full text-sm text-left">
-                       <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+                       <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                            <tr>
                                <th class="px-6 py-4 font-medium">{{ t('table.product_name') }}</th>
                                <th class="px-6 py-4 font-medium">{{ t('table.cost') }}</th>
@@ -71,38 +71,38 @@
                                <th class="px-6 py-4 font-medium text-right">{{ t('table.action') }}</th>
                            </tr>
                        </thead>
-                       <tbody class="divide-y divide-slate-100">
-                           <tr v-for="product in parentProducts" :key="product.id" class="hover:bg-slate-50/50 transition-colors group">
-                               <td class="px-6 py-4 font-medium text-slate-900 border-l-4 border-transparent hover:border-indigo-500 transition-all">
+                       <tbody class="divide-y divide-border">
+                           <tr v-for="product in parentProducts" :key="product.id" class="hover:bg-muted/50 transition-colors group">
+                               <td class="px-6 py-4 font-medium text-foreground border-l-4 border-transparent hover:border-primary transition-all">
                                    {{ product.product_name }}
-                               </td>
-                               <td class="px-6 py-4 text-slate-900">
+                                </td>
+                                <td class="px-6 py-4 text-foreground">
                                    <span v-if="product.cost_usd">${{ product.cost_usd }}</span>
                                    <span v-else-if="product.cost_uzs">{{ formatNumber(product.cost_uzs) }} UZS</span>
-                                   <span v-else class="text-slate-400">—</span>
-                               </td>
-                               <td class="px-6 py-4">
+                                   <span v-else class="text-muted-foreground">—</span>
+                                </td>
+                                <td class="px-6 py-4">
                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                         :class="product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
+                                         :class="product.stock > 0 ? 'bg-green-500/10 text-green-700 dark:text-green-400' : 'bg-red-500/10 text-red-700 dark:text-red-400'">
                                        {{ product.stock || 0 }}
                                    </span>
-                               </td>
-                               <td class="px-6 py-4 text-slate-600">
-                                   <span class="text-indigo-600 font-medium">{{ product.linked_count || 0 }}</span>
-                               </td>
-                               <td class="px-6 py-4 text-slate-500 text-xs">
+                                </td>
+                                <td class="px-6 py-4 text-muted-foreground">
+                                   <span class="text-primary font-medium">{{ product.linked_count || 0 }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-muted-foreground text-xs">
                                    {{ new Date(product.created_at).toLocaleDateString() }}
-                               </td>
-                               <td class="px-6 py-4 text-right space-x-2">
+                                </td>
+                                <td class="px-6 py-4 text-right space-x-2">
                                    <template v-if="!authStore.isSeller">
                                      <Button variant="ghost" size="icon" @click="$router.push(`/products/${product.id}`)">
-                                         <Pencil class="w-4 h-4 text-slate-500" />
+                                         <Pencil class="w-4 h-4 text-muted-foreground" />
                                      </Button>
-                                     <Button variant="ghost" size="icon" @click="confirmDelete(product.id)" class="text-red-600 hover:text-red-700 hover:bg-red-50">
+                                     <Button variant="ghost" size="icon" @click="confirmDelete(product.id)" class="text-destructive hover:text-destructive hover:bg-destructive/10">
                                          <Trash2 class="w-4 h-4" />
                                      </Button>
                                    </template>
-                               </td>
+                                </td>
                            </tr>
                        </tbody>
                    </table>
@@ -113,9 +113,9 @@
       <!-- Marketplace Products Tab -->
       <div v-if="activeTab === 1">
           <!-- Filter Row: Search only -->
-          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-4 mb-4">
+          <div class="bg-card p-4 rounded-xl border border-border shadow-sm flex flex-col sm:flex-row gap-4 mb-4">
               <div class="relative flex-1">
-                  <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                  <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input :placeholder="t('common.search_marketplace_products')" class="pl-9" v-model="marketplaceSearchQuery" @keyup.enter="fetchMarketplaceProducts" />
               </div>
               <Button class="w-full sm:w-auto" @click="fetchMarketplaceProducts">
@@ -125,19 +125,19 @@
           </div>
 
           <!-- Marketplace Products Table (Read-only) -->
-          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div v-if="marketplaceLoading" class="p-12 flex justify-center text-slate-500">
+          <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+              <div v-if="marketplaceLoading" class="p-12 flex justify-center text-muted-foreground">
                   <Loader2 class="w-6 h-6 animate-spin mr-2" />
                   {{ t('products.loading') }}
               </div>
-              <div v-else-if="marketplaceError" class="p-8 text-center text-red-500">{{ marketplaceError }}</div>
-              <div v-else-if="marketplaceProducts.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
-                  <ShoppingCart class="w-8 h-8 text-slate-300 mb-3" />
-                  <h3 class="text-lg font-medium text-slate-900">{{ t('common.no_marketplace_products_found') }}</h3>
+              <div v-else-if="marketplaceError" class="p-8 text-center text-destructive">{{ marketplaceError }}</div>
+              <div v-else-if="marketplaceProducts.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-muted-foreground">
+                  <ShoppingCart class="w-8 h-8 text-muted-foreground/50 mb-3" />
+                  <h3 class="text-lg font-medium text-foreground">{{ t('common.no_marketplace_products_found') }}</h3>
               </div>
               <div v-else class="overflow-x-auto">
                    <table class="w-full text-sm text-left">
-                       <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+                       <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                            <tr>
                                <th class="px-6 py-4 font-medium">{{ t('table.image') }}</th>
                                <th class="px-6 py-4 font-medium">{{ t('table.title') }}</th>
@@ -149,33 +149,33 @@
                                <th class="px-6 py-4 font-medium">{{ t('table.has_parent') }}</th>
                            </tr>
                        </thead>
-                       <tbody class="divide-y divide-slate-100">
-                           <tr v-for="product in marketplaceProducts" :key="product.id" class="hover:bg-slate-50/50 transition-colors">
+                       <tbody class="divide-y divide-border">
+                           <tr v-for="product in marketplaceProducts" :key="product.id" class="hover:bg-muted/50 transition-colors">
                                <td class="px-6 py-4">
                                    <img v-if="product.image_url" :src="product.image_url" :alt="product.title" class="w-10 h-10 object-cover rounded" />
-                                   <div v-else class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center">
-                                       <Package class="w-5 h-5 text-slate-400" />
+                                   <div v-else class="w-10 h-10 bg-muted rounded flex items-center justify-center">
+                                       <Package class="w-5 h-5 text-muted-foreground" />
                                    </div>
                                </td>
-                               <td class="px-6 py-4 font-medium text-slate-900">{{ product.title }}</td>
-                               <td class="px-6 py-4 text-slate-600">{{ product.sku_id || '—' }}</td>
-                               <td class="px-6 py-4 text-slate-600">{{ product.sku_name || '—' }}</td>
-                               <td class="px-6 py-4 text-slate-900">
+                               <td class="px-6 py-4 font-medium text-foreground">{{ product.title }}</td>
+                               <td class="px-6 py-4 text-muted-foreground">{{ product.sku_id || '—' }}</td>
+                               <td class="px-6 py-4 text-muted-foreground">{{ product.sku_name || '—' }}</td>
+                               <td class="px-6 py-4 text-foreground">
                                    {{ product.price ? formatNumber(product.price) : '—' }}
                                </td>
                                <td class="px-6 py-4">
                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                         :class="product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
+                                         :class="product.stock > 0 ? 'bg-green-500/10 text-green-700 dark:text-green-400' : 'bg-red-500/10 text-red-700 dark:text-red-400'">
                                        {{ product.stock || 0 }}
                                    </span>
                                </td>
                                <td class="px-6 py-4">
-                                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800 capitalize">
+                                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground capitalize">
                                        {{ product.status || 'active' }}
                                    </span>
                                </td>
                                <td class="px-6 py-4">
-                                   <span :class="product.parent_product_id ? 'text-green-600' : 'text-slate-400'">
+                                   <span :class="product.parent_product_id ? 'text-green-600 dark:text-green-400' : 'text-muted-foreground'">
                                        {{ product.parent_product_id ? t('common.yes') : t('common.no') }}
                                    </span>
                                </td>
@@ -194,7 +194,7 @@
         @close="isDeleteDialogOpen = false"
         @confirm="deleteProduct"
       >
-        <div class="p-4 bg-red-50 rounded-md text-red-700 text-sm">
+        <div class="p-4 bg-red-500/10 rounded-md text-red-700 dark:text-red-400 text-sm">
             {{ t('products.delete.warning') }}
         </div>
       </Dialog>

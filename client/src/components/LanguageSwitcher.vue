@@ -3,11 +3,11 @@
     <Menu as="div" class="relative inline-block text-left">
       <div>
         <MenuButton
-          class="inline-flex w-full justify-center rounded-md border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          class="inline-flex w-full justify-center rounded-md border border-input px-3 py-2 text-sm font-medium text-foreground bg-card hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
             <span class="mr-2">{{ currentLang?.flag }}</span>
             <span class="uppercase">{{ currentLang?.code }}</span>
-            <ChevronDown class="-mr-1 h-5 w-5 text-slate-400" aria-hidden="true" />
+            <ChevronDown class="-mr-1 h-5 w-5 text-muted-foreground" aria-hidden="true" />
         </MenuButton>
       </div>
 
@@ -20,16 +20,16 @@
         leave-to-class="transform opacity-0 scale-95"
       >
         <MenuItems
-          class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-card shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-border"
         >
           <div class="py-1">
             <MenuItem v-for="lang in languages" :key="lang.code" v-slot="{ active }">
               <button
                 @click="switchLanguage(lang.code)"
                 :class="[
-                  active ? 'bg-slate-100 text-slate-900' : 'text-slate-700',
+                  active ? 'bg-muted text-foreground' : 'text-muted-foreground',
                   'group flex w-full items-center px-4 py-2 text-sm',
-                  currentLocale === lang.code ? 'bg-slate-50 font-semibold' : ''
+                  currentLocale === lang.code ? 'bg-muted/50 font-semibold text-foreground' : ''
                 ]"
               >
                   <span class="mr-3">{{ lang.flag }}</span>

@@ -1,84 +1,84 @@
 <template>
   <div class="space-y-6 animate-fade-in">
     <div>
-      <h1 class="text-2xl font-bold tracking-tight text-slate-900">Analytics Dashboard</h1>
-      <p class="text-sm text-slate-500 mt-1">Overview of your business performance</p>
+      <h1 class="text-2xl font-bold tracking-tight text-foreground">Analytics Dashboard</h1>
+      <p class="text-sm text-muted-foreground mt-1">Overview of your business performance</p>
     </div>
 
     <!-- Loading State -->
     <div v-if="loading" class="flex justify-center items-center py-20">
-      <Loader2 class="w-8 h-8 animate-spin text-indigo-600" />
+      <Loader2 class="w-8 h-8 animate-spin text-primary" />
     </div>
 
     <!-- Dashboard Widgets -->
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <!-- Total Orders -->
-      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+      <div class="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow">
         <div class="flex items-start justify-between">
           <div class="flex-1">
-            <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">Total Orders</p>
-            <p class="text-3xl font-bold text-slate-900 mt-2">{{ analytics.orders.total }}</p>
-            <p class="text-sm text-slate-500 mt-1">{{ analytics.orders.this_month }} this month</p>
+            <p class="text-sm font-medium text-muted-foreground uppercase tracking-wide">Total Orders</p>
+            <p class="text-3xl font-bold text-foreground mt-2">{{ analytics.orders.total }}</p>
+            <p class="text-sm text-muted-foreground mt-1">{{ analytics.orders.this_month }} this month</p>
           </div>
-          <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center">
-            <ShoppingCart class="w-6 h-6 text-blue-600" />
+          <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+            <ShoppingCart class="w-6 h-6 text-blue-600 dark:text-blue-400" />
           </div>
         </div>
-        <div v-if="analytics.orders.pending > 0" class="mt-4 pt-4 border-t border-slate-100">
-          <p class="text-sm text-amber-600 font-medium">{{ analytics.orders.pending }} pending orders</p>
+        <div v-if="analytics.orders.pending > 0" class="mt-4 pt-4 border-t border-border">
+          <p class="text-sm text-amber-600 dark:text-amber-400 font-medium">{{ analytics.orders.pending }} pending orders</p>
         </div>
       </div>
 
       <!-- Total Revenue -->
-      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+      <div class="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow">
         <div class="flex items-start justify-between">
           <div class="flex-1">
-            <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">Total Revenue</p>
-            <p class="text-3xl font-bold text-slate-900 mt-2">${{ formatNumber(analytics.revenue.total) }}</p>
-            <p class="text-sm text-slate-500 mt-1">${{ formatNumber(analytics.revenue.this_month) }} this month</p>
+            <p class="text-sm font-medium text-muted-foreground uppercase tracking-wide">Total Revenue</p>
+            <p class="text-3xl font-bold text-foreground mt-2">${{ formatNumber(analytics.revenue.total) }}</p>
+            <p class="text-sm text-muted-foreground mt-1">${{ formatNumber(analytics.revenue.this_month) }} this month</p>
           </div>
-          <div class="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center">
-            <DollarSign class="w-6 h-6 text-green-600" />
+          <div class="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center">
+            <DollarSign class="w-6 h-6 text-green-600 dark:text-green-400" />
           </div>
         </div>
       </div>
 
       <!-- Total Products -->
-      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+      <div class="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow">
         <div class="flex items-start justify-between">
           <div class="flex-1">
-            <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">Products</p>
-            <p class="text-3xl font-bold text-slate-900 mt-2">{{ analytics.inventory.total_products }}</p>
-            <p class="text-sm text-slate-500 mt-1">{{ analytics.inventory.total_stock }} units in stock</p>
+            <p class="text-sm font-medium text-muted-foreground uppercase tracking-wide">Products</p>
+            <p class="text-3xl font-bold text-foreground mt-2">{{ analytics.inventory.total_products }}</p>
+            <p class="text-sm text-muted-foreground mt-1">{{ analytics.inventory.total_stock }} units in stock</p>
           </div>
-          <div class="w-12 h-12 rounded-lg bg-purple-50 flex items-center justify-center">
-            <Package class="w-6 h-6 text-purple-600" />
+          <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center">
+            <Package class="w-6 h-6 text-purple-600 dark:text-purple-400" />
           </div>
         </div>
-        <div v-if="analytics.inventory.low_stock_items > 0" class="mt-4 pt-4 border-t border-slate-100">
-          <p class="text-sm text-red-600 font-medium">{{ analytics.inventory.low_stock_items }} low stock items</p>
+        <div v-if="analytics.inventory.low_stock_items > 0" class="mt-4 pt-4 border-t border-border">
+          <p class="text-sm text-destructive font-medium">{{ analytics.inventory.low_stock_items }} low stock items</p>
         </div>
       </div>
 
       <!-- Quick Actions -->
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border border-indigo-200 shadow-sm">
-        <h3 class="text-sm font-semibold text-slate-900 mb-4">Quick Actions</h3>
+      <div class="bg-gradient-to-br from-indigo-50/50 to-purple-50/50 dark:from-indigo-950/20 dark:to-purple-950/20 rounded-xl p-6 border border-indigo-200/50 dark:border-indigo-800/50 shadow-sm">
+        <h3 class="text-sm font-semibold text-foreground mb-4">Quick Actions</h3>
         <div class="space-y-2">
-          <router-link to="/parent-products" class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors">
-            <div class="flex items-center text-sm font-medium text-slate-700">
-              <Plus class="w-4 h-4 mr-2 text-indigo-600" />
+          <router-link to="/parent-products" class="block p-3 bg-background/80 hover:bg-background rounded-lg transition-colors border border-transparent hover:border-border">
+            <div class="flex items-center text-sm font-medium text-foreground">
+              <Plus class="w-4 h-4 mr-2 text-primary" />
               Create Product
             </div>
           </router-link>
-          <router-link to="/stores" class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors">
-            <div class="flex items-center text-sm font-medium text-slate-700">
-              <Store class="w-4 h-4 mr-2 text-indigo-600" />
+          <router-link to="/stores" class="block p-3 bg-background/80 hover:bg-background rounded-lg transition-colors border border-transparent hover:border-border">
+            <div class="flex items-center text-sm font-medium text-foreground">
+              <Store class="w-4 h-4 mr-2 text-primary" />
               Manage Stores
             </div>
           </router-link>
-          <router-link to="/orders" class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors">
-            <div class="flex items-center text-sm font-medium text-slate-700">
-              <ShoppingBag class="w-4 h-4 mr-2 text-indigo-600" />
+          <router-link to="/orders" class="block p-3 bg-background/80 hover:bg-background rounded-lg transition-colors border border-transparent hover:border-border">
+            <div class="flex items-center text-sm font-medium text-foreground">
+              <ShoppingBag class="w-4 h-4 mr-2 text-primary" />
               View Orders
             </div>
           </router-link>
@@ -89,26 +89,26 @@
     <!-- Additional Info Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Performance Summary -->
-      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <h3 class="text-lg font-semibold text-slate-900 mb-4">Performance Summary</h3>
+      <div class="bg-card rounded-xl p-6 border border-border shadow-sm">
+        <h3 class="text-lg font-semibold text-foreground mb-4">Performance Summary</h3>
         
         <div class="space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center justify-between pb-3 border-b border-border">
             <div class="flex items-center gap-3">
               <div class="w-2 h-2 rounded-full bg-green-500"></div>
-              <span class="text-sm text-slate-600">Average Order Value</span>
+              <span class="text-sm text-muted-foreground">Average Order Value</span>
             </div>
-            <span class="text-sm font-semibold text-slate-900">
+            <span class="text-sm font-semibold text-foreground">
               ${{ averageOrderValue }}
             </span>
           </div>
           
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center justify-between pb-3 border-b border-border">
             <div class="flex items-center gap-3">
               <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-              <span class="text-sm text-slate-600">Stock Turnover Rate</span>
+              <span class="text-sm text-muted-foreground">Stock Turnover Rate</span>
             </div>
-            <span class="text-sm font-semibold text-slate-900">
+            <span class="text-sm font-semibold text-foreground">
               {{ stockTurnoverRate }}%
             </span>
           </div>
@@ -116,9 +116,9 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
               <div class="w-2 h-2 rounded-full bg-purple-500"></div>
-              <span class="text-sm text-slate-600">Fulfillment Rate</span>
+              <span class="text-sm text-muted-foreground">Fulfillment Rate</span>
             </div>
-            <span class="text-sm font-semibold text-slate-900">
+            <span class="text-sm font-semibold text-foreground">
               {{ fulfillmentRate }}%
             </span>
           </div>
@@ -126,37 +126,37 @@
       </div>
 
       <!-- Getting Started Guide -->
-      <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 border border-slate-200">
-        <h3 class="text-lg font-semibold text-slate-900 mb-4">Getting Started</h3>
+      <div class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900/40 dark:to-slate-900/20 rounded-xl p-6 border border-border">
+        <h3 class="text-lg font-semibold text-foreground mb-4">Getting Started</h3>
         
         <div class="space-y-3">
           <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold flex-shrink-0">
               1
             </div>
             <div>
-              <p class="text-sm font-medium text-slate-900">Connect your stores</p>
-              <p class="text-xs text-slate-600 mt-0.5">Link your marketplace accounts to sync products</p>
+              <p class="text-sm font-medium text-foreground">Connect your stores</p>
+              <p class="text-xs text-muted-foreground mt-0.5">Link your marketplace accounts to sync products</p>
             </div>
           </div>
           
           <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold flex-shrink-0">
               2
             </div>
             <div>
-              <p class="text-sm font-medium text-slate-900">Create parent products</p>
-              <p class="text-xs text-slate-600 mt-0.5">Build your unified product catalog</p>
+              <p class="text-sm font-medium text-foreground">Create parent products</p>
+              <p class="text-xs text-muted-foreground mt-0.5">Build your unified product catalog</p>
             </div>
           </div>
           
           <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold flex-shrink-0">
               3
             </div>
             <div>
-              <p class="text-sm font-medium text-slate-900">Map marketplace products</p>
-              <p class="text-xs text-slate-600 mt-0.5">Link marketplace SKUs to parent products</p>
+              <p class="text-sm font-medium text-foreground">Map marketplace products</p>
+              <p class="text-xs text-muted-foreground mt-0.5">Link marketplace SKUs to parent products</p>
             </div>
           </div>
         </div>

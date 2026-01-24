@@ -10,8 +10,8 @@
             <Sparkles class="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 class="text-xl font-bold text-slate-900">Welcome to BM Agency Platform! 🎉</h3>
-            <p class="text-sm text-slate-600 mt-0.5">Let's get you started with your multi-marketplace management</p>
+            <h3 class="text-xl font-bold text-slate-900">{{ $t('onboarding.welcome_title') }}</h3>
+            <p class="text-sm text-slate-600 mt-0.5">{{ $t('onboarding.welcome_subtitle') }}</p>
           </div>
         </div>
 
@@ -26,8 +26,8 @@
                 <Store class="w-4 h-4 text-indigo-600 group-hover:text-white" />
               </div>
               <div class="flex-1">
-                <h4 class="font-semibold text-slate-900 mb-1">1. Connect Your Store</h4>
-                <p class="text-xs text-slate-600">Link your first marketplace account</p>
+                <h4 class="font-semibold text-slate-900 mb-1">{{ $t('onboarding.step1_title') }}</h4>
+                <p class="text-xs text-slate-600">{{ $t('onboarding.step1_desc') }}</p>
               </div>
             </div>
           </router-link>
@@ -42,8 +42,8 @@
                 <Package class="w-4 h-4 text-purple-600 group-hover:text-white" />
               </div>
               <div class="flex-1">
-                <h4 class="font-semibold text-slate-900 mb-1">2. Create Products</h4>
-                <p class="text-xs text-slate-600">Build your unified product catalog</p>
+                <h4 class="font-semibold text-slate-900 mb-1">{{ $t('onboarding.step2_title') }}</h4>
+                <p class="text-xs text-slate-600">{{ $t('onboarding.step2_desc') }}</p>
               </div>
             </div>
           </router-link>
@@ -58,8 +58,8 @@
                 <Link2 class="w-4 h-4 text-pink-600 group-hover:text-white" />
               </div>
               <div class="flex-1">
-                <h4 class="font-semibold text-slate-900 mb-1">3. Map to SKUs</h4>
-                <p class="text-xs text-slate-600">Link marketplace products to parent items</p>
+                <h4 class="font-semibold text-slate-900 mb-1">{{ $t('onboarding.step3_title') }}</h4>
+                <p class="text-xs text-slate-600">{{ $t('onboarding.step3_desc') }}</p>
               </div>
             </div>
           </router-link>
@@ -69,7 +69,7 @@
       <button 
         @click="dismissBanner" 
         class="ml-4 p-2 hover:bg-white/50 rounded-lg transition-colors flex-shrink-0"
-        title="Dismiss"
+        :title="$t('onboarding.dismiss')"
       >
         <X class="w-5 h-5 text-slate-400 hover:text-slate-600" />
       </button>
@@ -90,7 +90,7 @@ const productsCount = ref(0);
 
 const shouldShowBanner = computed(() => {
   // Only show for PUBLIC_USER
-  if (authStore.user?.role !== 'PUBLIC_USER' && authStore.user?.role !== 'public_user') {
+  if (authStore.user?.role !== 'public_user') {
     return false;
   }
 

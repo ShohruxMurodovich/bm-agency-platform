@@ -1,8 +1,8 @@
 <template>
-  <div class="flex h-screen bg-slate-50 font-sans text-slate-900">
+  <div class="flex h-screen bg-background font-sans text-foreground transition-colors duration-300">
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col transition-all duration-300 fixed h-full z-10">
-        <div class="p-6 h-16 flex items-center border-b border-slate-100">
+    <aside class="w-64 bg-card border-r border-border flex flex-col transition-all duration-300 fixed h-full z-10">
+        <div class="p-6 h-16 flex items-center border-b border-border">
             <!-- Brand -->
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">
@@ -17,31 +17,31 @@
         <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
             <template v-for="item in navItems" :key="item.label">
                 <!-- Header items (non-clickable section labels) -->
-                <div v-if="item.isHeader" class="px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4">
+                <div v-if="item.isHeader" class="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-4">
                     {{ item.label }}
                 </div>
                 <!-- Navigation links -->
                 <router-link v-else :to="item.path" 
                     class="flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-all duration-200 group"
-                    :class="isActive(item.path) ? 'bg-indigo-50 text-indigo-700 shadow-sm ring-1 ring-indigo-200/50' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'"
+                    :class="isActive(item.path) ? 'bg-indigo-50/10 text-indigo-700 dark:text-indigo-400 shadow-sm ring-1 ring-indigo-200/50' : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
                 >
-                    <component :is="item.icon" class="w-5 h-5 mr-3 transition-colors" :class="isActive(item.path) ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-600'" />
+                    <component :is="item.icon" class="w-5 h-5 mr-3 transition-colors" :class="isActive(item.path) ? 'text-indigo-600 dark:text-indigo-400' : 'text-muted-foreground group-hover:text-foreground'" />
                     {{ item.label }}
                 </router-link>
             </template>
         </nav>
 
-        <div class="p-4 border-t border-slate-100 bg-slate-50/50">
+        <div class="p-4 border-t border-border bg-muted/30">
             <div class="flex items-center gap-3 mb-4 px-2">
                  <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 text-xs font-bold border border-indigo-200">
                      {{ userInitials }}
                  </div>
                  <div class="flex-1 min-w-0">
-                     <p class="text-sm font-medium text-slate-900 truncate">{{ authStore.user?.name || authStore.user?.email?.split('@')[0] || 'User' }}</p>
-                     <p class="text-xs text-slate-500 truncate">{{ authStore.user?.email }}</p>
+                     <p class="text-sm font-medium text-foreground truncate">{{ authStore.user?.name || authStore.user?.email?.split('@')[0] || 'User' }}</p>
+                     <p class="text-xs text-muted-foreground truncate">{{ authStore.user?.email }}</p>
                  </div>
             </div>
-            <button @click="logout" class="flex w-full items-center justify-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-lg shadow-sm hover:bg-slate-50 hover:text-red-600 transition-colors">
+            <button @click="logout" class="flex w-full items-center justify-center px-4 py-2 text-sm font-medium text-foreground bg-card border border-border rounded-lg shadow-sm hover:bg-muted hover:text-red-600 transition-colors">
                 <LogOut class="w-4 h-4 mr-2" />
                 Sign out
             </button>
@@ -51,41 +51,42 @@
     <!-- Main Content Wrapper -->
     <div class="flex-1 ml-64 flex flex-col min-h-screen">
         <!-- Header -->
-        <header class="h-16 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-20 px-8 flex items-center justify-between">
+        <header class="h-16 bg-card/80 backdrop-blur-md border-b border-border sticky top-0 z-20 px-8 flex items-center justify-between">
              <div class="flex items-center gap-2 text-sm">
                  <template v-for="(crumb, index) in currentBreadcrumbs" :key="index">
-                     <span :class="index === currentBreadcrumbs.length - 1 ? 'font-semibold text-slate-800' : 'text-slate-500'">
+                     <span :class="index === currentBreadcrumbs.length - 1 ? 'font-semibold text-foreground' : 'text-muted-foreground'">
                          {{ crumb }}
                      </span>
-                     <span v-if="index < currentBreadcrumbs.length - 1" class="text-slate-300">/</span>
+                     <span v-if="index < currentBreadcrumbs.length - 1" class="text-muted-foreground">/</span>
                  </template>
              </div>
              <div class="flex items-center gap-4 relative">
                  <LanguageSwitcher />
+                 <ThemeToggle />
                  <!-- Notification Dropdown -->
                  <div class="relative">
-                     <button @click="toggleNotifications" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors relative">
+                     <button @click="toggleNotifications" class="w-9 h-9 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors relative">
                          <Bell class="w-5 h-5" />
-                         <span v-if="notifications.length > 0" class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                         <span v-if="notifications.length > 0" class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-background"></span>
                      </button>
 
-                     <div v-if="isNotificationsOpen" class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50 origin-top-right animate-fade-in">
-                         <div class="px-4 py-2 border-b border-slate-50 flex justify-between items-center">
-                             <h3 class="text-sm font-semibold text-slate-900">Notifications</h3>
-                             <button @click="isNotificationsOpen = false" class="text-slate-400 hover:text-slate-600">
+                     <div v-if="isNotificationsOpen" class="absolute right-0 mt-2 w-80 bg-card rounded-xl shadow-lg border border-border py-2 z-50 origin-top-right animate-fade-in">
+                         <div class="px-4 py-2 border-b border-border flex justify-between items-center">
+                             <h3 class="text-sm font-semibold text-foreground">Notifications</h3>
+                             <button @click="isNotificationsOpen = false" class="text-muted-foreground hover:text-foreground">
                                  <X class="w-4 h-4" />
                              </button>
                          </div>
                          <div class="max-h-96 overflow-y-auto">
-                             <div v-if="notifications.length === 0" class="p-8 text-center text-slate-500 flex flex-col items-center">
-                                 <Bell class="w-8 h-8 text-slate-200 mb-2" />
+                             <div v-if="notifications.length === 0" class="p-8 text-center text-muted-foreground flex flex-col items-center">
+                                 <Bell class="w-8 h-8 text-muted-foreground/50 mb-2" />
                                  <p class="text-sm">No new notifications</p>
                              </div>
                              <div v-else>
-                                 <div v-for="note in notifications" :key="note.id" class="px-4 py-3 hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0 cursor-pointer">
+                                 <div v-for="note in notifications" :key="note.id" class="px-4 py-3 hover:bg-muted transition-colors border-b border-border last:border-0 cursor-pointer">
                                      <div class="flex justify-between items-start">
-                                         <p class="text-sm font-medium text-slate-900" :class="{ 'text-indigo-600': note.unread }">{{ note.title }}</p>
-                                         <span class="text-xs text-slate-400 whitespace-nowrap ml-2">{{ note.time }}</span>
+                                         <p class="text-sm font-medium text-foreground" :class="{ 'text-indigo-600': note.unread }">{{ note.title }}</p>
+                                         <span class="text-xs text-muted-foreground whitespace-nowrap ml-2">{{ note.time }}</span>
                                      </div>
                                  </div>
                              </div>
@@ -96,7 +97,7 @@
         </header>
 
         <!-- Page Content -->
-        <main class="flex-1 p-8 overflow-y-auto">
+        <main class="flex-1 p-8 overflow-y-auto bg-background">
             <div class="max-w-7xl mx-auto">
                  <router-view v-slot="{ Component }">
                     <transition name="fade" mode="out-in">
@@ -114,6 +115,7 @@ import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import LanguageSwitcher from '../components/LanguageSwitcher.vue';
+import ThemeToggle from '../components/ThemeToggle.vue';
 import { useAuthStore } from '../stores/auth';
 import { 
     LayoutDashboard, 
@@ -169,7 +171,7 @@ const navItems = computed(() => {
     // ========================================
     // PUBLIC_USER ROLE - SaaS User Navigation
     // ========================================
-    if (authStore.user?.role === 'PUBLIC_USER' ||authStore.user?.role === 'public_user') {
+    if (authStore.user?.role === 'public_user') {
         items.push(
             { label: t('menu.overview'), isHeader: true },
             { label: t('menu.dashboard'), path: '/', icon: LayoutDashboard },

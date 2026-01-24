@@ -2,15 +2,15 @@
   <div class="space-y-6 animate-fade-in">
       <!-- Header -->
       <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('courier.movements.title') }}</h1>
-        <p class="text-sm text-slate-500 mt-1">{{ t('courier.movements.subtitle') }}</p>
+        <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('courier.movements.title') }}</h1>
+        <p class="text-sm text-muted-foreground mt-1">{{ t('courier.movements.subtitle') }}</p>
       </div>
 
       <!-- Header Filter: Seller -->
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm" v-if="authStore.isAdmin || authStore.isStaff">
+      <div class="bg-card p-4 rounded-xl border border-border shadow-sm" v-if="authStore.isAdmin || authStore.isStaff">
           <div class="flex items-center gap-2">
-              <label class="text-sm font-medium text-slate-700 min-w-[80px]">{{ t('common.seller') }}:</label>
-              <select v-model="selectedSeller" @change="fetchMovements" class="flex-1 h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <label class="text-sm font-medium text-foreground min-w-[80px]">{{ t('common.seller') }}:</label>
+              <select v-model="selectedSeller" @change="fetchMovements" class="flex-1 h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                   <option value="">{{ t('common.all_sellers') }}</option>
                   <option v-for="seller in sellers" :key="seller.id" :value="seller.id">{{ seller.name }}</option>
               </select>
@@ -18,51 +18,51 @@
       </div>
 
       <!-- Filter Row -->
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+      <div class="bg-card p-4 rounded-xl border border-border shadow-sm">
           <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4">
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.parent_product') }}</label>
-                  <select v-model="filterProduct" @change="fetchMovements" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.parent_product') }}</label>
+                  <select v-model="filterProduct" @change="fetchMovements" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all') }}</option>
                       <option v-for="product in products" :key="product.id" :value="product.id">{{ product.product_name }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.from_location') }}</label>
-                  <select v-model="filterFromLocation" @change="fetchMovements" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.from_location') }}</label>
+                  <select v-model="filterFromLocation" @change="fetchMovements" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all') }}</option>
                       <option v-for="location in locations" :key="location.id" :value="location.id">{{ location.name }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.to_location') }}</label>
-                  <select v-model="filterToLocation" @change="fetchMovements" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.to_location') }}</label>
+                  <select v-model="filterToLocation" @change="fetchMovements" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all') }}</option>
                       <option v-for="location in locations" :key="location.id" :value="location.id">{{ location.name }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.movement_type') }}</label>
-                  <select v-model="filterMovementType" @change="fetchMovements" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.movement_type') }}</label>
+                  <select v-model="filterMovementType" @change="fetchMovements" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all') }}</option>
                       <option v-for="type in movementTypes" :key="type.value" :value="type.value">{{ type.label }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.initiator') }}</label>
-                  <select v-model="filterInitiator" @change="fetchMovements" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.initiator') }}</label>
+                  <select v-model="filterInitiator" @change="fetchMovements" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all') }}</option>
                       <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.date_range') }}</label>
-                  <input type="date" v-model="filterDateFrom" @change="fetchMovements" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.date_range') }}</label>
+                  <input type="date" v-model="filterDateFrom" @change="fetchMovements" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground" />
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.search') }}</label>
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.search') }}</label>
                   <div class="relative">
-                      <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                      <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input :placeholder="t('common.search')" class="pl-9" v-model="searchQuery" @keyup.enter="fetchMovements" />
                   </div>
               </div>
@@ -70,19 +70,19 @@
       </div>
 
       <!-- Movements Table (Read-only) -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div v-if="loading" class="p-12 flex justify-center text-slate-500">
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+          <div v-if="loading" class="p-12 flex justify-center text-muted-foreground">
               <Loader2 class="w-6 h-6 animate-spin mr-2" />
               {{ t('courier.movements.loading') }}
           </div>
-          <div v-else-if="error" class="p-8 text-center text-red-500">{{ error }}</div>
-          <div v-else-if="movements.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
-              <Truck class="w-8 h-8 text-slate-300 mb-3" />
-              <h3 class="text-lg font-medium text-slate-900">{{ t('courier.movements.no_movements') }}</h3>
+          <div v-else-if="error" class="p-8 text-center text-destructive">{{ error }}</div>
+          <div v-else-if="movements.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-muted-foreground">
+              <Truck class="w-8 h-8 text-muted-foreground/50 mb-3" />
+              <h3 class="text-lg font-medium text-foreground">{{ t('courier.movements.no_movements') }}</h3>
           </div>
           <div v-else class="overflow-x-auto">
               <table class="w-full text-sm text-left">
-                  <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+                  <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                       <tr>
                           <th class="px-6 py-4 font-medium">{{ t('table.date') }}</th>
                           <th class="px-6 py-4 font-medium">{{ t('table.parent_product') }}</th>
@@ -94,28 +94,28 @@
                           <th class="px-6 py-4 font-medium">{{ t('table.initiator') }}</th>
                       </tr>
                   </thead>
-                  <tbody class="divide-y divide-slate-100">
-                      <tr v-for="movement in movements" :key="movement.id" class="hover:bg-slate-50/50 transition-colors">
-                          <td class="px-6 py-4 text-slate-900 text-xs">
+                  <tbody class="divide-y divide-border">
+                      <tr v-for="movement in movements" :key="movement.id" class="hover:bg-muted/50 transition-colors">
+                          <td class="px-6 py-4 text-foreground text-xs">
                               {{ formatDateTime(movement.occurred_at || movement.recorded_at) }}
                           </td>
-                          <td class="px-6 py-4 font-medium text-slate-900">
+                          <td class="px-6 py-4 font-medium text-foreground">
                               {{ movement.parent_product?.product_name || '—' }}
                           </td>
-                          <td class="px-6 py-4 text-slate-600">
+                          <td class="px-6 py-4 text-muted-foreground">
                               <div class="flex items-center gap-2">
-                                  <MapPin class="w-3 h-3 text-slate-400" />
+                                  <MapPin class="w-3 h-3 text-muted-foreground" />
                                   {{ movement.from_location?.name || '—' }}
                               </div>
                           </td>
-                          <td class="px-6 py-4 text-slate-600">
+                          <td class="px-6 py-4 text-muted-foreground">
                               <div class="flex items-center gap-2">
-                                  <MapPin class="w-3 h-3 text-slate-400" />
+                                  <MapPin class="w-3 h-3 text-muted-foreground" />
                                   {{ movement.to_location?.name || '—' }}
                               </div>
                           </td>
                           <td class="px-6 py-4">
-                              <span class="font-medium text-slate-900">{{ movement.quantity }}</span>
+                              <span class="font-medium text-foreground">{{ movement.quantity }}</span>
                           </td>
                           <td class="px-6 py-4">
                               <span 
@@ -125,11 +125,11 @@
                                   {{ movement.movement_type }}
                               </span>
                           </td>
-                          <td class="px-6 py-4 text-slate-600">
-                              <span v-if="movement.document_id" class="text-indigo-600 font-medium">#{{ movement.order_id }}</span>
-                              <span v-else class="text-slate-400">—</span>
+                          <td class="px-6 py-4 text-muted-foreground">
+                              <span v-if="movement.document_id" class="text-primary font-medium">#{{ movement.order_id }}</span>
+                              <span v-else class="text-muted-foreground">—</span>
                           </td>
-                          <td class="px-6 py-4 text-slate-600">
+                          <td class="px-6 py-4 text-muted-foreground">
                               {{ movement.initiator_id || '—' }}
                           </td>
                       </tr>
@@ -190,7 +190,7 @@ const fetchSellers = async () => {
 const fetchFilterOptions = async () => {
     try {
         // Use public endpoints for PUBLIC_USER
-        const isPublicUser = authStore.user?.role === 'PUBLIC_USER' || authStore.user?.role === 'public_user';
+        const isPublicUser = authStore.user?.role === 'public_user';
         const locationsEndpoint = isPublicUser ? '/locations/public' : '/locations';
         const movementTypesEndpoint = isPublicUser ? '/product-movement/movement-types/public' : '/product-movement/movement-types';
         
@@ -247,12 +247,12 @@ const formatDateTime = (date: string) => {
 
 const getMovementTypeClass = (type: string) => {
     const typeMap: Record<string, string> = {
-        TRANSFER: 'bg-blue-50 text-blue-700',
-        RETURN: 'bg-amber-50 text-amber-700',
-        ADJUSTMENT: 'bg-purple-50 text-purple-700',
-        STATUS_CHANGE: 'bg-green-50 text-green-700',
+        TRANSFER: 'bg-blue-500/10 text-blue-700 dark:text-blue-400',
+        RETURN: 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
+        ADJUSTMENT: 'bg-purple-500/10 text-purple-700 dark:text-purple-400',
+        STATUS_CHANGE: 'bg-green-500/10 text-green-700 dark:text-green-400',
     };
-    return typeMap[type] || 'bg-slate-100 text-slate-700';
+    return typeMap[type] || 'bg-muted text-muted-foreground';
 };
 
 onMounted(async () => {

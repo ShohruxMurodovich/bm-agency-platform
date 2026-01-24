@@ -23,10 +23,13 @@ export class AuthController {
     @Get('me')
     async getProfile(@Request() req: any) {
         // Fetch full user data from database instead of just returning JWT payload
-        const user = await this.authService.getUserById(req.user.userId);
+        let user = await this.authService.getUserById(req.user.userId);
         if (!user) {
             throw new UnauthorizedException('User not found');
         }
+
+        // Check and handle expired trial (this will downgrade if necessary)
+        user = await this.authService.checkAndHandleExpiredTrial(user);
 
         // Return user data without password hash
         const { password_hash, ...userData } = user;

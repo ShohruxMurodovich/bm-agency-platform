@@ -1,43 +1,43 @@
 <template>
   <div class="space-y-6 animate-fade-in">
        <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('settings.title') }}</h1>
-            <p class="text-sm text-slate-500 mt-1">{{ t('settings.subtitle') }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('settings.title') }}</h1>
+            <p class="text-sm text-muted-foreground mt-1">{{ t('settings.subtitle') }}</p>
        </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-              <h4 class="text-base font-semibold text-slate-900 mb-4 flex items-center">
+          <div class="bg-card rounded-xl border border-border shadow-sm p-6">
+              <h4 class="text-base font-semibold text-foreground mb-4 flex items-center">
                   <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
                   {{ t('settings.server_status') }}
               </h4>
               <div v-if="status" class="flex items-center justify-between">
-                  <span class="text-slate-500">{{ t('settings.api_gateway') }}</span>
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 capitalize">
+                  <span class="text-muted-foreground">{{ t('settings.api_gateway') }}</span>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 capitalize">
                       {{ status.status }}
                   </span>
               </div>
-              <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-sm">
-                  <span class="text-slate-500">{{ t('settings.database') }}</span>
-                  <span class="text-emerald-600 font-medium">{{ t('status.connected') }}</span>
+              <div class="mt-4 pt-4 border-t border-border flex items-center justify-between text-sm">
+                  <span class="text-muted-foreground">{{ t('settings.database') }}</span>
+                  <span class="text-emerald-600 dark:text-emerald-400 font-medium">{{ t('status.connected') }}</span>
               </div>
               <div class="mt-2 flex items-center justify-between text-sm">
-                  <span class="text-slate-500">{{ t('settings.latency') }}</span>
-                  <span class="text-slate-900 font-mono">12ms</span>
+                  <span class="text-muted-foreground">{{ t('settings.latency') }}</span>
+                  <span class="text-foreground font-mono">12ms</span>
               </div>
           </div>
 
-          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col h-96">
-               <h4 class="text-base font-semibold text-slate-900 mb-4">{{ t('settings.system_logs') }}</h4>
+          <div class="bg-card rounded-xl border border-border shadow-sm p-6 flex flex-col h-96">
+               <h4 class="text-base font-semibold text-foreground mb-4">{{ t('settings.system_logs') }}</h4>
                <div class="flex-1 overflow-y-auto space-y-3 pr-2">
                    <div v-for="log in logs" :key="log.id" class="text-sm border-l-2 pl-3 py-1" :class="getLogColor(log.type)">
-                       <div class="flex justify-between items-center text-xs text-slate-400 mb-1">
+                       <div class="flex justify-between items-center text-xs text-muted-foreground mb-1">
                            <span>{{ new Date(log.created_at).toLocaleTimeString() }}</span>
                            <span class="uppercase font-mono">{{ log.type }}</span>
                        </div>
-                       <p class="text-slate-700">{{ log.message }}</p>
+                       <p class="text-foreground/90">{{ log.message }}</p>
                    </div>
-                   <div v-if="logs.length === 0" class="text-slate-400 text-sm text-center py-10">
+                   <div v-if="logs.length === 0" class="text-muted-foreground text-sm text-center py-10">
                        {{ t('settings.no_logs') }}
                    </div>
                </div>
@@ -57,10 +57,10 @@ const logs = ref<any[]>([]);
 
 const getLogColor = (type: string) => {
     switch(type?.toUpperCase()) {
-        case 'ERROR': return 'border-rose-500 bg-rose-50/50';
-        case 'WARNING': return 'border-amber-500 bg-amber-50/50';
-        case 'SUCCESS': return 'border-emerald-500 bg-emerald-50/50';
-        default: return 'border-blue-500 bg-blue-50/50';
+        case 'ERROR': return 'border-rose-500 bg-rose-500/10';
+        case 'WARNING': return 'border-amber-500 bg-amber-500/10';
+        case 'SUCCESS': return 'border-emerald-500 bg-emerald-500/10';
+        default: return 'border-blue-500 bg-blue-500/10';
     }
 }
 

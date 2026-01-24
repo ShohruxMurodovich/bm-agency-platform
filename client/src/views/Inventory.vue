@@ -2,23 +2,23 @@
   <div class="space-y-6 animate-fade-in">
       <!-- Header -->
       <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('inventory.title') }}</h1>
-        <p class="text-sm text-slate-500 mt-1">{{ t('inventory.subtitle') }}</p>
+        <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('inventory.title') }}</h1>
+        <p class="text-sm text-muted-foreground mt-1">{{ t('inventory.subtitle') }}</p>
       </div>
 
       <!-- Header Filters (Context) -->
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm" v-if="authStore.isAdmin || authStore.isStaff">
+      <div class="bg-card p-4 rounded-xl border border-border shadow-sm" v-if="authStore.isAdmin || authStore.isStaff">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="flex items-center gap-2">
-                  <label class="text-sm font-medium text-slate-700 min-w-[80px]">{{ t('common.seller') }}:</label>
-                  <select v-model="selectedSeller" @change="fetchInventory" class="flex-1 h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-sm font-medium text-foreground min-w-[80px]">{{ t('common.seller') }}:</label>
+                  <select v-model="selectedSeller" @change="fetchInventory" class="flex-1 h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all_sellers') }}</option>
                       <option v-for="seller in sellers" :key="seller.id" :value="seller.id">{{ seller.name }}</option>
                   </select>
               </div>
               <div class="flex items-center gap-2">
-                  <label class="text-sm font-medium text-slate-700 min-w-[80px]">{{ t('common.store') }}:</label>
-                  <select v-model="selectedStore" @change="fetchInventory" class="flex-1 h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-sm font-medium text-foreground min-w-[80px]">{{ t('common.store') }}:</label>
+                  <select v-model="selectedStore" @change="fetchInventory" class="flex-1 h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all_stores') }}</option>
                       <option v-for="store in stores" :key="store.id" :value="store.id">{{ store.store_name }}</option>
                   </select>
@@ -27,18 +27,18 @@
       </div>
 
       <!-- Filter Row -->
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+      <div class="bg-card p-4 rounded-xl border border-border shadow-sm">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.product') }}</label>
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.product') }}</label>
                   <div class="relative">
-                      <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                      <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input :placeholder="t('common.search_products')" class="pl-9" v-model="productSearch" @keyup.enter="fetchInventory" />
                   </div>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.stock_status') }}</label>
-                  <select v-model="stockStatus" @change="fetchInventory" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.stock_status') }}</label>
+                  <select v-model="stockStatus" @change="fetchInventory" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all') }}</option>
                       <option value="in_stock">{{ t('inventory.in_stock') }}</option>
                       <option value="low_stock">{{ t('inventory.low_stock') }}</option>
@@ -49,18 +49,18 @@
       </div>
 
       <!-- Inventory Table -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div v-if="loading" class="p-12 flex justify-center text-slate-500">
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+          <div v-if="loading" class="p-12 flex justify-center text-muted-foreground">
               <Loader2 class="w-6 h-6 animate-spin mr-2" />
               {{ t('inventory.loading') }}
           </div>
-          <div v-else-if="error" class="p-8 text-center text-red-500">{{ error }}</div>
-          <div v-else-if="inventory.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
-              <Package class="w-8 h-8 text-slate-300 mb-3" />
-              <h3 class="text-lg font-medium text-slate-900">{{ t('inventory.no_items') }}</h3>
+          <div v-else-if="error" class="p-8 text-center text-destructive">{{ error }}</div>
+          <div v-else-if="inventory.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-muted-foreground">
+              <Package class="w-8 h-8 text-muted-foreground/50 mb-3" />
+              <h3 class="text-lg font-medium text-foreground">{{ t('inventory.no_items') }}</h3>
           </div>
           <table v-else class="w-full text-sm text-left">
-              <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+              <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                   <tr>
                       <th class="px-6 py-4 font-medium">{{ t('table.product_name') }}</th>
                       <th class="px-6 py-4 font-medium">{{ t('table.seller') }}</th>
@@ -68,12 +68,12 @@
                       <th class="px-6 py-4 font-medium">{{ t('table.last_updated') }}</th>
                   </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100">
-                  <tr v-for="item in inventory" :key="item.id" class="hover:bg-slate-50/50 transition-colors">
-                      <td class="px-6 py-4 font-medium text-slate-900">
+              <tbody class="divide-y divide-border">
+                  <tr v-for="item in inventory" :key="item.id" class="hover:bg-muted/50 transition-colors">
+                      <td class="px-6 py-4 font-medium text-foreground">
                           {{ item.parent_product?.product_name || '—' }}
                       </td>
-                      <td class="px-6 py-4 text-slate-600">
+                      <td class="px-6 py-4 text-muted-foreground">
                           {{ item.seller?.name || '—' }}
                       </td>
                       <td class="px-6 py-4">
@@ -85,13 +85,13 @@
                                 @keyup.enter="saveStock(item)"
                                 @keyup.esc="cancelEdit"
                                 min="0"
-                                class="w-24 h-8 px-2 py-1 border border-indigo-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                                class="w-24 h-8 px-2 py-1 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring text-sm bg-background text-foreground"
                                 ref="stockInput"
                               />
-                              <button @click="saveStock(item)" class="p-1 hover:bg-green-50 rounded text-green-600">
+                              <button @click="saveStock(item)" class="p-1 hover:bg-green-500/10 rounded text-green-600 dark:text-green-400">
                                   <Check class="w-4 h-4" />
                               </button>
-                              <button @click="cancelEdit" class="p-1 hover:bg-red-50 rounded text-red-600">
+                              <button @click="cancelEdit" class="p-1 hover:bg-red-500/10 rounded text-red-600 dark:text-red-400">
                                   <X class="w-4 h-4" />
                               </button>
                           </div>
@@ -102,10 +102,10 @@
                               >
                                   {{ item.parent_product?.stock || 0 }} units
                               </span>
-                              <Pencil class="w-3 h-3 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                              <Pencil class="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                           </div>
                       </td>
-                      <td class="px-6 py-4 text-slate-500 text-xs">
+                      <td class="px-6 py-4 text-muted-foreground text-xs">
                           {{ item.updated_at ? formatDate(item.updated_at) : '—' }}
                       </td>
                   </tr>
@@ -250,9 +250,9 @@ const formatDate = (date: string) => {
 };
 
 const getStockClass = (stock: number) => {
-    if (stock === 0) return 'bg-red-100 text-red-800';
-    if (stock < 10) return 'bg-amber-100 text-amber-800';
-    return 'bg-green-100 text-green-800';
+    if (stock === 0) return 'bg-red-500/10 text-red-800 dark:text-red-400';
+    if (stock < 10) return 'bg-amber-500/10 text-amber-800 dark:text-amber-400';
+    return 'bg-green-500/10 text-green-800 dark:text-green-400';
 };
 
 onMounted(async () => {

@@ -2,21 +2,21 @@
   <div class="space-y-6 animate-fade-in">
       <!-- Header -->
       <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-3">
+        <h1 class="text-2xl font-bold tracking-tight text-foreground flex items-center gap-3">
           {{ t('courier.states.title') }}
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground border border-border">
             <Lock class="w-3 h-3 mr-1" />
             Read-Only
           </span>
         </h1>
-        <p class="text-sm text-slate-500 mt-1">{{ t('courier.states.subtitle') }}</p>
+        <p class="text-sm text-muted-foreground mt-1">{{ t('courier.states.subtitle') }}</p>
       </div>
 
       <!-- Header Filter: Seller ONLY -->
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm" v-if="authStore.isAdmin || authStore.isStaff">
+      <div class="bg-card p-4 rounded-xl border border-border shadow-sm" v-if="authStore.isAdmin || authStore.isStaff">
           <div class="flex items-center gap-2">
-              <label class="text-sm font-medium text-slate-700 min-w-[80px]">{{ t('common.seller') }}:</label>
-              <select v-model="selectedSeller" @change="fetchProductStates" class="flex-1 h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <label class="text-sm font-medium text-foreground min-w-[80px]">{{ t('common.seller') }}:</label>
+              <select v-model="selectedSeller" @change="fetchProductStates" class="flex-1 h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                   <option value="">{{ t('common.all_sellers') }}</option>
                   <option v-for="seller in sellers" :key="seller.id" :value="seller.id">{{ seller.name }}</option>
               </select>
@@ -24,33 +24,33 @@
       </div>
 
       <!-- Filter Row -->
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+      <div class="bg-card p-4 rounded-xl border border-border shadow-sm">
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.parent_product') }}</label>
-                  <select v-model="filterProduct" @change="fetchProductStates" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.parent_product') }}</label>
+                  <select v-model="filterProduct" @change="fetchProductStates" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all_products') }}</option>
                       <option v-for="product in products" :key="product.id" :value="product.id">{{ product.product_name }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.location') }}</label>
-                  <select v-model="filterLocation" @change="fetchProductStates" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.location') }}</label>
+                  <select v-model="filterLocation" @change="fetchProductStates" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all_locations') }}</option>
                       <option v-for="location in locations" :key="location.id" :value="location.id">{{ location.name }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.business_status') }}</label>
-                  <select v-model="filterBusinessStatus" @change="fetchProductStates" class="h-10 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.business_status') }}</label>
+                  <select v-model="filterBusinessStatus" @change="fetchProductStates" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all_statuses') }}</option>
                       <option v-for="status in businessStatuses" :key="status.id" :value="status.id">{{ status.name }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">
-                  <label class="text-xs font-medium text-slate-600">{{ t('common.search') }}</label>
+                  <label class="text-xs font-medium text-muted-foreground">{{ t('common.search') }}</label>
                   <div class="relative">
-                      <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                      <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input :placeholder="t('common.search')" class="pl-9" v-model="searchQuery" @keyup.enter="fetchProductStates" />
                   </div>
               </div>
@@ -58,45 +58,45 @@
       </div>
 
       <!-- Grouped/Expandable Product States -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div v-if="loading" class="p-12 flex justify-center text-slate-500">
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+          <div v-if="loading" class="p-12 flex justify-center text-muted-foreground">
               <Loader2 class="w-6 h-6 animate-spin mr-2" />
               {{ t('courier.states.loading') }}
           </div>
-          <div v-else-if="error" class="p-8 text-center text-red-500">{{ error }}</div>
-          <div v-else-if="groupedStates.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
-              <Package class="w-8 h-8 text-slate-300 mb-3" />
-              <h3 class="text-lg font-medium text-slate-900">{{ t('courier.states.no_states') }}</h3>
+          <div v-else-if="error" class="p-8 text-center text-destructive">{{ error }}</div>
+          <div v-else-if="groupedStates.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-muted-foreground">
+              <Package class="w-8 h-8 text-muted-foreground/50 mb-3" />
+              <h3 class="text-lg font-medium text-foreground">{{ t('courier.states.no_states') }}</h3>
           </div>
-          <div v-else class="divide-y divide-slate-100">
+          <div v-else class="divide-y divide-border">
               <!-- Main Row: Parent Product -->
-              <div v-for="group in groupedStates" :key="group.product_id" class="hover:bg-slate-50/50 transition-colors">
+              <div v-for="group in groupedStates" :key="group.product_id" class="hover:bg-muted/50 transition-colors">
                   <div class="flex items-center px-6 py-4 cursor-pointer" @click="toggleGroup(group.product_id)">
                       <div class="flex-1 flex items-center gap-4">
                           <div class="flex-1">
-                              <div class="font-medium text-slate-900">{{ group.product_name }}</div>
-                              <div class="text-xs text-slate-500 mt-0.5">{{ t('courier.states.product_code') }}: {{ group.product_id }}</div>
+                              <div class="font-medium text-foreground">{{ group.product_name }}</div>
+                              <div class="text-xs text-muted-foreground mt-0.5">{{ t('courier.states.product_code') }}: {{ group.product_id }}</div>
                           </div>
                           <div class="flex items-center gap-2">
-                              <span class="text-sm text-slate-500">{{ t('courier.states.total_quantity') }}:</span>
-                              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-indigo-50 text-indigo-700">
+                              <span class="text-sm text-muted-foreground">{{ t('courier.states.total_quantity') }}:</span>
+                              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-primary/10 text-primary">
                                   {{ group.total_quantity }}
                               </span>
                           </div>
                       </div>
-                      <button class="ml-4 p-2 hover:bg-slate-100 rounded-lg transition-colors">
+                      <button class="ml-4 p-2 hover:bg-muted rounded-lg transition-colors">
                           <ChevronDown 
                             :class="{ 'rotate-180': expandedGroups.has(group.product_id) }" 
-                            class="w-5 h-5 text-slate-400 transition-transform duration-200" 
+                            class="w-5 h-5 text-muted-foreground transition-transform duration-200" 
                           />
                       </button>
                   </div>
 
                   <!-- Expanded Rows: State Details -->
-                  <div v-if="expandedGroups.has(group.product_id)" class="bg-slate-50/50 px-6 py-4 border-t border-slate-100">
-                      <div class="bg-white rounded-lg overflow-hidden border border-slate-200">
+                  <div v-if="expandedGroups.has(group.product_id)" class="bg-muted/30 px-6 py-4 border-t border-border">
+                      <div class="bg-card rounded-lg overflow-hidden border border-border">
                           <table class="w-full text-sm">
-                              <thead class="bg-slate-50 text-xs text-slate-500 uppercase">
+                              <thead class="bg-muted/50 text-xs text-muted-foreground uppercase">
                                   <tr>
                                       <th class="px-4 py-3 text-left font-medium">{{ t('common.location') }}</th>
                                       <th class="px-4 py-3 text-left font-medium">{{ t('common.business_status') }}</th>
@@ -104,23 +104,23 @@
                                       <th class="px-4 py-3 text-left font-medium">{{ t('table.last_updated') }}</th>
                                   </tr>
                               </thead>
-                              <tbody class="divide-y divide-slate-100">
-                                  <tr v-for="state in group.states" :key="state.id" class="hover:bg-slate-50">
-                                      <td class="px-4 py-3 text-slate-900">
+                              <tbody class="divide-y divide-border">
+                                  <tr v-for="state in group.states" :key="state.id" class="hover:bg-muted/50">
+                                      <td class="px-4 py-3 text-foreground">
                                           <div class="flex items-center gap-2">
-                                              <MapPin class="w-4 h-4 text-slate-400" />
+                                              <MapPin class="w-4 h-4 text-muted-foreground" />
                                               {{ state.location_name }}
                                           </div>
                                       </td>
                                       <td class="px-4 py-3">
-                                          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 capitalize">
+                                          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-700 dark:text-blue-400 capitalize">
                                               {{ state.business_status_name }}
                                           </span>
                                       </td>
                                       <td class="px-4 py-3">
-                                          <span class="font-medium text-slate-900">{{ state.quantity }}</span>
+                                          <span class="font-medium text-foreground">{{ state.quantity }}</span>
                                       </td>
-                                      <td class="px-4 py-3 text-slate-500 text-xs">
+                                      <td class="px-4 py-3 text-muted-foreground text-xs">
                                           {{ state.updated_at ? formatDate(state.updated_at) : '—' }}
                                       </td>
                                   </tr>
@@ -183,7 +183,7 @@ const fetchSellers = async () => {
 const fetchFilterOptions = async () => {
     try {
         // Use public endpoints for PUBLIC_USER
-        const isPublicUser = authStore.user?.role === 'PUBLIC_USER' || authStore.user?.role === 'public_user';
+        const isPublicUser = authStore.user?.role === 'public_user';
         const locationsEndpoint = isPublicUser ? '/locations/public' : '/locations';
         const statusesEndpoint = isPublicUser ? '/business-statuses/public' : '/business-statuses';
         

@@ -1,4 +1,37 @@
 {
+    "table": {
+        "product": "Product",
+        "product_name": "Name",
+        "seller": "Seller",
+        "cost": "Cost",
+        "cost_usd": "Cost (USD)",
+        "cost_uzs": "Cost (UZS)",
+        "stock": "Stock",
+        "linked": "Linked",
+        "created": "Created",
+        "image": "Image",
+        "title": "Title",
+        "sku_id": "SKU ID",
+        "sku_name": "SKU Name",
+        "price": "Price",
+        "has_parent": "Has Parent",
+        "available": "Available",
+        "returning": "Returning (Qty)",
+        "accept_qty": "Accept (Qty)",
+        "requested": "Requested",
+        "action": "Action",
+        "date": "Date",
+        "parent_product": "Parent Product",
+        "from_location": "From",
+        "to_location": "To",
+        "quantity": "Quantity",
+        "movement_type": "Movement Type",
+        "order_id": "Order ID",
+        "initiator": "Initiator",
+        "last_updated": "Updated",
+        "status": "Status",
+        "store": "Store"
+    },
     "common": {
         "dashboard": "Dashboard",
         "orders": "Orders",
@@ -42,7 +75,45 @@
         "added_count": "Added {count} items",
         "search": "Search",
         "vs_last_month": "vs last month",
-        "vs_last_week": "vs last week"
+        "vs_last_week": "vs last week",
+        "all": "All",
+        "clear_filters": "Clear Filters",
+        "from": "From",
+        "to": "To",
+        "close": "Close",
+        "previous": "Previous",
+        "next": "Next",
+        "showing": "Showing",
+        "of": "of",
+        "actions": "Actions",
+        "seller": "Seller",
+        "store": "Store",
+        "all_sellers": "All Sellers",
+        "all_stores": "All Stores",
+        "status": "Status",
+        "date_from": "Date From",
+        "date_to": "Date To",
+        "product": "Product",
+        "search_by_sku_title": "Search by SKU or name...",
+        "all_statuses": "All Statuses",
+        "parent_product": "Parent Product",
+        "all_products": "All Products",
+        "location": "Location",
+        "all_locations": "All Locations",
+        "business_status": "Business Status",
+        "from_location": "From (Location)",
+        "to_location": "To (Location)",
+        "movement_type": "Movement Type",
+        "initiator": "Initiator",
+        "date_range": "Date Range",
+        "stock_status": "Stock Status",
+        "yes": "Yes",
+        "no": "No",
+        "confirm_delete": "Confirm Delete",
+        "select_seller": "Select Seller",
+        "search_stores": "Search stores...",
+        "search_marketplace_products": "Search marketplace products...",
+        "no_marketplace_products_found": "No marketplace products found"
     },
     "menu": {
         "dashboard": "Dashboard",
@@ -101,6 +172,9 @@
             "pending_orders": "Pending Orders",
             "returns": "Returns",
             "total_products": "Total Products",
+            "total_sellers": "Total Sellers",
+            "total_stores": "Total Stores",
+            "staff_members": "Staff Members",
             "active_sellers": "Active Sellers",
             "pending_pickups": "Pending Pickups",
             "active_deliveries": "Active Deliveries",
@@ -114,11 +188,16 @@
             "recent_activity_subtitle": "Your latest pickup and delivery tasks",
             "quick_actions": "Quick Actions",
             "quick_actions_subtitle": "Common tasks for your role",
-            "platform_health": "Platform Health"
+            "platform_health": "Platform Health",
+            "recent_movements": "Recent Movements",
+            "daily_orders_chart": "Daily Orders Chart",
+            "daily_orders_subtitle": "History of order amounts by day"
         },
         "actions": {
             "view_all_tasks": "View All Tasks",
-            "view_all_orders": "View All Orders"
+            "view_all_orders": "View All Orders",
+            "view_all_movements": "View All Movements",
+            "view_full_analysis": "View Full Analysis"
         },
         "quick_actions": {
             "add_product": "Add New Product",
@@ -133,13 +212,18 @@
             "item": "Item/Task",
             "status": "Status",
             "amount": "Amount",
-            "from": "From"
+            "from": "From",
+            "store": "Store"
         }
     },
     "products": {
         "title": "Parent Products",
         "subtitle": "Manage your internal product catalog",
         "add": "Add Product",
+        "tabs": {
+            "parent_products": "Parent Products",
+            "marketplace_products": "Marketplace Products"
+        },
         "loading": "Loading catalog...",
         "empty_start": "Get started by adding a new product to your catalog.",
         "new_title": "New Parent Product",
@@ -239,7 +323,7 @@
         "server_status": "Server Status",
         "api_gateway": "API Gateway",
         "database": "Database",
-        "latency": "Latency",
+        "latency": "Ping",
         "system_logs": "System Logs",
         "no_logs": "No logs available."
     },
@@ -256,7 +340,7 @@
         "store_limit_reached": "You've reached your store limit!",
         "upgrade_now": "Upgrade Now",
         "available_plans": "Available Plans",
-        "most_popular": "Most Popular",
+        "most_popular": "Best Choice",
         "per_month": "/month",
         "upgrade": "Upgrade",
         "contact_sales": "Contact Sales",
@@ -357,6 +441,8 @@
             "owner": "Owner",
             "actions": "Actions"
         },
+        "loading": "Loading stores...",
+        "no_stores": "No stores found",
         "dialog": {
             "connect_title": "Connect Store",
             "edit_title": "Edit Store",
@@ -532,6 +618,17 @@
             "ago": "ago",
             "yesterday": "Yesterday"
         }
+    },
+    "onboarding": {
+        "welcome_title": "Welcome to BM Agency Platform! 🎉",
+        "welcome_subtitle": "Let's get you started with your multi-marketplace management",
+        "step1_title": "1. Connect Your Store",
+        "step1_desc": "Link your first marketplace account",
+        "step2_title": "2. Create Products",
+        "step2_desc": "Build your unified product catalog",
+        "step3_title": "3. Map to SKUs",
+        "step3_desc": "Link marketplace products to parent items",
+        "dismiss": "Dismiss"
     },
     "analytics": {
         "title": "Analytics Dashboard",

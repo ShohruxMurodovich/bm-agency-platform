@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Seller } from './seller.entity';
 import { UsersService } from '../users/users.service';
 import { UserRole } from '../users/user.entity';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class SellersService {
@@ -49,9 +50,12 @@ export class SellersService {
             if (existingUser) {
                 userId = existingUser.id;
             } else {
+                // Hash the password before creating the user
+                const password_hash = await bcrypt.hash(sellerData.password, 10);
+
                 const newUser = await this.usersService.create({
                     email: sellerData.email,
-                    password_hash: sellerData.password,
+                    password_hash,
                     name: sellerData.name,
                     role: UserRole.SELLER
                 });

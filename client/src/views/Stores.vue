@@ -2,10 +2,10 @@
   <div class="space-y-6 animate-fade-in">
        <div class="flex justify-between items-center">
           <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('stores.title') }}</h1>
-            <p class="text-sm text-slate-500 mt-1">{{ t('stores.subtitle') }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('stores.title') }}</h1>
+            <p class="text-sm text-muted-foreground mt-1">{{ t('stores.subtitle') }}</p>
             <!-- Store count indicator for PUBLIC_USER -->
-            <p v-if="authStore.user?.role === 'public_user' && storeLimit" class="text-xs text-slate-600 mt-2">
+            <p v-if="authStore.user?.role === 'public_user' && storeLimit" class="text-xs text-muted-foreground mt-2">
               <span :class="storeLimit.current >= storeLimit.max ? 'text-red-600 font-semibold' : ''">{{ storeLimit.current }}/{{ storeLimit.max }}</span> stores connected
             </p>
           </div>
@@ -15,9 +15,9 @@
       </div>
 
       <!-- Search Field (Mandatory) -->
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-4">
+      <div class="bg-card p-4 rounded-xl border border-border shadow-sm flex gap-4">
           <div class="relative flex-1">
-              <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+              <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input :placeholder="t('common.search_stores')" class="pl-9" v-model="searchQuery" @keyup.enter="fetchStores" />
           </div>
           <Button class="w-auto" @click="fetchStores">
@@ -27,17 +27,17 @@
       </div>
 
       <!-- Stores Table -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div v-if="loading" class="p-12 flex justify-center text-slate-500">
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+          <div v-if="loading" class="p-12 flex justify-center text-muted-foreground">
               <Loader2 class="w-6 h-6 animate-spin mr-2" />
               {{ t('stores.loading') }}
           </div>
-          <div v-else-if="stores.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
-              <Store class="w-8 h-8 text-slate-300 mb-3" />
-              <h3 class="text-lg font-medium text-slate-900">{{ t('stores.no_stores') }}</h3>
+          <div v-else-if="stores.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-muted-foreground">
+              <Store class="w-8 h-8 text-muted-foreground/50 mb-3" />
+              <h3 class="text-lg font-medium text-foreground">{{ t('stores.no_stores') }}</h3>
           </div>
           <table v-else class="w-full text-sm text-left">
-              <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+              <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                   <tr>
                       <th class="px-6 py-4 font-medium">{{ t('stores.table.name') }}</th>
                       <th class="px-6 py-4 font-medium">{{ t('stores.table.seller') }}</th>
@@ -48,42 +48,42 @@
                       <th class="px-6 py-4 font-medium text-right">{{ t('stores.table.actions') }}</th>
                   </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100">
-                  <tr v-for="store in stores" :key="store.id" class="hover:bg-slate-50/50 transition-colors">
-                      <td class="px-6 py-4 font-medium text-slate-900">
+              <tbody class="divide-y divide-border">
+                  <tr v-for="store in stores" :key="store.id" class="hover:bg-muted/50 transition-colors">
+                      <td class="px-6 py-4 font-medium text-foreground">
                           {{ store.name || store.store_name }}
                       </td>
-                      <td class="px-6 py-4 text-slate-600">
+                      <td class="px-6 py-4 text-muted-foreground">
                           {{ store.seller?.name || store.user?.name || '—' }}
                       </td>
                       <td class="px-6 py-4">
-                          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200 uppercase">
+                          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground border border-border uppercase">
                               {{ store.marketplace?.name || store.marketplace }}
                           </span>
                       </td>
-                      <td class="px-6 py-4 text-slate-600 font-mono text-xs">
+                      <td class="px-6 py-4 text-muted-foreground font-mono text-xs">
                           {{ store.external_store_id || '—' }}
                       </td>
                       <td class="px-6 py-4">
                           <span 
-                            :class="store.connection_status === 'connected' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'" 
+                            :class="store.connection_status === 'connected' ? 'bg-green-500/10 text-green-700 dark:text-green-400' : 'bg-red-500/10 text-red-700 dark:text-red-400'" 
                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
                           >
                               <span class="w-1.5 h-1.5 rounded-full mr-1.5" :class="store.connection_status === 'connected' ? 'bg-green-500' : 'bg-red-500'"></span>
                               {{ store.connection_status || 'disconnected' }}
                           </span>
                       </td>
-                      <td class="px-6 py-4 text-slate-500 text-xs">
+                      <td class="px-6 py-4 text-muted-foreground text-xs">
                           {{ store.last_sync_at ? formatDate(store.last_sync_at) : '—' }}
                       </td>
                        <td class="px-6 py-4 text-right space-x-2">
                           <Button variant="ghost" size="icon" @click="openViewModal(store)" :title="t('common.view')">
-                              <Eye class="w-4 h-4 text-slate-500" />
+                              <Eye class="w-4 h-4 text-muted-foreground" />
                           </Button>
                           <Button variant="ghost" size="icon" @click="openEditModal(store)" v-if="authStore.isAdmin">
-                              <Pencil class="w-4 h-4 text-slate-500" />
+                              <Pencil class="w-4 h-4 text-muted-foreground" />
                           </Button>
-                          <Button variant="ghost" size="icon" @click="deleteStore(store.id)" class="text-red-600 hover:text-red-700 hover:bg-red-50" v-if="authStore.isAdmin">
+                          <Button variant="ghost" size="icon" @click="deleteStore(store.id)" class="text-destructive hover:text-destructive hover:bg-destructive/10" v-if="authStore.isAdmin">
                               <Trash2 class="w-4 h-4" />
                           </Button>
                       </td>
@@ -102,23 +102,23 @@
       >
           <div class="space-y-4" v-if="viewingStore">
               <div class="grid grid-cols-2 gap-2 text-sm">
-                  <div class="text-slate-500">{{ t('stores.table.name') }}:</div>
-                  <div class="font-medium text-slate-900">{{ viewingStore.store_name }}</div>
+                  <div class="text-muted-foreground">{{ t('stores.table.name') }}:</div>
+                  <div class="font-medium text-foreground">{{ viewingStore.store_name }}</div>
                   
-                  <div class="text-slate-500">{{ t('stores.table.marketplace') }}:</div>
-                  <div class="font-medium text-slate-900">{{ viewingStore.marketplace }}</div>
+                  <div class="text-muted-foreground">{{ t('stores.table.marketplace') }}:</div>
+                  <div class="font-medium text-foreground">{{ viewingStore.marketplace }}</div>
                   
-                  <div class="text-slate-500">{{ t('stores.table.external_id') }}:</div>
-                  <div class="font-medium text-slate-900 font-mono text-xs">{{ viewingStore.external_store_id }}</div>
+                  <div class="text-muted-foreground">{{ t('stores.table.external_id') }}:</div>
+                  <div class="font-medium text-foreground font-mono text-xs">{{ viewingStore.external_store_id }}</div>
                   
-                  <div class="text-slate-500">{{ t('stores.table.seller') }}:</div>
-                  <div class="font-medium text-slate-900">{{ viewingStore.seller?.name || viewingStore.user?.name || '—' }}</div>
+                  <div class="text-muted-foreground">{{ t('stores.table.seller') }}:</div>
+                  <div class="font-medium text-foreground">{{ viewingStore.seller?.name || viewingStore.user?.name || '—' }}</div>
                   
-                  <div class="text-slate-500">{{ t('stores.table.connection_status') }}:</div>
-                  <div class="font-medium capitalize">{{ viewingStore.connection_status || 'disconnected' }}</div>
+                  <div class="text-muted-foreground">{{ t('stores.table.connection_status') }}:</div>
+                  <div class="font-medium capitalize text-foreground">{{ viewingStore.connection_status || 'disconnected' }}</div>
                   
-                  <div class="text-slate-500">{{ t('stores.table.last_sync') }}:</div>
-                  <div class="font-medium">{{ viewingStore.last_sync_at ? formatDate(viewingStore.last_sync_at) : '—' }}</div>
+                  <div class="text-muted-foreground">{{ t('stores.table.last_sync') }}:</div>
+                  <div class="font-medium text-foreground">{{ viewingStore.last_sync_at ? formatDate(viewingStore.last_sync_at) : '—' }}</div>
               </div>
           </div>
       </Dialog>
@@ -133,8 +133,8 @@
       >
           <div class="space-y-4">
               <div class="space-y-1">
-                  <label class="text-sm font-medium text-slate-700">{{ t('stores.dialog.marketplace_label') }}</label>
-                  <select v-model="formData.marketplace" class="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-sm font-medium text-foreground">{{ t('stores.dialog.marketplace_label') }}</label>
+                  <select v-model="formData.marketplace" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="uzum">Uzum Market</option>
                       <option value="yandex">Yandex.Market GO</option>
                       <option value="wb">Wildberries</option>
@@ -143,23 +143,23 @@
                   </select>
               </div>
               <div class="space-y-1">
-                  <label class="text-sm font-medium text-slate-700">{{ t('stores.dialog.name_label') }}</label>
+                  <label class="text-sm font-medium text-foreground">{{ t('stores.dialog.name_label') }}</label>
                   <Input v-model="formData.store_name" :placeholder="t('stores.dialog.name_placeholder')" />
               </div>
               <div class="space-y-1">
-                  <label class="text-sm font-medium text-slate-700">{{ t('stores.dialog.external_id_label') }}</label>
+                  <label class="text-sm font-medium text-foreground">{{ t('stores.dialog.external_id_label') }}</label>
                   <Input v-model="formData.external_store_id" :placeholder="t('stores.dialog.external_id_placeholder')" />
               </div>
               <div class="space-y-1" v-if="authStore.isAdmin">
-                  <label class="text-sm font-medium text-slate-700">{{ t('stores.dialog.seller_label') }}</label>
-                  <select v-model="formData.seller_id" class="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-sm font-medium text-foreground">{{ t('stores.dialog.seller_label') }}</label>
+                  <select v-model="formData.seller_id" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.select_seller') }}</option>
                       <option v-for="seller in sellers" :key="seller.id" :value="seller.id">{{ seller.name }}</option>
                   </select>
               </div>
               <!-- API Credentials Field -->
               <div class="space-y-1">
-                  <label class="text-sm font-medium text-slate-700">API Token/Credentials</label>
+                  <label class="text-sm font-medium text-foreground">API Token/Credentials</label>
                   <Input v-model="formData.api_token" placeholder="Enter API token or credentials" type="password" />
               </div>
               <!-- Test Connection Button -->
@@ -174,7 +174,7 @@
                     {{ testingConnection ? 'Testing...' : 'Test Connection' }}
                   </Button>
               </div>
-              <div v-if="connectionTestResult" class="p-3 rounded-md" :class="connectionTestResult.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'">
+              <div v-if="connectionTestResult" class="p-3 rounded-md" :class="connectionTestResult.success ? 'bg-green-500/10 text-green-800 dark:text-green-300' : 'bg-red-500/10 text-red-800 dark:text-red-300'">
                 <p class="text-sm">{{ connectionTestResult.message }}</p>
               </div>
           </div>
@@ -191,24 +191,24 @@
       >
           <div class="space-y-4">
               <div class="grid grid-cols-3 gap-4">
-                  <div class="border rounded-lg p-4">
-                      <h3 class="font-semibold mb-2">FREE</h3>
-                      <p class="text-2xl font-bold mb-2">$0</p>
-                      <p class="text-sm text-slate-600 mb-3">2 stores max</p>
-                      <p class="text-xs text-slate-500">Basic features</p>
+                  <div class="border border-border rounded-lg p-4 bg-card">
+                      <h3 class="font-semibold mb-2 text-foreground">FREE</h3>
+                      <p class="text-2xl font-bold mb-2 text-foreground">$0</p>
+                      <p class="text-sm text-muted-foreground mb-3">2 stores max</p>
+                      <p class="text-xs text-muted-foreground">Basic features</p>
                   </div>
-                  <div class="border-2 border-indigo-500 rounded-lg p-4 relative">
-                      <span class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-indigo-500 text-white text-xs px-2 py-1 rounded">RECOMMENDED</span>
-                      <h3 class="font-semibold mb-2">STARTER</h3>
-                      <p class="text-2xl font-bold mb-2">$29</p>
-                      <p class="text-sm text-slate-600 mb-3">5 stores max</p>
-                      <p class="text-xs text-slate-500">All features</p>
+                  <div class="border-2 border-primary rounded-lg p-4 relative bg-card">
+                      <span class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">RECOMMENDED</span>
+                      <h3 class="font-semibold mb-2 text-foreground">STARTER</h3>
+                      <p class="text-2xl font-bold mb-2 text-foreground">$29</p>
+                      <p class="text-sm text-muted-foreground mb-3">5 stores max</p>
+                      <p class="text-xs text-muted-foreground">All features</p>
                   </div>
-                  <div class="border rounded-lg p-4">
-                      <h3 class="font-semibold mb-2">PREMIUM</h3>
-                      <p class="text-2xl font-bold mb-2">$99</p>
-                      <p class="text-sm text-slate-600 mb-3">Unlimited stores</p>
-                      <p class="text-xs text-slate-500">Priority support</p>
+                  <div class="border border-border rounded-lg p-4 bg-card">
+                      <h3 class="font-semibold mb-2 text-foreground">PREMIUM</h3>
+                      <p class="text-2xl font-bold mb-2 text-foreground">$99</p>
+                      <p class="text-sm text-muted-foreground mb-3">Unlimited stores</p>
+                      <p class="text-xs text-muted-foreground">Priority support</p>
                   </div>
               </div>
           </div>

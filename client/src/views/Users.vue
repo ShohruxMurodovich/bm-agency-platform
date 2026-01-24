@@ -2,17 +2,17 @@
   <div class="space-y-6 animate-fade-in">
        <div class="flex justify-between items-center">
           <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('users.title') }}</h1>
-            <p class="text-sm text-slate-500 mt-1">{{ t('users.subtitle') }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('users.title') }}</h1>
+            <p class="text-sm text-muted-foreground mt-1">{{ t('users.subtitle') }}</p>
           </div>
           <Button @click="openDialog()">
                {{ t('users.invite') }}
           </Button>
       </div>
 
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
           <table class="w-full text-sm text-left">
-              <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+              <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                   <tr>
                       <th class="px-6 py-4 font-medium">{{ t('users.table.user') }}</th>
                       <th class="px-6 py-4 font-medium">{{ t('users.table.role') }}</th>
@@ -20,32 +20,32 @@
                       <th class="px-6 py-4 font-medium text-right">{{ t('users.table.actions') }}</th>
                   </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100">
-                  <tr v-for="user in users" :key="user.id" class="hover:bg-slate-50/50 transition-colors">
+              <tbody class="divide-y divide-border">
+                  <tr v-for="user in users" :key="user.id" class="hover:bg-muted/50 transition-colors">
                       <td class="px-6 py-4">
                           <div class="flex items-center">
-                              <div class="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold mr-3 text-xs">
+                              <div class="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground font-bold mr-3 text-xs">
                                   {{ user.email.substring(0,2).toUpperCase() }}
                               </div>
                               <div>
-                                  <div class="font-medium text-slate-900">{{ user.email }}</div>
-                                  <div class="text-xs text-slate-500">{{ t('users.account_type') }}</div>
+                                  <div class="font-medium text-foreground">{{ user.email }}</div>
+                                  <div class="text-xs text-muted-foreground">{{ t('users.account_type') }}</div>
                               </div>
                           </div>
                       </td>
                       <td class="px-6 py-4">
-                          <span :class="getRoleColor(user.role)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border">
+                          <span :class="getRoleClass(user.role)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border">
                               {{ t('users.roles.' + user.role) }}
                           </span>
                       </td>
-                      <td class="px-6 py-4 text-slate-500 text-xs">
+                      <td class="px-6 py-4 text-muted-foreground text-xs">
                           {{ new Date(user.created_at).toLocaleDateString() }}
                       </td>
                        <td class="px-6 py-4 text-right space-x-2">
                           <Button variant="ghost" size="icon" @click="openDialog(user)">
-                              <Pencil class="w-4 h-4 text-slate-500" />
+                              <Pencil class="w-4 h-4 text-muted-foreground" />
                           </Button>
-                          <Button variant="ghost" size="icon" @click="confirmDelete(user.id)" class="text-red-600 hover:text-red-700 hover:bg-red-50">
+                          <Button variant="ghost" size="icon" @click="confirmDelete(user.id)" class="text-destructive hover:text-destructive hover:bg-destructive/10">
                               <Trash2 class="w-4 h-4" />
                           </Button>
                       </td>
@@ -63,12 +63,12 @@
       >
           <div class="space-y-4">
               <div class="space-y-1">
-                  <label class="text-sm font-medium text-slate-700">{{ t('users.dialog.email_label') }}</label>
+                  <label class="text-sm font-medium text-foreground">{{ t('users.dialog.email_label') }}</label>
                   <Input v-model="form.email" type="email" placeholder="alice@platform.com" />
               </div>
               <div class="space-y-1">
-                  <label class="text-sm font-medium text-slate-700">{{ t('users.dialog.role_label') }}</label>
-                   <select v-model="form.role" class="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <label class="text-sm font-medium text-foreground">{{ t('users.dialog.role_label') }}</label>
+                   <select v-model="form.role" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                        <option value="staff">{{ t('users.roles.staff') }}</option>
                        <option value="seller">{{ t('users.roles.seller') }}</option>
                         <option value="public_user">{{ t('users.roles.public_user') }}</option>
@@ -77,10 +77,10 @@
                    </select>
               </div>
               <div class="space-y-1">
-                  <label class="text-sm font-medium text-slate-700">{{ t('users.dialog.password_label') }}</label>
+                  <label class="text-sm font-medium text-foreground">{{ t('users.dialog.password_label') }}</label>
                   <Input v-model="form.password" type="password" :placeholder="isEdit ? t('users.dialog.password_placeholder') : '••••••••'" />
               </div>
-              <div class="p-3 bg-blue-50 rounded-md text-blue-700 text-xs">
+              <div class="p-3 bg-blue-500/10 rounded-md text-blue-700 dark:text-blue-400 text-xs">
                   💡 {{ t('users.dialog.note') }}
               </div>
           </div>
@@ -93,7 +93,7 @@
         @close="isDeleteDialogOpen = false"
         @confirm="deleteUser"
       >
-        <div class="p-4 bg-red-50 rounded-md text-red-700 text-sm">
+        <div class="p-4 bg-red-500/10 rounded-md text-destructive dark:text-red-400 text-sm">
             {{ t('users.delete.warning') }}
         </div>
       </Dialog>
@@ -177,14 +177,14 @@ const deleteUser = async () => {
     }
 }
 
-const getRoleColor = (role: string) => {
+const getRoleClass = (role: string) => {
     switch(role) {
-        case 'admin': return 'bg-purple-50 text-purple-700 border-purple-200';
-        case 'staff': return 'bg-blue-50 text-blue-700 border-blue-200';
-        case 'seller': return 'bg-orange-50 text-orange-700 border-orange-200';
-        case 'public_user': return 'bg-green-50 text-green-700 border-green-200';
-        case 'courier': return 'bg-cyan-50 text-cyan-700 border-cyan-200';
-        default: return 'bg-slate-100';
+        case 'admin': return 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20';
+        case 'staff': return 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20';
+        case 'seller': return 'bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/20';
+        case 'public_user': return 'bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20';
+        case 'courier': return 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/20';
+        default: return 'bg-muted text-muted-foreground border-border';
     }
 }
 

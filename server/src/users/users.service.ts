@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User, SubscriptionPlan } from './user.entity';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -24,14 +24,7 @@ export class UsersService {
     }
 
     async create(userData: Partial<User>): Promise<User> {
-        const salt = await bcrypt.genSalt(10);
-        const passwordToHash = userData.password_hash || 'defaultPassword';
-        const hashedPassword = await bcrypt.hash(passwordToHash, salt);
-
-        const newUser = this.usersRepository.create({
-            ...userData,
-            password_hash: hashedPassword,
-        });
+        const newUser = this.usersRepository.create(userData);
         return this.usersRepository.save(newUser);
     }
 
@@ -44,7 +37,32 @@ export class UsersService {
         return this.findOneById(id);
     }
 
+
     async remove(id: string): Promise<void> {
         await this.usersRepository.delete(id);
+    }
+
+    /**
+     * Check if user's trial has expired and downgrade to FREE plan if necessary
+     */
+    async checkAndHandleExpiredTrial(user: User): Promise<User> {
+        // Only check for users with trial_ends_at set
+        if (!user.trial_ends_at) {
+            return user;
+        }
+
+        const now = new Date();
+        const trialEnd = new Date(user.trial_ends_at);
+
+        // If trial has expired and user is still on PREMIUM
+        if (now > trialEnd && user.subscription_plan === SubscriptionPlan.PREMIUM) {
+            // Downgrade to FREE plan
+            user.subscription_plan = SubscriptionPlan.FREE;
+            user.trial_ends_at = null; // Clear trial date
+
+            await this.usersRepository.save(user);
+        }
+
+        return user;
     }
 }

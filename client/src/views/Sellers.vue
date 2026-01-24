@@ -2,21 +2,21 @@
   <div class="space-y-6 animate-fade-in">
        <div class="flex justify-between items-center">
           <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('sellers.title') }}</h1>
-            <p class="text-sm text-slate-500 mt-1">{{ t('sellers.subtitle') }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('sellers.title') }}</h1>
+            <p class="text-sm text-muted-foreground mt-1">{{ t('sellers.subtitle') }}</p>
           </div>
-          <Button @click="openCreateModal" class="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm">
+          <Button @click="openCreateModal" class="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm">
                <Plus class="w-4 h-4 mr-2" />
                {{ t('sellers.add') }}
           </Button>
       </div>
 
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div v-if="loading" class="p-12 flex justify-center text-slate-500">
-              <Loader2 class="w-8 h-8 animate-spin text-indigo-500" />
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+          <div v-if="loading" class="p-12 flex justify-center text-muted-foreground">
+              <Loader2 class="w-8 h-8 animate-spin text-primary" />
           </div>
           <table v-else class="w-full text-sm text-left">
-              <thead class="text-xs text-slate-500 uppercase bg-slate-50/80 border-b border-slate-100">
+              <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
                   <tr>
                       <th class="px-6 py-4 font-medium">{{ t('sellers.table.name') }}</th>
                       <th class="px-6 py-4 font-medium">{{ t('sellers.table.contact') }}</th>
@@ -24,35 +24,35 @@
                       <th class="px-6 py-4 font-medium text-right">{{ t('common.actions') }}</th>
                   </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100">
+              <tbody class="divide-y divide-border">
                   <tr v-if="sellers.length === 0">
-                      <td colspan="4" class="p-8 text-center text-slate-500">
+                      <td colspan="4" class="p-8 text-center text-muted-foreground">
                           {{ t('sellers.no_sellers') }}
                       </td>
                   </tr>
-                  <tr v-for="seller in sellers" :key="seller.id" class="hover:bg-slate-50/60 transition-colors group">
-                      <td class="px-6 py-4 font-medium text-slate-900">
+                  <tr v-for="seller in sellers" :key="seller.id" class="hover:bg-muted/50 transition-colors group">
+                      <td class="px-6 py-4 font-medium text-foreground">
                           <div class="flex items-center gap-3">
-                              <div class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs ring-1 ring-indigo-100">
+                              <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs ring-1 ring-primary/20">
                                   {{ seller.name?.substring(0,2).toUpperCase() }}
                               </div>
                               {{ seller.name }}
                           </div>
                       </td>
-                      <td class="px-6 py-4 text-slate-600">
+                      <td class="px-6 py-4 text-muted-foreground">
                           <div class="flex flex-col">
-                              <span class="text-slate-900">{{ seller.user?.email || '-' }}</span>
-                              <span class="text-xs text-slate-400">{{ seller.phone_number || '-' }}</span>
+                              <span class="text-foreground">{{ seller.user?.email || '-' }}</span>
+                              <span class="text-xs text-muted-foreground">{{ seller.phone_number || '-' }}</span>
                           </div>
                       </td>
-                      <td class="px-6 py-4 text-slate-600">
+                      <td class="px-6 py-4 text-muted-foreground">
                           {{ seller.name || '-' }}
                       </td>
                        <td class="px-6 py-4 text-right space-x-2">
-                          <Button variant="ghost" size="icon" @click="openEditModal(seller)" class="hover:bg-indigo-50 hover:text-indigo-600">
+                          <Button variant="ghost" size="icon" @click="openEditModal(seller)" class="hover:bg-primary/10 hover:text-primary">
                               <Pencil class="w-4 h-4" />
                           </Button>
-                          <Button variant="ghost" size="icon" @click="deleteSeller(seller.id)" class="text-slate-400 hover:text-red-600 hover:bg-red-50">
+                          <Button variant="ghost" size="icon" @click="deleteSeller(seller.id)" class="text-muted-foreground hover:text-destructive hover:bg-destructive/10">
                               <Trash2 class="w-4 h-4" />
                           </Button>
                       </td>
@@ -71,29 +71,29 @@
           <div class="space-y-4">
               <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-slate-700">{{ t('sellers.fields.name') }}</label>
-                      <Input v-model="formData.name" :placeholder="t('sellers.fields.name_placeholder')" class="bg-slate-50 border-slate-200 focus:bg-white" />
+                      <label class="text-sm font-medium text-foreground">{{ t('sellers.fields.name') }}</label>
+                      <Input v-model="formData.name" :placeholder="t('sellers.fields.name_placeholder')" class="bg-background border-input focus:bg-background" />
                   </div>
                   <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-slate-700">{{ t('sellers.fields.company') }}</label>
-                      <Input v-model="formData.company_name" :placeholder="t('sellers.fields.company_placeholder')" class="bg-slate-50 border-slate-200 focus:bg-white" />
+                      <label class="text-sm font-medium text-foreground">{{ t('sellers.fields.company') }}</label>
+                      <Input v-model="formData.company_name" :placeholder="t('sellers.fields.company_placeholder')" class="bg-background border-input focus:bg-background" />
                   </div>
               </div>
               
               <div class="space-y-1.5">
-                  <label class="text-sm font-medium text-slate-700">{{ t('sellers.fields.email') }}</label>
-                  <Input v-model="formData.email" type="email" :placeholder="t('sellers.fields.email_placeholder')" class="bg-slate-50 border-slate-200 focus:bg-white" />
+                  <label class="text-sm font-medium text-foreground">{{ t('sellers.fields.email') }}</label>
+                  <Input v-model="formData.email" type="email" :placeholder="t('sellers.fields.email_placeholder')" class="bg-background border-input focus:bg-background" />
               </div>
 
                <div class="space-y-1.5">
-                  <label class="text-sm font-medium text-slate-700">{{ t('sellers.fields.phone') }}</label>
-                  <Input v-model="formData.phone" :placeholder="t('sellers.fields.phone_placeholder')" class="bg-slate-50 border-slate-200 focus:bg-white" />
+                  <label class="text-sm font-medium text-foreground">{{ t('sellers.fields.phone') }}</label>
+                  <Input v-model="formData.phone" :placeholder="t('sellers.fields.phone_placeholder')" class="bg-background border-input focus:bg-background" />
               </div>
 
               <!-- Password field only for new users or optional for edit? Assuming seller creation might require auth setup elsewhere or basic here -->
               <div class="space-y-1.5" v-if="!isEditMode">
-                  <label class="text-sm font-medium text-slate-700">{{ t('sellers.fields.password') }}</label>
-                  <Input v-model="formData.password" type="password" :placeholder="t('sellers.fields.password_placeholder')" class="bg-slate-50 border-slate-200 focus:bg-white" />
+                  <label class="text-sm font-medium text-foreground">{{ t('sellers.fields.password') }}</label>
+                  <Input v-model="formData.password" type="password" :placeholder="t('sellers.fields.password_placeholder')" class="bg-background border-input focus:bg-background" />
               </div>
           </div>
       </Dialog>

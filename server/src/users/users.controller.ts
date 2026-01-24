@@ -4,6 +4,7 @@ import { User, UserRole } from './user.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import * as bcrypt from 'bcryptjs';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -18,18 +19,13 @@ export class UsersController {
 
     @Post()
     @Roles(UserRole.ADMIN)
-    create(@Body() body: any) {
-        // Map frontend "password" to "password_hash" because service expects it,
-        // (actually service logic handles hashing, so we just pass data)
-        // But service expects `password_hash` property in `userData`.
-        // Let's adjust service slightly or map here.
-        // My service `create` takes `userData` and hashes `password_hash`.
-        // Wait, looking at service: `const passwordToHash = userData.password_hash || ...`.
-        // So I should pass the plain text password as `password_hash` to the service? 
-        // Or better, let's just pass it.
+    async create(@Body() body: any) {
+        // Hash the password before creating the user
+        const password_hash = await bcrypt.hash(body.password, 10);
+
         return this.usersService.create({
             ...body,
-            password_hash: body.password // Mapping 'password' input to field expected by logic
+            password_hash
         });
     }
 

@@ -1,28 +1,28 @@
 <template>
   <div class="space-y-6 animate-fade-in">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('courier.dashboard.title') }}</h1>
-        <p class="text-sm text-slate-500 mt-1">{{ t('courier.dashboard.subtitle') }}</p>
+        <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('courier.dashboard.title') }}</h1>
+        <p class="text-sm text-muted-foreground mt-1">{{ t('courier.dashboard.subtitle') }}</p>
       </div>
 
       <!-- Cards Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Orders in Work Card -->
-          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden border-l-4 border-l-amber-500">
+          <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden border-l-4 border-l-amber-500">
               <div class="p-6">
-                  <h2 class="text-lg font-semibold text-slate-900 mb-4">{{ t('courier.dashboard.orders_in_work') }}</h2>
+                  <h2 class="text-lg font-semibold text-foreground mb-4">{{ t('courier.dashboard.orders_in_work') }}</h2>
                   <div class="space-y-2">
                       <div class="flex justify-between items-center">
-                          <span class="text-sm text-slate-600">{{ t('courier.dashboard.pending') }}:</span>
-                          <span class="text-2xl font-bold text-amber-600">{{ ordersInWork.pending }}</span>
+                          <span class="text-sm text-muted-foreground">{{ t('courier.dashboard.pending') }}:</span>
+                          <span class="text-2xl font-bold text-amber-600 dark:text-amber-400">{{ ordersInWork.pending }}</span>
                       </div>
                       <div class="flex justify-between items-center">
-                          <span class="text-sm text-slate-600">{{ t('courier.dashboard.processing') }}:</span>
-                          <span class="text-2xl font-bold text-blue-600">{{ ordersInWork.processing }}</span>
+                          <span class="text-sm text-muted-foreground">{{ t('courier.dashboard.processing') }}:</span>
+                          <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ ordersInWork.processing }}</span>
                       </div>
                       <div class="flex justify-between items-center">
-                          <span class="text-sm text-slate-600">{{ t('courier.dashboard.ready') }}:</span>
-                          <span class="text-2xl font-bold text-green-600">{{ ordersInWork.ready }}</span>
+                          <span class="text-sm text-muted-foreground">{{ t('courier.dashboard.ready') }}:</span>
+                          <span class="text-2xl font-bold text-green-600 dark:text-green-400">{{ ordersInWork.ready }}</span>
                       </div>
                   </div>
                   <Button class="w-full mt-4" variant="outline" @click="navigateToOrders">
@@ -32,12 +32,12 @@
           </div>
 
           <!-- Pending Receives Card -->
-          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden border-l-4 border-l-green-500">
+          <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden border-l-4 border-l-green-500">
               <div class="p-6">
-                  <h2 class="text-lg font-semibold text-slate-900 mb-4">{{ t('courier.dashboard.pending_receives') }}</h2>
+                  <h2 class="text-lg font-semibold text-foreground mb-4">{{ t('courier.dashboard.pending_receives') }}</h2>
                   <div class="text-center py-4">
-                      <div class="text-5xl font-bold text-green-600">{{ pendingReceives }}</div>
-                      <div class="text-sm text-slate-500 mt-2">{{ t('courier.dashboard.items_awaiting') }}</div>
+                      <div class="text-5xl font-bold text-green-600 dark:text-green-400">{{ pendingReceives }}</div>
+                      <div class="text-sm text-muted-foreground mt-2">{{ t('courier.dashboard.items_awaiting') }}</div>
                   </div>
                   <Button class="w-full mt-4" variant="outline" @click="navigateToReceives">
                       {{ t('courier.dashboard.view_receives') }} →
@@ -47,23 +47,23 @@
       </div>
 
       <!-- Active Acts Card -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden border-l-4 border-l-blue-500">
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden border-l-4 border-l-blue-500">
           <div class="p-6">
-              <h2 class="text-lg font-semibold text-slate-900 mb-4">{{ t('courier.dashboard.active_acts') }}</h2>
+              <h2 class="text-lg font-semibold text-foreground mb-4">{{ t('courier.dashboard.active_acts') }}</h2>
               <div class="space-y-3">
-                  <div class="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                  <div class="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
                       <div>
-                          <span class="text-sm font-medium text-slate-900">{{ t('courier.dashboard.transfer_acts') }}</span>
-                          <span class="ml-2 text-sm text-slate-600">{{ activeActs.transfer }} {{ t('courier.dashboard.active') }}</span>
+                          <span class="text-sm font-medium text-foreground">{{ t('courier.dashboard.transfer_acts') }}</span>
+                          <span class="ml-2 text-sm text-muted-foreground">{{ activeActs.transfer }} {{ t('courier.dashboard.active') }}</span>
                       </div>
                       <Button size="sm" variant="ghost" @click="navigateToTransferActs">
                           {{ t('common.view') }} →
                       </Button>
                   </div>
-                  <div class="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                  <div class="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
                       <div>
-                          <span class="text-sm font-medium text-slate-900">{{ t('courier.dashboard.return_acts') }}</span>
-                          <span class="ml-2 text-sm text-slate-600">{{ activeActs.return }} {{ t('courier.dashboard.active') }}</span>
+                          <span class="text-sm font-medium text-foreground">{{ t('courier.dashboard.return_acts') }}</span>
+                          <span class="ml-2 text-sm text-muted-foreground">{{ activeActs.return }} {{ t('courier.dashboard.active') }}</span>
                       </div>
                       <Button size="sm" variant="ghost" @click="navigateToReturnActs">
                           {{ t('common.view') }} →
@@ -74,12 +74,12 @@
       </div>
 
       <!-- Recent Movements Card -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden border-l-4 border-l-purple-500">
+      <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden border-l-4 border-l-purple-500">
           <div class="p-6">
-              <h2 class="text-lg font-semibold text-slate-900 mb-4">{{ t('courier.dashboard.recent_movements') }} ({{ t('courier.dashboard.last_10') }})</h2>
+              <h2 class="text-lg font-semibold text-foreground mb-4">{{ t('courier.dashboard.recent_movements') }} ({{ t('courier.dashboard.last_10') }})</h2>
               <div class="overflow-x-auto">
                   <table class="w-full text-sm">
-                      <thead class="text-xs text-slate-500 uppercase border-b border-slate-100">
+                      <thead class="text-xs text-muted-foreground uppercase border-b border-border">
                           <tr>
                               <th class="px-4 py-2 text-left font-medium">{{ t('courier.movements.time') }}</th>
                               <th class="px-4 py-2 text-left font-medium">{{ t('courier.movements.product') }}</th>
@@ -88,20 +88,20 @@
                               <th class="px-4 py-2 text-left font-medium">{{ t('courier.movements.type') }}</th>
                           </tr>
                       </thead>
-                      <tbody class="divide-y divide-slate-100">
-                          <tr v-for="movement in recentMovements" :key="movement.id" class="hover:bg-slate-50/50 cursor-pointer" @click="navigateToMovement(movement.id)">
-                              <td class="px-4 py-3 text-slate-600">{{ formatTime(movement.occurred_at) }}</td>
-                              <td class="px-4 py-3 font-mono text-xs text-slate-900">{{ movement.parent_product?.sku }}</td>
-                              <td class="px-4 py-3 text-slate-600">
+                      <tbody class="divide-y divide-border">
+                          <tr v-for="movement in recentMovements" :key="movement.id" class="hover:bg-muted/50 cursor-pointer" @click="navigateToMovement(movement.id)">
+                              <td class="px-4 py-3 text-muted-foreground">{{ formatTime(movement.occurred_at) }}</td>
+                              <td class="px-4 py-3 font-mono text-xs text-foreground">{{ movement.parent_product?.sku }}</td>
+                              <td class="px-4 py-3 text-muted-foreground">
                                   {{ movement.from_location?.name }} → {{ movement.to_location?.name }}
                               </td>
-                              <td class="px-4 py-3 font-medium text-slate-900">{{ movement.quantity }}</td>
+                              <td class="px-4 py-3 font-medium text-foreground">{{ movement.quantity }}</td>
                               <td class="px-4 py-3">
-                                  <span class="text-xs text-slate-600">{{ formatMovementType(movement.movement_type) }}</span>
+                                  <span class="text-xs text-muted-foreground">{{ formatMovementType(movement.movement_type) }}</span>
                               </td>
                           </tr>
                           <tr v-if="recentMovements.length === 0">
-                              <td colspan="5" class="px-4 py-8 text-center text-slate-500">
+                              <td colspan="5" class="px-4 py-8 text-center text-muted-foreground">
                                   {{ t('courier.dashboard.no_recent_movements') }}
                               </td>
                           </tr>

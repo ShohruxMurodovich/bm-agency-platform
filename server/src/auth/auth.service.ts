@@ -69,7 +69,7 @@ export class AuthService {
             email: dto.email,
             password_hash,
             role: UserRole.PUBLIC_USER,
-            subscription_plan: SubscriptionPlan.FREE,
+            subscription_plan: SubscriptionPlan.PREMIUM,
             trial_ends_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
         });
 
@@ -78,7 +78,7 @@ export class AuthService {
             user_id: user.id,
             name: dto.business_name || dto.email.split('@')[0],
             phone_number: dto.phone || null,
-            max_stores: 2, // Free plan limit
+            max_stores: 20, // Premium plan limit during trial
             is_public_saas_user: true,
         });
 
@@ -105,5 +105,28 @@ export class AuthService {
                 max_stores: seller.max_stores,
             },
         };
+    }
+
+    /**
+     * Check if user's trial has expired and downgrade to FREE plan if necessary
+     * Also downgrades seller's max_stores to FREE plan limit (2 stores)
+     */
+    async checkAndHandleExpiredTrial(user: any) {
+        // Delegate user subscription check to UsersService
+        const updatedUser = await this.usersService.checkAndHandleExpiredTrial(user);
+
+        // If user was downgraded (trial expired), also update seller's max_stores
+        if (user.subscription_plan !== updatedUser.subscription_plan) {
+            // User was downgraded from PREMIUM to FREE
+            if (user.role === UserRole.PUBLIC_USER || user.role === UserRole.SELLER) {
+                const seller = await this.sellersService.findByUserId(user.id);
+                if (seller && seller.max_stores > 2) {
+                    // Downgrade seller's max_stores to FREE plan limit
+                    await this.sellersService.update(seller.id, { max_stores: 2 });
+                }
+            }
+        }
+
+        return updatedUser;
     }
 }

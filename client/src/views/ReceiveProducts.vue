@@ -2,39 +2,39 @@
   <div class="space-y-6 animate-fade-in">
       <div class="flex justify-between items-center">
           <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ t('products.receive.title') }}</h1>
-            <p class="text-sm text-slate-500 mt-1">{{ t('products.receive.subtitle') }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ t('products.receive.title') }}</h1>
+            <p class="text-sm text-muted-foreground mt-1">{{ t('products.receive.subtitle') }}</p>
           </div>
       </div>
 
       <div v-if="loading" class="flex justify-center py-12">
-          <Loader2 class="w-6 h-6 animate-spin text-slate-500 mr-2" />
-          <span class="text-slate-500">{{ t('common.loading') }}</span>
+          <Loader2 class="w-6 h-6 animate-spin text-muted-foreground mr-2" />
+          <span class="text-muted-foreground">{{ t('common.loading') }}</span>
       </div>
 
-      <div v-else-if="requests.length === 0" class="bg-white rounded-xl border border-slate-200 shadow-sm p-12 text-center">
-          <div class="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Package class="w-8 h-8 text-slate-400" />
+      <div v-else-if="requests.length === 0" class="bg-card rounded-xl border border-border shadow-sm p-12 text-center">
+          <div class="bg-muted w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Package class="w-8 h-8 text-muted-foreground" />
           </div>
-          <h3 class="text-lg font-medium text-slate-900">{{ t('products.receive.no_pending') }}</h3>
-          <p class="text-slate-500 mt-1">{{ t('products.receive.all_caught_up') }}</p>
+          <h3 class="text-lg font-medium text-foreground">{{ t('products.receive.no_pending') }}</h3>
+          <p class="text-muted-foreground mt-1">{{ t('products.receive.all_caught_up') }}</p>
       </div>
 
       <div v-else class="space-y-6">
           <div v-for="request in requests" :key="request.id" 
-               class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:shadow-md">
+               class="bg-card rounded-xl border border-border shadow-sm overflow-hidden transition-all hover:shadow-md">
               
               <!-- Request Header -->
-              <div class="bg-slate-50/50 px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+              <div class="bg-muted/30 px-6 py-4 border-b border-border flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                   <div class="flex items-center gap-4">
-                      <div class="bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
-                          <Store class="w-5 h-5 text-indigo-600" />
+                      <div class="bg-card p-2 rounded-lg border border-border shadow-sm">
+                          <Store class="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                          <h3 class="font-semibold text-slate-900">
+                          <h3 class="font-semibold text-foreground">
                               {{ request.seller?.name || t('products.receive.unknown_seller') }}
                           </h3>
-                          <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                          <div class="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
                               <span class="font-mono">{{ request.id.substring(0, 8) }}</span>
                               <span>•</span>
                               <span>{{ new Date(request.created_at).toLocaleDateString() }}</span>
@@ -42,7 +42,7 @@
                       </div>
                   </div>
                   <div class="flex items-center gap-3">
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-800 dark:text-amber-400">
                           {{ t('status.pending') }}
                       </span>
                   </div>
@@ -50,8 +50,8 @@
 
               <div class="p-6 space-y-6">
                   <!-- Notes -->
-                  <div v-if="request.notes" class="bg-amber-50 border border-amber-100 rounded-lg p-4 text-sm text-amber-900 flex gap-3">
-                      <Info class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div v-if="request.notes" class="bg-amber-500/10 border border-amber-200 dark:border-amber-800 rounded-lg p-4 text-sm text-amber-800 dark:text-amber-400 flex gap-3">
+                      <Info class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                       <div>
                           <span class="font-medium block mb-1">{{ t('products.receive.seller_notes') }}:</span>
                           {{ request.notes }}
@@ -59,22 +59,22 @@
                   </div>
 
                   <!-- Items Table -->
-                  <div class="border border-slate-200 rounded-lg overflow-hidden bg-white">
+                  <div class="border border-border rounded-lg overflow-hidden bg-card">
                       <table class="w-full text-sm text-left">
-                          <thead class="bg-slate-50/80 text-xs text-slate-500 uppercase border-b border-slate-200">
+                          <thead class="bg-muted/50 text-xs text-muted-foreground uppercase border-b border-border">
                               <tr>
                                   <th class="px-4 py-3 font-medium">{{ t('table.product') }}</th>
                                   <th class="px-4 py-3 font-medium w-32 text-center">{{ t('table.requested') }}</th>
                                   <th class="px-4 py-3 font-medium w-48">{{ t('table.accept_qty') }}</th>
                               </tr>
                           </thead>
-                          <tbody class="divide-y divide-slate-100">
-                              <tr v-for="item in request.items" :key="item.id" class="bg-white hover:bg-slate-50 transition-colors">
-                                  <td class="px-4 py-3 font-medium text-slate-900">
+                          <tbody class="divide-y divide-border">
+                              <tr v-for="item in request.items" :key="item.id" class="bg-card hover:bg-muted/50 transition-colors">
+                                  <td class="px-4 py-3 font-medium text-foreground">
                                       {{ item.parent_product?.product_name }}
                                   </td>
                                   <td class="px-4 py-3 text-center">
-                                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+                                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
                                           {{ item.requested_quantity }} {{ t('common.units') }}
                                       </span>
                                   </td>
@@ -87,12 +87,12 @@
                                                   min="0"
                                                   @keydown.enter.prevent="onInputEnter"
                                                   :class="[
-                                                      'w-full pl-3 pr-2 py-1.5 border rounded-md text-sm font-medium focus:ring-2 focus:ring-offset-1 transition-all',
+                                                      'w-full pl-3 pr-2 py-1.5 border rounded-md text-sm font-medium focus:ring-2 focus:ring-offset-1 transition-all bg-background',
                                                       getDiffStatus(request, item) === 'match' 
-                                                          ? 'border-emerald-200 focus:border-emerald-500 focus:ring-emerald-200 text-emerald-900 bg-emerald-50/30'
+                                                          ? 'border-emerald-200 focus:border-emerald-500 focus:ring-emerald-200 text-emerald-900 dark:text-emerald-400 dark:border-emerald-800 dark:bg-emerald-950/20'
                                                           : getDiffStatus(request, item) === 'under'
-                                                              ? 'border-amber-300 focus:border-amber-500 focus:ring-amber-200 text-amber-900 bg-amber-50'
-                                                              : 'border-rose-300 focus:border-rose-500 focus:ring-rose-200 text-rose-900 bg-rose-50'
+                                                              ? 'border-amber-300 focus:border-amber-500 focus:ring-amber-200 text-amber-900 dark:text-amber-400 dark:border-amber-800 dark:bg-amber-950/20'
+                                                              : 'border-rose-300 focus:border-rose-500 focus:ring-rose-200 text-destructive dark:text-red-400 dark:border-red-800 dark:bg-red-950/20'
                                                   ]"
                                               />
                                           </div>
@@ -101,11 +101,11 @@
                                           <div class="flex-shrink-0 w-8 flex justify-center">
                                               <CheckCircle2 v-if="getDiffStatus(request, item) === 'match'" class="w-5 h-5 text-emerald-500" />
                                               <div v-else-if="getDiffStatus(request, item) === 'under'" 
-                                                   class="flex items-center text-xs font-bold text-amber-600 bg-amber-100 px-1.5 py-0.5 rounded">
+                                                   class="flex items-center text-xs font-bold text-amber-600 bg-amber-100 dark:bg-amber-900/40 dark:text-amber-400 px-1.5 py-0.5 rounded">
                                                    {{ getDiffValue(request, item) }}
                                               </div>
                                               <div v-else 
-                                                   class="flex items-center text-xs font-bold text-rose-600 bg-rose-100 px-1.5 py-0.5 rounded">
+                                                   class="flex items-center text-xs font-bold text-red-600 bg-red-100 dark:bg-red-900/40 dark:text-red-400 px-1.5 py-0.5 rounded">
                                                    {{ getDiffValue(request, item) }}
                                               </div>
                                           </div>
@@ -119,19 +119,19 @@
                   <!-- Action Area -->
                   <div class="flex flex-col sm:flex-row gap-4 pt-2">
                       <div class="flex-1">
-                          <label class="block text-xs font-medium text-slate-700 mb-1.5">{{ t('products.receive.acceptance_notes') }}</label>
+                          <label class="block text-xs font-medium text-muted-foreground mb-1.5">{{ t('products.receive.acceptance_notes') }}</label>
                           <textarea
                               v-model="acceptanceNotes[request.id]"
                               rows="1"
                               :placeholder="t('products.receive.notes_placeholder')"
-                              class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none transition-all focus:rows-3"
+                              class="w-full px-3 py-2 border border-input rounded-lg text-sm focus:ring-2 focus:ring-ring focus:border-input bg-background text-foreground resize-none transition-all focus:rows-3"
                           ></textarea>
                       </div>
                       <div class="flex items-end gap-3">
                           <Button 
                               variant="outline"
                               @click="acceptAll(request)"
-                              class="whitespace-nowrap border-indigo-200 hover:bg-indigo-50 text-indigo-700"
+                              class="whitespace-nowrap"
                           >
                               {{ t('common.accept_all') }}
                           </Button>

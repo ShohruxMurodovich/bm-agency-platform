@@ -4,5 +4,8 @@
 </template>
 
 <script setup lang="ts">
-// Logic here if needed
+import { useTheme } from './composables/useTheme'
+
+// Initialize theme logic
+useTheme()
 </script>
