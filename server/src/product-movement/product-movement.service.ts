@@ -290,6 +290,7 @@ export class ProductMovementService {
             [MovementType.MARKETPLACE_TO_BM_RETURN]: { from: [LocationType.RETURN_BUFFER], to: [LocationType.BM_WAREHOUSE] },
             [MovementType.BM_TO_SELLER]: { from: [LocationType.BM_WAREHOUSE, LocationType.RETURN_BUFFER], to: [LocationType.SELLER_WAREHOUSE] },
             [MovementType.WRITE_OFF]: { from: [LocationType.BM_WAREHOUSE, LocationType.RETURN_BUFFER, LocationType.DAMAGED_BUFFER], to: [LocationType.LOST] },
+            [MovementType.DAMAGE]: { from: [LocationType.BM_WAREHOUSE, LocationType.RETURN_BUFFER, LocationType.MARKETPLACE_WAREHOUSE], to: [LocationType.DAMAGED_BUFFER] },
             [MovementType.ADJUSTMENT]: { from: [LocationType.UNKNOWN], to: [LocationType.BM_WAREHOUSE, LocationType.DAMAGED_BUFFER, LocationType.LOST] },
             [MovementType.STATUS_CHANGE]: {
                 from: [LocationType.BM_WAREHOUSE, LocationType.SELLER_WAREHOUSE, LocationType.MARKETPLACE_WAREHOUSE, LocationType.RETURN_BUFFER],

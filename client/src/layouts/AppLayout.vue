@@ -132,7 +132,8 @@ import {
     Bell,
     BarChart3,
     FileText,
-    Settings
+    Settings,
+    Search
 } from 'lucide-vue-next';
 
 const { t } = useI18n();
@@ -160,8 +161,8 @@ const navItems = computed(() => {
             { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
             { label: t('menu.receive_products'), path: '/receive-products', icon: Inbox },
             { label: t('menu.return_products'), path: '/return-products', icon: CornerUpLeft },
-            { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
             { label: t('courier.states.title'), path: '/product-states', icon: Package },
+            { label: t('productTracking.title'), path: '/product-tracking', icon: Search },
             { label: t('menu.notifications'), path: '/notifications', icon: Bell },
             { label: t('menu.settings'), path: '/settings', icon: Settings }
         );
@@ -183,7 +184,7 @@ const navItems = computed(() => {
             { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
             { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
             { label: t('courier.states.title'), path: '/product-states', icon: Package },
-            { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
+            { label: t('productTracking.title'), path: '/product-tracking', icon: Search },
             { label: t('menu.account'), isHeader: true },
             { label: t('menu.subscription'), path: '/subscription', icon: FileText }
         );
@@ -204,6 +205,7 @@ const navItems = computed(() => {
             { label: t('menu.stock_management'), isHeader: true },
             { label: t('menu.send_products'), path: '/send-products', icon: Truck },
             { label: t('menu.accept_returns'), path: '/accept-returns', icon: CheckSquare },
+            { label: t('productTracking.title'), path: '/product-tracking', icon: Search },
             { label: t('menu.analytics'), path: '/analytics', icon: BarChart3 },
             { label: t('menu.notifications'), path: '/notifications', icon: Bell },
             { label: t('menu.settings'), path: '/settings', icon: Settings }
@@ -227,7 +229,7 @@ const navItems = computed(() => {
             { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
             { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
             { label: t('courier.states.title'), path: '/product-states', icon: Package },
-            { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
+            { label: t('productTracking.title'), path: '/product-tracking', icon: Search },
             { label: t('menu.logistics'), isHeader: true },
             { label: t('menu.transfer_acts'), path: '/transfer-acts', icon: FileText },
             { label: t('menu.return_acts'), path: '/return-acts', icon: FileText },
@@ -254,7 +256,7 @@ const navItems = computed(() => {
         { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
         { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },
         { label: t('courier.states.title'), path: '/product-states', icon: Package },
-        { label: t('courier.movements.title'), path: '/product-movements', icon: Truck },
+        { label: t('productTracking.title'), path: '/product-tracking', icon: Search },
         { label: t('menu.logistics'), isHeader: true },
         { label: t('menu.transfer_acts'), path: '/transfer-acts', icon: FileText },
         { label: t('menu.return_acts'), path: '/return-acts', icon: FileText },

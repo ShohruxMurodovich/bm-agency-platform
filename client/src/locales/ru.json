@@ -643,6 +643,56 @@
         "step3_desc": "Привяжите товары маркетплейсов к родительским товарам",
         "dismiss": "Скрыть"
     },
+    "productTracking": {
+        "title": "Отслеживание товаров",
+        "subtitle": "Отслеживайте перемещения по номеру заказа и назначайте номера заказов",
+        "tabs": {
+            "marketplace": "Перемещения маркетплейс",
+            "warehouse": "Склад / Не назначено"
+        },
+        "searchPlaceholder": "Поиск по номеру заказа...",
+        "searchUnassignedPlaceholder": "Поиск по названию, SKU или ID...",
+        "orderNumber": "Заказ #",
+        "lastMovement": "Последнее перемещение",
+        "currentLocation": "Текущая локация",
+        "currentStatus": "Текущий статус",
+        "itemsCount": "Товары",
+        "movementsCount": "Перемещения",
+        "productName": "Товар",
+        "sku": "SKU",
+        "time": "Время",
+        "type": "Тип",
+        "from": "Откуда",
+        "to": "Куда",
+        "quantity": "Кол-во",
+        "comment": "Комментарий",
+        "assign": "Назначить",
+        "restricted": "Ограничено",
+        "noPermission": "Нет доступа",
+        "noOrders": "Заказы не найдены",
+        "noUnassigned": "Нет не назначенных перемещений",
+        "assignOrderNumber": "Назначить номер заказа",
+        "orderNumberPlaceholder": "Введите номер заказа...",
+        "commentPlaceholder": "Добавить комментарий...",
+        "assignButton": "Назначить",
+        "errors": {
+            "orderNumberRequired": "Номер заказа обязателен",
+            "commentRequired": "Комментарий обязателен для этого типа перемещения",
+            "assignmentFailed": "Не удалось назначить номер заказа"
+        }
+    },
+    "movementTypes": {
+        "SELLER_TO_BM": "От продавца в BM",
+        "BM_TO_MARKETPLACE": "Из BM на маркетплейс",
+        "MARKETPLACE_SALE": "Продажа на маркетплейсе",
+        "CUSTOMER_RETURN": "Возврат от клиента",
+        "MARKETPLACE_TO_BM_RETURN": "Возврат с маркетплейса",
+        "BM_TO_SELLER": "Из BM продавцу",
+        "WRITE_OFF": "Списание",
+        "DAMAGE": "Поврежденный товар",
+        "ADJUSTMENT": "Корректировка",
+        "STATUS_CHANGE": "Изменение статуса"
+    },
     "analytics": {
         "title": "Дашборд Аналитики",
         "subtitle": "Бизнес-аналитика и панель управления аналитикой",

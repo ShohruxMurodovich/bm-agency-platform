@@ -8,6 +8,6 @@ import { BusinessStatusController } from './business-status.controller';
     imports: [TypeOrmModule.forFeature([BusinessStatus])],
     controllers: [BusinessStatusController],
     providers: [BusinessStatusService],
-    exports: [BusinessStatusService],
+    exports: [BusinessStatusService, TypeOrmModule], // Export TypeOrmModule for repository access
 })
 export class BusinessStatusModule { }

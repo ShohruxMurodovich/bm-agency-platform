@@ -610,6 +610,56 @@
         "step3_desc": "Marketpleys mahsulotlarini asosiy mahsulotlarga bog'lang",
         "dismiss": "Yopish"
     },
+    "productTracking": {
+        "title": "Tovarlarni kuzatish",
+        "subtitle": "Buyurtma raqami bo'yicha harakatlarni kuzatish va buyurtma raqamlarini tayinlash",
+        "tabs": {
+            "marketplace": "Marketpleys harakatlari",
+            "warehouse": "Ombor / Tayinlanmagan"
+        },
+        "searchPlaceholder": "Buyurtma raqami bo'yicha qidirish...",
+        "searchUnassignedPlaceholder": "Nom, SKU yoki ID bo'yicha qidirish...",
+        "orderNumber": "Buyurtma #",
+        "lastMovement": "So'nggi harakat",
+        "currentLocation": "Joriy joylashuv",
+        "currentStatus": "Joriy holat",
+        "itemsCount": "Mahsulotlar",
+        "movementsCount": "Harakatlar",
+        "productName": "Mahsulot",
+        "sku": "SKU",
+        "time": "Vaqt",
+        "type": "Turi",
+        "from": "Qayerdan",
+        "to": "Qayerga",
+        "quantity": "Soni",
+        "comment": "Izoh",
+        "assign": "Tayinlash",
+        "restricted": "Cheklangan",
+        "noPermission": "Ruxsat yo'q",
+        "noOrders": "Buyurtmalar topilmadi",
+        "noUnassigned": "Tayinlanmagan harakatlar yo'q",
+        "assignOrderNumber": "Buyurtma raqamini tayinlash",
+        "orderNumberPlaceholder": "Buyurtma raqamini kiriting...",
+        "commentPlaceholder": "Izoh qo'shish...",
+        "assignButton": "Tayinlash",
+        "errors": {
+            "orderNumberRequired": "Buyurtma raqami talab qilinadi",
+            "commentRequired": "Ushbu harakat turi uchun izoh talab qilinadi",
+            "assignmentFailed": "Buyurtma raqamini tayinlab bo'lmadi"
+        }
+    },
+    "movementTypes": {
+        "SELLER_TO_BM": "Sotuvchidan BM ga",
+        "BM_TO_MARKETPLACE": "BM dan marketpleys ga",
+        "MARKETPLACE_SALE": "Marketpleysda sotuv",
+        "CUSTOMER_RETURN": "Xaridordan qaytarish",
+        "MARKETPLACE_TO_BM_RETURN": "Marketpleysdan qaytarish",
+        "BM_TO_SELLER": "BM dan sotuvchiga",
+        "WRITE_OFF": "Hisobdan chiqarish",
+        "DAMAGE": "Zarar ko'rgan mahsulot",
+        "ADJUSTMENT": "Tuzatish",
+        "STATUS_CHANGE": "Holat o'zgarishi"
+    },
     "analytics": {
         "title": "Analitika paneli",
         "subtitle": "Biznes tahlil va analitika paneli",

@@ -2,8 +2,8 @@
   <div class="space-y-6 animate-fade-in">
     <div class="flex justify-between items-center">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $t('products.title') }}</h1>
-        <p class="text-sm text-slate-500 mt-1">{{ $t('products.subtitle') }}</p>
+        <h1 class="text-2xl font-bold tracking-tight text-foreground">{{ $t('products.title') }}</h1>
+        <p class="text-sm text-muted-foreground mt-1">{{ $t('products.subtitle') }}</p>
       </div>
       <Button @click="openCreateModal">
         <Plus class="w-4 h-4 mr-2" />
@@ -12,9 +12,9 @@
     </div>
 
     <!-- Search Field (Mandatory) -->
-    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-4">
+    <div class="bg-card p-4 rounded-xl border border-border shadow-sm flex gap-4">
       <div class="relative flex-1">
-        <Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+        <Search class="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
         <Input :placeholder="$t('common.search_products')" class="pl-9" v-model="searchQuery" @keyup.enter="fetchProducts" />
       </div>
       <Button class="w-auto" @click="fetchProducts">
@@ -24,18 +24,18 @@
     </div>
 
     <!-- Products Table -->
-    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-      <div v-if="loading" class="p-12 flex justify-center text-slate-500">
+    <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+      <div v-if="loading" class="p-12 flex justify-center text-muted-foreground">
         <Loader2 class="w-6 h-6 animate-spin mr-2" />
         {{ $t('products.loading') }}
       </div>
-      <div v-else-if="products.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-slate-500">
-        <Package class="w-8 h-8 text-slate-300 mb-3" />
-        <h3 class="text-lg font-medium text-slate-900">{{ $t('common.no_products_found') }}</h3>
-        <p class="text-sm text-slate-500 mt-1">{{ $t('products.empty_start') }}</p>
+      <div v-else-if="products.length === 0" class="p-12 text-center flex flex-col items-center justify-center text-muted-foreground">
+        <Package class="w-8 h-8 text-muted mb-3" />
+        <h3 class="text-lg font-medium text-foreground">{{ $t('common.no_products_found') }}</h3>
+        <p class="text-sm text-muted-foreground mt-1">{{ $t('products.empty_start') }}</p>
       </div>
       <table v-else class="w-full text-sm text-left">
-        <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b border-slate-100">
+        <thead class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border">
           <tr>
             <th class="px-6 py-4 font-medium">{{ $t('products.table.product_name') }}</th>
             <th class="px-6 py-4 font-medium">{{ $t('products.table.stock') }}</th>
@@ -44,9 +44,9 @@
             <th class="px-6 py-4 font-medium text-right">{{ $t('common.actions') }}</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-100">
-          <tr v-for="product in products" :key="product.id" class="hover:bg-slate-50/50 transition-colors">
-            <td class="px-6 py-4 font-medium text-slate-900">
+        <tbody class="divide-y divide-border">
+          <tr v-for="product in products" :key="product.id" class="hover:bg-muted/50 transition-colors">
+            <td class="px-6 py-4 font-medium text-foreground">
               {{ product.product_name }}
             </td>
             <td class="px-6 py-4">
@@ -55,15 +55,15 @@
                 {{ product.stock }} units
               </span>
             </td>
-            <td class="px-6 py-4 text-slate-600">
+            <td class="px-6 py-4 text-muted-foreground">
               {{ product.mapped_count || 0 }} SKUs
             </td>
-            <td class="px-6 py-4 text-slate-500 text-xs">
+            <td class="px-6 py-4 text-muted-foreground text-xs">
               {{ formatDate(product.created_at) }}
             </td>
             <td class="px-6 py-4 text-right space-x-2">
               <Button variant="ghost" size="icon" @click="openEditModal(product)" :title="'Edit'">
-                <Pencil class="w-4 h-4 text-slate-500" />
+                <Pencil class="w-4 h-4 text-muted-foreground" />
               </Button>
               <Button variant="ghost" size="icon" @click="deleteProduct(product.id)" class="text-red-600 hover:text-red-700 hover:bg-red-50">
                 <Trash2 class="w-4 h-4" />
@@ -87,29 +87,29 @@
       <div class="space-y-6">
         <!-- Basic Info Section -->
         <div class="space-y-4">
-          <h3 class="text-sm font-semibold text-slate-700 border-b pb-2">Basic Information</h3>
+          <h3 class="text-sm font-semibold text-foreground border-b border-border pb-2">Basic Information</h3>
           
           <div class="space-y-1">
-            <label class="text-sm font-medium text-slate-700">Product Name <span class="text-red-500">*</span></label>
+            <label class="text-sm font-medium text-foreground">Product Name <span class="text-red-500">*</span></label>
             <Input v-model="formData.product_name" placeholder="Enter product name" />
           </div>
           
           <div class="grid grid-cols-2 gap-4">
             <div class="space-y-1">
-              <label class="text-sm font-medium text-slate-700">Stock <span class="text-red-500">*</span></label>
+              <label class="text-sm font-medium text-foreground">Stock <span class="text-red-500">*</span></label>
               <Input v-model.number="formData.stock" type="number" min="0" placeholder="0" />
             </div>
             <div class="space-y-1">
-              <label class="text-sm font-medium text-slate-700">Cost (USD)</label>
+              <label class="text-sm font-medium text-foreground">Cost (USD)</label>
               <Input v-model.number="formData.cost_usd" type="number" step="0.01" placeholder="0.00" />
             </div>
           </div>
           
           <div class="space-y-1">
-            <label class="text-sm font-medium text-slate-700">Description</label>
+            <label class="text-sm font-medium text-foreground">Description</label>
             <textarea 
               v-model="formData.description" 
-              class="flex min-h-[80px] w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-foreground placeholder:text-muted-foreground"
               placeholder="Optional product description"
             ></textarea>
           </div>
@@ -117,22 +117,22 @@
 
         <!-- Mapping Section -->
         <div class="space-y-4">
-          <h3 class="text-sm font-semibold text-slate-700 border-b pb-2">Marketplace Mapping</h3>
+          <h3 class="text-sm font-semibold text-foreground border-b border-border pb-2">Marketplace Mapping</h3>
           
-          <div v-for="(mapping, index) in formData.mappings" :key="index" class="border rounded-lg p-4 space-y-3 bg-slate-50">
+          <div v-for="(mapping, index) in formData.mappings" :key="index" class="border border-border rounded-lg p-4 space-y-3 bg-muted/50">
             <div class="flex justify-between items-center">
-              <p class="text-sm font-medium text-slate-700">Mapping #{{ index + 1 }}</p>
+              <p class="text-sm font-medium text-foreground">Mapping #{{ index + 1 }}</p>
               <Button variant="ghost" size="sm" @click="removeMapping(index)" class="text-red-600 hover:bg-red-50">
                 <X class="w-4 h-4" />
               </Button>
             </div>
             
             <div class="space-y-1">
-              <label class="text-sm font-medium text-slate-700">Select Store</label>
+              <label class="text-sm font-medium text-foreground">Select Store</label>
               <select 
                 v-model="mapping.store_id" 
                 @change="loadMarketplaceProducts(index)"
-                class="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-foreground"
               >
                 <option value="">Select a store...</option>
                 <option v-for="store in stores" :key="store.id" :value="store.id">
@@ -142,32 +142,32 @@
             </div>
             
             <div v-if="mapping.store_id" class="space-y-2">
-              <label class="text-sm font-medium text-slate-700">Marketplace Products</label>
-              <div class="max-h-40 overflow-y-auto border rounded-md bg-white">
-                <div v-if="mapping.loading" class="p-4 text-center text-sm text-slate-500">
+              <label class="text-sm font-medium text-foreground">Marketplace Products</label>
+              <div class="max-h-40 overflow-y-auto border border-input rounded-md bg-background">
+                <div v-if="mapping.loading" class="p-4 text-center text-sm text-muted-foreground">
                   <Loader2 class="w-4 h-4 animate-spin inline mr-2" />
                   Loading products...
                 </div>
-                <div v-else-if="mapping.availableProducts?.length === 0" class="p-4 text-center text-sm text-slate-500">
+                <div v-else-if="mapping.availableProducts?.length === 0" class="p-4 text-center text-sm text-muted-foreground">
                   No products available for this store
                 </div>
                 <label 
                   v-else
                   v-for="mp in mapping.availableProducts" 
                   :key="mp.id" 
-                  class="flex items-center p-3 hover:bg-slate-50 cursor-pointer border-b last:border-0"
+                  class="flex items-center p-3 hover:bg-muted/50 cursor-pointer border-b border-border last:border-0"
                 >
                   <input 
                     type="checkbox" 
                     :value="mp.id" 
                     v-model="mapping.selected_products"
-                    class="mr-3 rounded border-slate-300"
+                    class="mr-3 rounded border-input bg-background"
                   />
                   <div class="flex-1">
-                    <p class="text-sm font-medium text-slate-900">{{ mp.title }}</p>
-                    <p class="text-xs text-slate-500">SKU: {{ mp.external_product_id }}</p>
+                    <p class="text-sm font-medium text-foreground">{{ mp.title }}</p>
+                    <p class="text-xs text-muted-foreground">SKU: {{ mp.external_product_id }}</p>
                   </div>
-                  <span class="text-xs text-slate-500">{{ mp.stock }} units</span>
+                  <span class="text-xs text-muted-foreground">{{ mp.stock }} units</span>
                 </label>
               </div>
             </div>

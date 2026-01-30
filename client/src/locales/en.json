@@ -647,5 +647,55 @@
     "operations": {
         "title": "Operations",
         "subtitle": "Manage warehouse operations"
+    },
+    "productTracking": {
+        "title": "Product Tracking",
+        "subtitle": "Track order-level product movements and assign order numbers",
+        "tabs": {
+            "marketplace": "Marketplace Movements",
+            "warehouse": "Warehouse / Unassigned"
+        },
+        "searchPlaceholder": "Search by order number...",
+        "searchUnassignedPlaceholder": "Search by product name, SKU, or ID...",
+        "orderNumber": "Order #",
+        "lastMovement": "Last Movement",
+        "currentLocation": "Current Location",
+        "currentStatus": "Current Status",
+        "itemsCount": "Items",
+        "movementsCount": "Movements",
+        "productName": "Product",
+        "sku": "SKU",
+        "time": "Time",
+        "type": "Type",
+        "from": "From",
+        "to": "To",
+        "quantity": "Qty",
+        "comment": "Comment",
+        "assign": "Assign",
+        "restricted": "Restricted",
+        "noPermission": "No Permission",
+        "noOrders": "No orders found",
+        "noUnassigned": "No unassigned movements",
+        "assignOrderNumber": "Assign Order Number",
+        "orderNumberPlaceholder": "Enter order number or select from suggestions...",
+        "commentPlaceholder": "Add optional comment...",
+        "assignButton": "Assign",
+        "errors": {
+            "orderNumberRequired": "Order number is required",
+            "commentRequired": "Comment is required for this movement type",
+            "assignmentFailed": "Failed to assign order number"
+        }
+    },
+    "movementTypes": {
+        "SELLER_TO_BM": "Seller to BM",
+        "BM_TO_MARKETPLACE": "BM to Marketplace",
+        "MARKETPLACE_SALE": "Marketplace Sale",
+        "CUSTOMER_RETURN": "Customer Return",
+        "MARKETPLACE_TO_BM_RETURN": "Return from Marketplace",
+        "BM_TO_SELLER": "BM to Seller",
+        "WRITE_OFF": "Write-off",
+        "DAMAGE": "Damaged Goods",
+        "ADJUSTMENT": "Adjustment",
+        "STATUS_CHANGE": "Status Change"
     }
 }

@@ -12,6 +12,7 @@ export enum MovementType {
     MARKETPLACE_TO_BM_RETURN = 'MARKETPLACE_TO_BM_RETURN',
     BM_TO_SELLER = 'BM_TO_SELLER',
     WRITE_OFF = 'WRITE_OFF',
+    DAMAGE = 'DAMAGE',
     ADJUSTMENT = 'ADJUSTMENT',
     STATUS_CHANGE = 'STATUS_CHANGE',
 }
@@ -26,6 +27,8 @@ export enum InitiatorType {
 @TenantScoped()
 @Index(['parent_product_id', 'occurred_at'])
 @Index(['movement_type'])
+@Index(['order_number', 'occurred_at']) // Composite index for order tracking queries
+@Index(['occurred_at']) // Separate index for date range filtering
 export class ProductMovement {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -83,6 +86,10 @@ export class ProductMovement {
         enum: MovementType,
     })
     movement_type: MovementType;
+
+    // Marketplace-provided order number (nullable for internal movements)
+    @Column({ nullable: true })
+    order_number: string;
 
     @Column({ nullable: true })
     document_id: string;

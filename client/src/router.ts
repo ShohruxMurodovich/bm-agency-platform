@@ -27,6 +27,7 @@ const routes = [
             { path: 'accept-returns', component: () => import('./views/AcceptReturns.vue'), meta: { roles: ['admin', 'seller'] } },
             { path: 'orders', component: () => import('./views/Orders.vue'), meta: { roles: ['admin', 'staff', 'seller', 'courier', 'public_user'] } },
             { path: 'product-movements', component: () => import('./views/ProductMovements.vue'), meta: { roles: ['admin', 'staff', 'courier', 'public_user'] } },
+            { path: 'product-tracking', component: () => import('./views/ProductTracking.vue'), meta: { roles: ['admin', 'staff', 'seller', 'public_user'] } },
             { path: 'product-states', component: () => import('./views/ProductStates.vue'), meta: { roles: ['admin', 'staff', 'courier', 'public_user'] } },
             { path: 'transfer-acts', component: () => import('./views/TransferActs.vue'), meta: { roles: ['admin', 'staff'] } },
             { path: 'return-acts', component: () => import('./views/ReturnActs.vue'), meta: { roles: ['admin', 'staff'] } },
