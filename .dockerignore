@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.env.*
+!.env.production
+*.log
+.DS_Store
+postgres_data

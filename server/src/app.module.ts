@@ -25,6 +25,7 @@ import { TenantIsolationInterceptor } from './auth/tenant-isolation.interceptor'
 import { PublicSaasGuard } from './auth/public-saas.guard';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     ProductMovementModule,
     DashboardModule,
     AnalyticsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [

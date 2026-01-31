@@ -21,10 +21,16 @@ export class Order {
     external_order_id: string;
 
     @Column({ nullable: false })
+    invoiceNumber: string;
+
+    @Column({ nullable: false })
     status: string;
 
     @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
     total_amount: number;
+
+    @Column({ type: 'bigint', nullable: true })
+    deliver_until: number;
 
     @CreateDateColumn()
     created_at: Date;

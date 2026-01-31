@@ -1,17 +1,161 @@
 version: '3.8'
+
 services:
-  db:
-    image: postgres:15-alpine
-    container_name: platform_db
-    restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: platform_db
+  # Redis Cache - CRITICAL for 4GB RAM
+  redis:
+    image: redis:7-alpine
+    container_name: bm-redis
+    restart: unless-stopped
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
     ports:
-      - "5432:5432"
+      - "6379:6379"
+    networks:
+      - bm-network
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+        reservations:
+          memory: 200M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # PostgreSQL Database - Optimized for 4GB RAM
+  postgres:
+    image: postgres:15-alpine
+    container_name: bm-postgres
+    restart: unless-stopped
+    command:
+      - postgres
+      - -c
+      - shared_buffers=512MB
+      - -c
+      - effective_cache_size=1GB
+      - -c
+      - max_connections=100
+      - -c
+      - work_mem=5MB
+      - -c
+      - maintenance_work_mem=128MB
+      - -c
+      - random_page_cost=1.1
+      - -c
+      - autovacuum_max_workers=2
+    environment:
+      POSTGRES_USER: ${DB_USER:-admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-platform_db}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - bm-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1400M
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-admin}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API - Optimized for 4GB RAM
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: bm-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-admin}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      DB_NAME: ${DB_NAME:-platform_db}
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "3001:3001"
+    networks:
+      - bm-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1200M
+        reservations:
+          cpus: '0.5'
+          memory: 800M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/system/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend - Optimized for 4GB RAM
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: bm-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - bm-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
+        reservations:
+          cpus: '0.25'
+          memory: 200M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  bm-network:
+    driver: bridge
 
 volumes:
   postgres_data:

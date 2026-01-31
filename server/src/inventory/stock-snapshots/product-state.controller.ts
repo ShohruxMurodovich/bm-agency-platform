@@ -1,12 +1,12 @@
 import { Controller, Get, Param, Query, UseGuards, Request } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { Roles } from '../../auth/roles.decorator';
 import { RolesGuard } from '../../auth/roles.guard';
 import { UserRole } from '../../users/user.entity';
 import { ProductStateService } from './product-state.service';
 
 @Controller('product-states')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ProductStateController {
     constructor(private readonly productStateService: ProductStateService) { }
 

@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Body, Param, Request, Query, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { UserRole } from '../users/user.entity';
@@ -8,7 +8,7 @@ import { ProductMovementRequest } from './product-movement-request.entity';
 import { MovementType } from './product-movement.entity';
 
 @Controller('product-movement')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ProductMovementController {
     constructor(private readonly productMovementService: ProductMovementService) { }
 

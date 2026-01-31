@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Patch, Delete, Body, Param, UseGuards, Query, Request, BadRequestException } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ParentProductsService } from './parent-products.service';
 import { SellersService } from '../sellers/sellers.service';
 import { ParentProduct } from './parent-product.entity';
@@ -9,7 +9,7 @@ import { UserRole } from '../users/user.entity';
 import { TenantId } from '../auth/tenant.decorator';
 
 @Controller('parent-products')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ParentProductsController {
     constructor(
         private readonly parentProductsService: ParentProductsService,
@@ -42,6 +42,7 @@ export class ParentProductsController {
     }
 
     @Get(':id')
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.PUBLIC_USER)
     findOne(@Param('id') id: string): Promise<ParentProduct> {
         return this.parentProductsService.findOne(id);
     }
@@ -51,6 +52,7 @@ export class ParentProductsController {
      * Create parent product with validation and duplicate name check.
      */
     @Post()
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.PUBLIC_USER)
     async create(
         @Body() productData: Partial<ParentProduct>,
         @Request() req: any,
@@ -88,6 +90,7 @@ export class ParentProductsController {
     }
 
     @Put(':id')
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.PUBLIC_USER)
     update(@Param('id') id: string, @Body() productData: Partial<ParentProduct>): Promise<ParentProduct> {
         return this.parentProductsService.update(id, productData);
     }
@@ -98,6 +101,7 @@ export class ParentProductsController {
      * Creates ADJUSTMENT ProductMovement.
      */
     @Patch(':id/stock')
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.PUBLIC_USER)
     async updateStock(
         @Param('id') id: string,
         @Body() dto: { stock: number },
@@ -117,6 +121,7 @@ export class ParentProductsController {
      * Soft delete via is_archived flag.
      */
     @Delete(':id')
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.PUBLIC_USER)
     async remove(@Param('id') id: string, @Request() req: any): Promise<{ success: boolean; message: string }> {
         const result = await this.parentProductsService.softDelete(id, req.user);
         return result;

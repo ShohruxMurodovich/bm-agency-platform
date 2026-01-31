@@ -16,6 +16,12 @@ export class StoreCredential {
     @Column({ nullable: false })
     token: string;
 
+    @Column({ nullable: false })
+    email: string;
+
+    @Column({ nullable: false })
+    password: string;
+
     @Column({ default: true, nullable: false })
     is_active: boolean;
 

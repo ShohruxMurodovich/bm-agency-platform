@@ -1,18 +1,23 @@
 import { Controller, Get, Param, UseGuards, Request } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
+import { UserRole } from '../users/user.entity';
 
 @Controller('orders')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class OrdersController {
     constructor(private readonly ordersService: OrdersService) { }
 
     @Get()
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.COURIER, UserRole.PUBLIC_USER)
     async findAll(@Request() req: any) {
         return this.ordersService.findAll(req.user);
     }
 
     @Get(':id')
+    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.COURIER, UserRole.PUBLIC_USER)
     async findOne(@Param('id') id: string) {
         return this.ordersService.findOne(id);
     }

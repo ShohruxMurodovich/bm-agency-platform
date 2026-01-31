@@ -21,9 +21,21 @@ export class OrderItem {
     @Column({ nullable: false })
     marketplace_product_id: string;
 
+    @Column({ type: 'bigint', nullable: true })
+    sku_id: number;
+
+    @Column({ type: 'bigint', nullable: true })
+    barcode: number;
+
     @Column({ type: 'int', nullable: false })
     quantity: number;
 
     @Column({ type: 'decimal', precision: 12, scale: 2, nullable: false })
     price: number;
+
+    @Column({ type: 'decimal', precision: 4, scale: 2, nullable: true })
+    cost_usd: number;
+
+    @Column({ type: 'decimal', precision: 8, scale: 2, nullable: true })
+    cost_uzs: number;
 }

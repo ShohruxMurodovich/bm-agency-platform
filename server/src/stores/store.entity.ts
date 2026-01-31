@@ -6,6 +6,12 @@ import { MarketplaceProduct } from '../marketplace-products/marketplace-product.
 import { Order } from '../orders/order.entity';
 import { TenantScoped } from '../auth/tenant-scoped.decorator';
 
+export enum MarketplaceEnum {
+    U = 'U',
+    Y = 'Y',
+    W = 'W',
+}
+
 @Entity('stores')
 @TenantScoped()
 @Index(['seller_id', 'marketplace_id', 'external_shop_id'], { unique: true })
@@ -27,10 +33,13 @@ export class Store {
     @Column({ type: 'smallint', nullable: false })
     marketplace_id: number;
 
+    @Column({ type: 'enum', enum: MarketplaceEnum, nullable: true })
+    marketplace_code: string;
+
     @Column({ nullable: false })
     external_shop_id: string;
 
-    @Column({ nullable: true }) // nullable true initially for migration safety, or default
+    @Column({ nullable: true })
     name: string;
 
     @Column({ nullable: true })
