@@ -1,0 +1,31 @@
+{
+    "family": "bm-frontend-task",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::YOUR_ACCOUNT_ID:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+        {
+            "name": "bm-frontend",
+            "image": "YOUR_ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/bm-agency-frontend:latest",
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/bm-frontend",
+                    "awslogs-region": "REGION",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ]
+}
