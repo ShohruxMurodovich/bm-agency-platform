@@ -82,6 +82,8 @@ export class MarketplaceProductsService {
 
         if (filters.store_ids && filters.store_ids.length > 0) {
             whereConditions.store_id = In(filters.store_ids);
+        } else if (filters.store_id) {
+            whereConditions.store_id = filters.store_id;
         }
 
         if (filters.product_status) {
@@ -154,6 +156,8 @@ export class MarketplaceProductsService {
 
         if (filters.store_ids && filters.store_ids.length > 0) {
             whereConditions.store_id = In(filters.store_ids);
+        } else if (filters.store_id) {
+            whereConditions.store_id = filters.store_id;
         }
 
         if (filters.product_status) {

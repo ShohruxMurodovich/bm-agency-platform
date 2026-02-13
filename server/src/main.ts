@@ -21,6 +21,12 @@ async function bootstrap() {
   // Log all requests to debug health checks
   app.use((req, res, next) => {
     console.log(`Incoming Request: ${req.method} ${req.url} from ${req.ip}`);
+    // Safe header logging (mask token)
+    const safeHeaders = { ...req.headers };
+    if (safeHeaders.authorization) {
+      safeHeaders.authorization = `${safeHeaders.authorization.substring(0, 15)}...`;
+    }
+    console.log('Headers:', JSON.stringify(safeHeaders));
     res.on('finish', () => {
       console.log(`Response: ${req.method} ${req.url} ${res.statusCode}`);
     });

@@ -30,18 +30,6 @@ export class MarketplaceProductsController {
         );
     }
 
-    @Get('profit-analysis/:product_id/variants')
-    async getProductVariants(
-        @Param('product_id') productId: number,
-        @Query() filters: ProfitFiltersDto,
-        @Req() req: any,
-    ): Promise<MarketplaceProductVariantDto[]> {
-        return this.marketplaceProductsService.getVariantsForProductId(
-            productId,
-            filters,
-        );
-    }
-
     @Get('profit-analysis/export')
     async exportExcel(
         @Query() filters: ProfitFiltersDto,
@@ -58,6 +46,18 @@ export class MarketplaceProductsController {
         });
 
         res.send(buffer);
+    }
+
+    @Get('profit-analysis/:product_id/variants')
+    async getProductVariants(
+        @Param('product_id') productId: number,
+        @Query() filters: ProfitFiltersDto,
+        @Req() req: any,
+    ): Promise<MarketplaceProductVariantDto[]> {
+        return this.marketplaceProductsService.getVariantsForProductId(
+            productId,
+            filters,
+        );
     }
 
     @Get(':id')

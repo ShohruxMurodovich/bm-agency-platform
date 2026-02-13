@@ -666,7 +666,7 @@
         "placeholder_message": "Bu sahifa ishlab chiqilmoqda. Analitika va hisobot funksiyalari tez orada qo'shiladi."
     },
     "marketplace_products": {
-        "title": "Marketplace mahsulotlar: Foyda monitoringi",
+        "title": "Foyda Monitoringi",
         "subtitle": "Zarar yoki past marja bilan sotilgan mahsulotlarni aniqlash",
         "columns": {
             "id": "Mahsulot ID",

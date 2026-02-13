@@ -1,3 +1,5 @@
+import { IsOptional, IsString, IsArray, IsEnum } from 'class-validator';
+
 export enum PriceStatus {
     PROFIT = 'PROFIT',
     LOSS = 'LOSS',
@@ -75,11 +77,36 @@ export class MarketplaceProductGroupDto {
 }
 
 export class ProfitFiltersDto {
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
     store_ids?: string[]; // Multi-select
+
+    @IsOptional()
+    @IsString()
+    store_id?: string; // Single-select support
+
+    @IsOptional()
+    @IsString()
     product_status?: string; // Single-select: 'in_stock' | 'run_out' | 'archived' | 'blocked'
+
+    @IsOptional()
+    @IsString()
     price_status?: string; // Single-select: 'profit' | 'loss' | 'low_margin' | 'unknown'
+
+    @IsOptional()
+    @IsString()
     model?: string; // Single-select: 'fbs' | 'fbo' | 'auto', default 'auto'
+
+    @IsOptional()
+    @IsString()
     search?: string; // Search text
+
+    @IsOptional()
+    page?: number;
+
+    @IsOptional()
+    per_page?: number;
 }
 
 export class ProfitAnalysisResponseDto {

@@ -699,7 +699,7 @@
         "STATUS_CHANGE": "Status Change"
     },
     "marketplace_products": {
-        "title": "Marketplace Products: Profit Monitoring",
+        "title": "Profit Monitoring",
         "subtitle": "Identify products sold at a loss or low margin",
         "columns": {
             "id": "Product ID",

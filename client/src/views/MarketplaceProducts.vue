@@ -21,10 +21,10 @@
             {{ $t('marketplace_products.filters.store') }}
           </label>
           <select
-            v-model="filters.store_ids"
-            multiple
+            v-model="filters.store_id"
             class="w-full border border-border rounded-lg p-2 bg-background text-foreground"
           >
+            <option value="">{{ $t('common.all') }}</option>
             <option v-for="store in stores" :key="store.id" :value="store.id">
               {{ store.name }}
             </option>
@@ -242,7 +242,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue';
 import { ShoppingCart, Download, ChevronRight } from 'lucide-vue-next';
-import axios from 'axios';
+import api from '../api';
 // Types
 interface ProductGroup {
   product_id: number;
@@ -297,7 +297,7 @@ const groupVariants = ref(new Map<number, ProductVariant[]>());
 const loadingVariants = ref(new Set<number>());
 
 const filters = reactive({
-  store_ids: [] as string[],
+  store_id: '',
   product_status: '',
   price_status: '',
   model: 'auto',
@@ -313,15 +313,15 @@ const fetchProfitAnalysis = async () => {
       per_page: per_page.value.toString(),
     });
 
-    if (filters.store_ids.length > 0) {
-      filters.store_ids.forEach(id => params.append('store_ids[]', id));
+    if (filters.store_id) {
+      params.append('store_ids[]', filters.store_id);
     }
     if (filters.product_status) params.append('product_status', filters.product_status);
     if (filters.price_status) params.append('price_status', filters.price_status);
     if (filters.model) params.append('model', filters.model);
     if (filters.search) params.append('search', filters.search);
 
-    const response = await axios.get(`/api/marketplace-products/profit-analysis?${params.toString()}`);
+    const response = await api.get(`/marketplace-products/profit-analysis?${params.toString()}`);
     groups.value = response.data.groups;
     total.value = response.data.total;
   } catch (error) {
@@ -336,15 +336,15 @@ const fetchVariants = async (productId: number) => {
   loadingVariants.value.add(productId);
   try {
     const params = new URLSearchParams();
-    if (filters.store_ids.length > 0) {
-      filters.store_ids.forEach(id => params.append('store_ids[]', id));
+    if (filters.store_id) {
+      params.append('store_ids[]', filters.store_id);
     }
     if (filters.product_status) params.append('product_status', filters.product_status);
     if (filters.price_status) params.append('price_status', filters.price_status);
     if (filters.model) params.append('model', filters.model);
     if (filters.search) params.append('search', filters.search);
 
-    const response = await axios.get(`/api/marketplace-products/profit-analysis/${productId}/variants?${params.toString()}`);
+    const response = await api.get(`/marketplace-products/profit-analysis/${productId}/variants?${params.toString()}`);
     groupVariants.value.set(productId, response.data);
   } catch (error) {
     console.error('Failed to fetch variants:', error);
@@ -369,7 +369,7 @@ const toggleGroup = async (productId: number) => {
 // Fetch stores
 const fetchStores = async () => {
   try {
-    const response = await axios.get('/api/stores');
+    const response = await api.get('/stores');
     stores.value = response.data;
   } catch (error) {
     console.error('Failed to fetch stores:', error);
@@ -380,15 +380,15 @@ const fetchStores = async () => {
 const exportToExcel = async () => {
   try {
     const params = new URLSearchParams();
-    if (filters.store_ids.length > 0) {
-      filters.store_ids.forEach(id => params.append('store_ids[]', id));
+    if (filters.store_id) {
+      params.append('store_ids[]', filters.store_id);
     }
     if (filters.product_status) params.append('product_status', filters.product_status);
     if (filters.price_status) params.append('price_status', filters.price_status);
     if (filters.model) params.append('model', filters.model);
     if (filters.search) params.append('search', filters.search);
 
-    const response = await axios.get(`/api/marketplace-products/profit-analysis/export?${params.toString()}`, {
+    const response = await api.get(`/marketplace-products/profit-analysis/export?${params.toString()}`, {
       responseType: 'blob',
     });
 
@@ -472,7 +472,7 @@ const getHintKey = (hint: string) => {
 };
 
 // Watch filters
-watch([() => filters.store_ids, () => filters.product_status, () => filters.price_status, () => filters.model], () => {
+watch([() => filters.store_id, () => filters.product_status, () => filters.price_status, () => filters.model], () => {
   page.value = 1;
   fetchProfitAnalysis();
 }, { deep: true });

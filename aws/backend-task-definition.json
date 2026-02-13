@@ -30,6 +30,10 @@
         {
           "name": "ALLOWED_ORIGINS",
           "value": "http://bm-agency-alb-1341969773.eu-north-1.elb.amazonaws.com,http://localhost:5173"
+        },
+        {
+          "name": "DB_SSL",
+          "value": "true"
         }
       ],
       "secrets": [
