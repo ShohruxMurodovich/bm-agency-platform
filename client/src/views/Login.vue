@@ -84,8 +84,8 @@ import Input from '../components/ui/Input.vue';
 import { Loader2, XCircle } from 'lucide-vue-next';
 
 const { t } = useI18n();
-const email = ref('admin@platform.com'); // Pre-fill for convenience
-const password = ref('admin123');
+const email = ref('');
+const password = ref('');
 const loading = ref(false);
 const errorMessage = ref('');
 const authStore = useAuthStore();

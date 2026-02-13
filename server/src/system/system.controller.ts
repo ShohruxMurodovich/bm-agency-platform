@@ -6,17 +6,16 @@ import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../users/user.entity';
 
 @Controller('system')
-@UseGuards(JwtAuthGuard, RolesGuard)
 export class SystemController {
     constructor(private readonly systemService: SystemService) { }
 
     @Get('status')
-    @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.COURIER, UserRole.PUBLIC_USER)
     async getStatus() {
         return this.systemService.getStatus();
     }
 
     @Get('logs')
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(UserRole.ADMIN)
     async getLogs() {
         return this.systemService.getLogs();

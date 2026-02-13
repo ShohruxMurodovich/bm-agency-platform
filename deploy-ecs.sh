@@ -2,7 +2,7 @@
 set -e
 
 # Configuration
-AWS_REGION="us-east-1"
+AWS_REGION="eu-north-1"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 BACKEND_REPO="bm-agency-backend"
 FRONTEND_REPO="bm-agency-frontend"
