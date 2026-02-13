@@ -408,7 +408,7 @@
             "company": "Название компании",
             "company_placeholder": "OOO Ромашка",
             "email": "Email",
-            "email_placeholder": "ivan@example.com",
+            "email_placeholder": "ivan{'@'}example.com",
             "phone": "Телефон",
             "phone_placeholder": "+998 90 123 45 67",
             "password": "Пароль",
@@ -448,7 +448,7 @@
             "external_id_label": "Внешний ID",
             "external_id_placeholder": "Необязательный ID из маркетплейса",
             "owner_label": "Владелец (Email пользователя)",
-            "owner_placeholder": "email@example.com",
+            "owner_placeholder": "email{'@'}example.com",
             "seller_label": "Продавец"
         }
     },
@@ -472,7 +472,7 @@
         "subtitle": "Начните ваш 14-дневный бесплатный период",
         "brand": "BM Agency",
         "email": "Email адрес",
-        "email_placeholder": "you@company.com",
+        "email_placeholder": "you{'@'}company.com",
         "password": "Пароль",
         "password_placeholder": "Минимум 6 символов",
         "business_name": "Название бизнеса",
@@ -697,5 +697,62 @@
         "title": "Дашборд Аналитики",
         "subtitle": "Бизнес-аналитика и панель управления аналитикой",
         "placeholder_message": "Эта страница находится в разработке. Функциональность аналитики и отчетности будет добавлена в ближайшее время."
+    },
+    "marketplace_products": {
+        "title": "Маркетплейс продукты: Мониторинг прибыли",
+        "subtitle": "Выявление продуктов, продаваемых с убытком или низкой маржой",
+        "columns": {
+            "id": "ID Продукта",
+            "title": "Название",
+            "variants_count": "Варианты",
+            "variants": "варианты",
+            "sell_price": "Цена продажи",
+            "marketplace_payout": "Выплата маркетплейса",
+            "profit": "Прибыль",
+            "margin": "Маржа",
+            "status": "Статус"
+        },
+        "filters": {
+            "store": "Магазин",
+            "product_status": "Статус продукта",
+            "price_status": "Статус цены",
+            "model": "Модель",
+            "search": "Поиск продуктов..."
+        },
+        "product_status_options": {
+            "in_stock": "В наличии",
+            "run_out": "Закончился",
+            "archived": "Архивный",
+            "blocked": "Заблокирован"
+        },
+        "price_status_options": {
+            "profit": "Прибыль",
+            "low_margin": "Низкая маржа",
+            "loss": "Убыток",
+            "unknown": "Неизвестно"
+        },
+        "model_options": {
+            "auto": "Авто",
+            "fbs": "FBS",
+            "fbo": "FBO"
+        },
+        "status": {
+            "PROFIT": "Прибыль",
+            "LOSS": "Убыток",
+            "LOW_MARGIN": "Низкая маржа",
+            "UNKNOWN": "Неизвестно"
+        },
+        "hints": {
+            "not_linked": "Не привязан к родительскому продукту (стоимость неизвестна)",
+            "cost_not_set": "Стоимость не установлена в родительских продуктах",
+            "sell_price_zero": "Цена продажи равна 0",
+            "commission_not_found": "Ставка комиссии не найдена для категории/модели",
+            "logistics_fee_missing": "Логистическая плата отсутствует для этой модели",
+            "auto_model_ambiguous": "Авто-модель не может быть определена - выберите FBS или FBO вручную"
+        },
+        "actions": {
+            "export_excel": "Экспорт в Excel",
+            "open_parent_product": "Открыть родительский продукт"
+        }
     }
 }

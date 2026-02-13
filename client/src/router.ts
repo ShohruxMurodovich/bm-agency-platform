@@ -19,6 +19,7 @@ const routes = [
             { path: 'courier-dashboard', component: () => import('./views/CourierDashboard.vue'), meta: { roles: ['admin', 'courier'] } },
             { path: 'parent-products', component: () => import('./views/ParentProducts.vue'), meta: { roles: ['admin', 'staff', 'seller', 'public_user'] } },
             { path: 'products', component: () => import('./views/Products.vue'), meta: { roles: ['admin', 'staff', 'seller', 'public_user'] } },
+            { path: 'marketplace-products', component: () => import('./views/MarketplaceProducts.vue'), meta: { roles: ['admin', 'staff', 'public_user'] } },
             { path: 'products/:id', component: () => import('./views/ProductDetail.vue'), meta: { roles: ['admin', 'staff', 'seller'] } },
             { path: 'inventory', component: () => import('./views/Inventory.vue'), meta: { roles: ['admin', 'staff', 'public_user'] } },
             { path: 'send-products', component: () => import('./views/SendProducts.vue'), meta: { roles: ['admin', 'seller'] } },

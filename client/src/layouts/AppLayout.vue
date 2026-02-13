@@ -179,7 +179,7 @@ const navItems = computed(() => {
             { label: t('menu.product_management'), isHeader: true },
             { label: t('menu.stores'), path: '/stores', icon: Store },
             { label: t('menu.parent_products'), path: '/parent-products', icon: Package },
-            { label: t('menu.marketplace_products'), path: '/products', icon: ShoppingCart },
+            { label: t('menu.marketplace_products'), path: '/marketplace-products', icon: ShoppingCart },
             { label: t('menu.operations'), isHeader: true },
             { label: t('menu.orders'), path: '/orders', icon: ShoppingCart },
             { label: t('menu.inventory_mgmt'), path: '/inventory', icon: Inbox },

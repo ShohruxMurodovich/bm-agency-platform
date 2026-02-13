@@ -419,7 +419,7 @@
             "company": "Company Name",
             "company_placeholder": "Acme Corp",
             "email": "Email",
-            "email_placeholder": "john@example.com",
+            "email_placeholder": "john{'@'}example.com",
             "phone": "Phone",
             "phone_placeholder": "+1 234 567 890",
             "password": "Password",
@@ -453,7 +453,7 @@
             "external_id_label": "External ID",
             "external_id_placeholder": "Optional ID from marketplace",
             "owner_label": "Owner (User Email)",
-            "owner_placeholder": "email@example.com"
+            "owner_placeholder": "email{'@'}example.com"
         }
     },
     "login": {
@@ -476,7 +476,7 @@
         "subtitle": "Start your 14-day free trial",
         "brand": "BM Agency",
         "email": "Email Address",
-        "email_placeholder": "you@company.com",
+        "email_placeholder": "you{'@'}company.com",
         "password": "Password",
         "password_placeholder": "Minimum 6 characters",
         "business_name": "Business Name",
@@ -697,5 +697,62 @@
         "DAMAGE": "Damaged Goods",
         "ADJUSTMENT": "Adjustment",
         "STATUS_CHANGE": "Status Change"
+    },
+    "marketplace_products": {
+        "title": "Marketplace Products: Profit Monitoring",
+        "subtitle": "Identify products sold at a loss or low margin",
+        "columns": {
+            "id": "Product ID",
+            "title": "Title",
+            "variants_count": "Variants",
+            "variants": "variants",
+            "sell_price": "Sell Price",
+            "marketplace_payout": "Marketplace Payout",
+            "profit": "Profit",
+            "margin": "Margin",
+            "status": "Status"
+        },
+        "filters": {
+            "store": "Store",
+            "product_status": "Product Status",
+            "price_status": "Price Status",
+            "model": "Model",
+            "search": "Search products..."
+        },
+        "product_status_options": {
+            "in_stock": "In Stock",
+            "run_out": "Run Out",
+            "archived": "Archived",
+            "blocked": "Blocked"
+        },
+        "price_status_options": {
+            "profit": "Profit",
+            "low_margin": "Low Margin",
+            "loss": "Loss",
+            "unknown": "Unknown"
+        },
+        "model_options": {
+            "auto": "Auto",
+            "fbs": "FBS",
+            "fbo": "FBO"
+        },
+        "status": {
+            "PROFIT": "Profit",
+            "LOSS": "Loss",
+            "LOW_MARGIN": "Low Margin",
+            "UNKNOWN": "Unknown"
+        },
+        "hints": {
+            "not_linked": "Not linked to Parent Product (cost unknown)",
+            "cost_not_set": "Cost is not set in Parent Products",
+            "sell_price_zero": "Sell price is 0",
+            "commission_not_found": "Commission rate not found for category/model",
+            "logistics_fee_missing": "Logistics fee missing for this model",
+            "auto_model_ambiguous": "Auto model cannot be decided - please select FBS or FBO manually"
+        },
+        "actions": {
+            "export_excel": "Export to Excel",
+            "open_parent_product": "Open Parent Product"
+        }
     }
 }

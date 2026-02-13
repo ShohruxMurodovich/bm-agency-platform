@@ -40,6 +40,7 @@ import { CategoriesModule } from './categories/categories.module';
       database: process.env.DB_NAME || 'platform_db',
       autoLoadEntities: true,
       synchronize: true, // TODO: set false in production
+      ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     }),
     UsersModule,
     SellersModule,

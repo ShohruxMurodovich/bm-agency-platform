@@ -397,7 +397,7 @@
             "company": "Kompaniya nomi",
             "company_placeholder": "MCHJ Romashka",
             "email": "Email",
-            "email_placeholder": "ivan@example.com",
+            "email_placeholder": "ivan{'@'}example.com",
             "phone": "Telefon",
             "phone_placeholder": "+998 90 123 45 67",
             "password": "Parol",
@@ -437,7 +437,7 @@
             "external_id_label": "Tashqi ID",
             "external_id_placeholder": "Marketpleysdan ixtiyoriy ID",
             "owner_label": "Egasi (Email)",
-            "owner_placeholder": "email@example.com",
+            "owner_placeholder": "email{'@'}example.com",
             "seller_label": "Sotuvchi"
         }
     },
@@ -664,5 +664,62 @@
         "title": "Analitika paneli",
         "subtitle": "Biznes tahlil va analitika paneli",
         "placeholder_message": "Bu sahifa ishlab chiqilmoqda. Analitika va hisobot funksiyalari tez orada qo'shiladi."
+    },
+    "marketplace_products": {
+        "title": "Marketplace mahsulotlar: Foyda monitoringi",
+        "subtitle": "Zarar yoki past marja bilan sotilgan mahsulotlarni aniqlash",
+        "columns": {
+            "id": "Mahsulot ID",
+            "title": "Nomi",
+            "variants_count": "Variantlar",
+            "variants": "variantlar",
+            "sell_price": "Savdo narxi",
+            "marketplace_payout": "Marketplace to'lovi",
+            "profit": "Foyda",
+            "margin": "Marja",
+            "status": "Holat"
+        },
+        "filters": {
+            "store": "Do'kon",
+            "product_status": "Mahsulot holati",
+            "price_status": "Narx holati",
+            "model": "Model",
+            "search": "Mahsulotlarni qidirish..."
+        },
+        "product_status_options": {
+            "in_stock": "Mavjud",
+            "run_out": "Tugagan",
+            "archived": "Arxivlangan",
+            "blocked": "Bloklangan"
+        },
+        "price_status_options": {
+            "profit": "Foyda",
+            "low_margin": "Past marja",
+            "loss": "Zarar",
+            "unknown": "Noma'lum"
+        },
+        "model_options": {
+            "auto": "Avto",
+            "fbs": "FBS",
+            "fbo": "FBO"
+        },
+        "status": {
+            "PROFIT": "Foyda",
+            "LOSS": "Zarar",
+            "LOW_MARGIN": "Past marja",
+            "UNKNOWN": "Noma'lum"
+        },
+        "hints": {
+            "not_linked": "Asosiy mahsulotga bog'lanmagan (xarajat noma'lum)",
+            "cost_not_set": "Asosiy mahsulotlarda xarajat belgilanmagan",
+            "sell_price_zero": "Savdo narxi 0",
+            "commission_not_found": "Kategoriya/model uchun komissiya stavkasi topilmadi",
+            "logistics_fee_missing": "Ushbu model uchun logistika to'lovi yo'q",
+            "auto_model_ambiguous": "Avto-modelni aniqlab bo'lmadi - FBS yoki FBO ni qo'lda tanlang"
+        },
+        "actions": {
+            "export_excel": "Excel ga eksport qilish",
+            "open_parent_product": "Asosiy mahsulotni ochish"
+        }
     }
 }
