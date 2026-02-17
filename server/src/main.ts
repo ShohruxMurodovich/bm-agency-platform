@@ -14,7 +14,11 @@ async function bootstrap() {
 
   // Secure CORS configuration
   app.enableCors({
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173'],
+    origin: [
+      'https://mysku.uz',
+      'https://www.mysku.uz',
+      ...(process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173']),
+    ],
     credentials: true,
   });
 
