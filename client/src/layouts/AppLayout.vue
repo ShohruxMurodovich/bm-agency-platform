@@ -5,11 +5,11 @@
         <div class="p-6 h-16 flex items-center border-b border-border">
             <!-- Brand -->
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold text-lg shadow-sm">
                     P
                 </div>
-                <h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-indigo-500">
-                    Platform
+                <h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+                    {{ t('common.platform') }}
                 </h1>
             </div>
         </div>
@@ -23,9 +23,9 @@
                 <!-- Navigation links -->
                 <router-link v-else :to="item.path" 
                     class="flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-all duration-200 group"
-                    :class="isActive(item.path) ? 'bg-indigo-50/10 text-indigo-700 dark:text-indigo-400 shadow-sm ring-1 ring-indigo-200/50' : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
+                    :class="isActive(item.path) ? 'bg-primary/10 text-primary shadow-sm ring-1 ring-primary/20' : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
                 >
-                    <component :is="item.icon" class="w-5 h-5 mr-3 transition-colors" :class="isActive(item.path) ? 'text-indigo-600 dark:text-indigo-400' : 'text-muted-foreground group-hover:text-foreground'" />
+                    <component :is="item.icon" class="w-5 h-5 mr-3 transition-colors" :class="isActive(item.path) ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'" />
                     {{ item.label }}
                 </router-link>
             </template>
@@ -33,17 +33,17 @@
 
         <div class="p-4 border-t border-border bg-muted/30">
             <div class="flex items-center gap-3 mb-4 px-2">
-                 <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 text-xs font-bold border border-indigo-200">
+                 <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold border border-primary/20">
                      {{ userInitials }}
                  </div>
                  <div class="flex-1 min-w-0">
-                     <p class="text-sm font-medium text-foreground truncate">{{ authStore.user?.name || authStore.user?.email?.split('@')[0] || 'User' }}</p>
+                     <p class="text-sm font-medium text-foreground truncate">{{ authStore.user?.name || authStore.user?.email?.split('@')[0] || t('common.user_fallback') }}</p>
                      <p class="text-xs text-muted-foreground truncate">{{ authStore.user?.email }}</p>
                  </div>
             </div>
-            <button @click="logout" class="flex w-full items-center justify-center px-4 py-2 text-sm font-medium text-foreground bg-card border border-border rounded-lg shadow-sm hover:bg-muted hover:text-red-600 transition-colors">
+            <button @click="logout" class="flex w-full items-center justify-center px-4 py-2 text-sm font-medium text-foreground bg-card border border-border rounded-lg shadow-sm hover:bg-muted hover:text-destructive transition-colors">
                 <LogOut class="w-4 h-4 mr-2" />
-                Sign out
+                {{ t('common.sign_out') }}
             </button>
         </div>
     </aside>
@@ -72,7 +72,7 @@
 
                      <div v-if="isNotificationsOpen" class="absolute right-0 mt-2 w-80 bg-card rounded-xl shadow-lg border border-border py-2 z-50 origin-top-right animate-fade-in">
                          <div class="px-4 py-2 border-b border-border flex justify-between items-center">
-                             <h3 class="text-sm font-semibold text-foreground">Notifications</h3>
+                             <h3 class="text-sm font-semibold text-foreground">{{ t('common.notifications') }}</h3>
                              <button @click="isNotificationsOpen = false" class="text-muted-foreground hover:text-foreground">
                                  <X class="w-4 h-4" />
                              </button>
@@ -80,12 +80,12 @@
                          <div class="max-h-96 overflow-y-auto">
                              <div v-if="notifications.length === 0" class="p-8 text-center text-muted-foreground flex flex-col items-center">
                                  <Bell class="w-8 h-8 text-muted-foreground/50 mb-2" />
-                                 <p class="text-sm">No new notifications</p>
+                                 <p class="text-sm">{{ t('common.no_new_notifications') }}</p>
                              </div>
                              <div v-else>
                                  <div v-for="note in notifications" :key="note.id" class="px-4 py-3 hover:bg-muted transition-colors border-b border-border last:border-0 cursor-pointer">
                                      <div class="flex justify-between items-start">
-                                         <p class="text-sm font-medium text-foreground" :class="{ 'text-indigo-600': note.unread }">{{ note.title }}</p>
+                                         <p class="text-sm font-medium text-foreground" :class="{ 'text-primary': note.unread }">{{ note.title }}</p>
                                          <span class="text-xs text-muted-foreground whitespace-nowrap ml-2">{{ note.time }}</span>
                                      </div>
                                  </div>
@@ -276,7 +276,7 @@ const logout = () => {
 };
 
 const userInitials = computed(() => {
-    const name = authStore.user?.name || 'A';
+    const name = authStore.user?.name || authStore.user?.email || t('common.user_fallback');
     return name.substring(0, 2).toUpperCase();
 });
 
@@ -291,7 +291,7 @@ const currentBreadcrumbs = computed(() => {
             return [lastHeader, item.label].filter(Boolean);
         }
     }
-    return ['Platform'];
+    return [t('common.platform')];
 });
 
 const isActive = (path: string) => {

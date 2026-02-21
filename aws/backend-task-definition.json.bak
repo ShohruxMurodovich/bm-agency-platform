@@ -10,7 +10,7 @@
   "containerDefinitions": [
     {
       "name": "bm-backend",
-      "image": "476435839741.dkr.ecr.eu-north-1.amazonaws.com/bm-agency-backend:v2",
+      "image": "476435839741.dkr.ecr.eu-north-1.amazonaws.com/bm-agency-backend:latest",
       "essential": true,
       "portMappings": [
         {
@@ -30,6 +30,10 @@
         {
           "name": "ALLOWED_ORIGINS",
           "value": "http://bm-agency-alb-1341969773.eu-north-1.elb.amazonaws.com,http://localhost:5173"
+        },
+        {
+          "name": "DB_SSL",
+          "value": "true"
         }
       ],
       "secrets": [
@@ -69,7 +73,7 @@
       "healthCheck": {
         "command": [
           "CMD-SHELL",
-          "wget --no-verbose --tries=1 --spider http://localhost:3001/system/status || exit 1"
+          "wget --no-verbose --tries=1 --spider http://localhost:3001/api/system/status || exit 1"
         ],
         "interval": 30,
         "timeout": 5,

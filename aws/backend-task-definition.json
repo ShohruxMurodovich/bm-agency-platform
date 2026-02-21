@@ -10,7 +10,7 @@
   "containerDefinitions": [
     {
       "name": "bm-backend",
-      "image": "476435839741.dkr.ecr.eu-north-1.amazonaws.com/bm-agency-backend:v2",
+      "image": "476435839741.dkr.ecr.eu-north-1.amazonaws.com/bm-agency-backend:latest",
       "essential": true,
       "portMappings": [
         {

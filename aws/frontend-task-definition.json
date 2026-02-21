@@ -10,7 +10,7 @@
     "containerDefinitions": [
         {
             "name": "bm-frontend",
-            "image": "476435839741.dkr.ecr.eu-north-1.amazonaws.com/bm-agency-frontend:fix-ssl",
+            "image": "476435839741.dkr.ecr.eu-north-1.amazonaws.com/bm-agency-frontend:latest",
             "essential": true,
             "portMappings": [
                 {

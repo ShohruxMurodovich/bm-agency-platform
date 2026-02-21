@@ -80,7 +80,12 @@
         "search_marketplace_products": "Поиск товаров маркетплейса...",
         "no_marketplace_products_found": "Товары маркетплейса не найдены",
         "vs_last_month": "vs прошлого месяца",
-        "vs_last_week": "vs прошлой недели"
+        "vs_last_week": "vs прошлой недели",
+        "platform": "Платформа",
+        "sign_out": "Выйти",
+        "notifications": "Уведомления",
+        "no_new_notifications": "Нет новых уведомлений",
+        "user_fallback": "Пользователь"
     },
     "menu": {
         "dashboard": "Дашборд",

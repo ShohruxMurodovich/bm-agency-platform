@@ -34,7 +34,7 @@ echo -e "${GREEN}✓ Logged into ECR${NC}"
 # Step 3: Build and push backend
 echo -e "${YELLOW}Step 3: Building and pushing backend...${NC}"
 cd server
-docker build -t $BACKEND_REPO:latest .
+docker build --platform linux/amd64 -t $BACKEND_REPO:latest .
 docker tag $BACKEND_REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$BACKEND_REPO:latest
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$BACKEND_REPO:latest
 cd ..
@@ -43,7 +43,7 @@ echo -e "${GREEN}✓ Backend pushed to ECR${NC}"
 # Step 4: Build and push frontend
 echo -e "${YELLOW}Step 4: Building and pushing frontend...${NC}"
 cd client
-docker build -t $FRONTEND_REPO:latest .
+docker build --platform linux/amd64 --build-arg VITE_API_URL=https://www.mysku.uz/api -t $FRONTEND_REPO:latest .
 docker tag $FRONTEND_REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$FRONTEND_REPO:latest
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$FRONTEND_REPO:latest
 cd ..

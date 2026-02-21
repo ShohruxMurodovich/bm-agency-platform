@@ -80,7 +80,12 @@
         "search_marketplace_products": "Marketpleys mahsulotlarini qidirish...",
         "no_marketplace_products_found": "Marketpleys mahsulotlari topilmadi",
         "vs_last_month": "o'tgan oy bilan",
-        "vs_last_week": "o'tgan hafta bilan"
+        "vs_last_week": "o'tgan hafta bilan",
+        "platform": "Platforma",
+        "sign_out": "Chiqish",
+        "notifications": "Bildirishnomalar",
+        "no_new_notifications": "Yangi bildirishnomalar yo'q",
+        "user_fallback": "Foydalanuvchi"
     },
     "menu": {
         "dashboard": "Boshqaruv paneli",

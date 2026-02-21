@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards, Request } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -12,8 +12,8 @@ export class OrdersController {
 
     @Get()
     @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.COURIER, UserRole.PUBLIC_USER)
-    async findAll(@Request() req: any) {
-        return this.ordersService.findAll(req.user);
+    async findAll(@Request() req: any, @Query() query: any) {
+        return this.ordersService.findAll(req.user, query);
     }
 
     @Get(':id')

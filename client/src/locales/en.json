@@ -113,7 +113,12 @@
         "select_seller": "Select Seller",
         "search_stores": "Search stores...",
         "search_marketplace_products": "Search marketplace products...",
-        "no_marketplace_products_found": "No marketplace products found"
+        "no_marketplace_products_found": "No marketplace products found",
+        "platform": "Platform",
+        "sign_out": "Sign out",
+        "notifications": "Notifications",
+        "no_new_notifications": "No new notifications",
+        "user_fallback": "User"
     },
     "menu": {
         "dashboard": "Dashboard",

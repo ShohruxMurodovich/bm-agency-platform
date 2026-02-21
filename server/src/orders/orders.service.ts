@@ -10,13 +10,34 @@ export class OrdersService {
         private ordersRepository: Repository<Order>,
     ) { }
 
-    async findAll(user: any): Promise<Order[]> {
+    async findAll(user: any, query?: any): Promise<Order[]> {
         const queryBuilder = this.ordersRepository.createQueryBuilder('order')
             .leftJoinAndSelect('order.store', 'store')
             .leftJoinAndSelect('store.marketplace', 'marketplace')
             .leftJoinAndSelect('store.seller', 'seller')
             .leftJoinAndSelect('order.order_items', 'order_items')
             .leftJoinAndSelect('order_items.marketplace_product', 'marketplace_product');
+
+        if (query) {
+            if (query.store_id) {
+                queryBuilder.andWhere('store.id = :storeId', { storeId: query.store_id });
+            }
+            if (query.status) {
+                queryBuilder.andWhere('order.status = :status', { status: query.status });
+            }
+            if (query.date_from) {
+                queryBuilder.andWhere('order.created_at >= :dateFrom', { dateFrom: query.date_from });
+            }
+            if (query.date_to) {
+                queryBuilder.andWhere('order.created_at <= :dateTo', { dateTo: query.date_to });
+            }
+            if (query.product_search) {
+                queryBuilder.andWhere(
+                    '(marketplace_product.sku_name ILIKE :search OR order.invoiceNumber ILIKE :search OR marketplace_product.offer_id ILIKE :search)',
+                    { search: `%${query.product_search}%` }
+                );
+            }
+        }
 
         // Tenant isolation: seller/public_user only see their own orders
         if (user.role === 'seller' || user.role === 'public_user') {
@@ -30,6 +51,8 @@ export class OrdersService {
             } else {
                 queryBuilder.andWhere('store.seller_id = :sellerId', { sellerId });
             }
+        } else if (query && query.seller_id) {
+            queryBuilder.andWhere('store.seller_id = :sellerId', { sellerId: query.seller_id });
         }
 
         return queryBuilder

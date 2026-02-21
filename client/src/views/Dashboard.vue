@@ -46,7 +46,7 @@
                        <h3 class="font-bold text-foreground">{{ t('dashboard.sections.recent_orders') }}</h3>
                        <p class="text-xs text-muted-foreground mt-0.5">{{ t('dashboard.sections.recent_orders_subtitle') }}</p>
                    </div>
-                   <button @click="$router.push('/orders')" class="text-sm text-indigo-600 font-medium hover:text-indigo-700 hover:underline dark:text-indigo-400">
+                   <button @click="$router.push('/orders')" class="text-sm text-primary font-medium hover:text-primary/80 hover:underline">
                        {{ t('dashboard.actions.view_all_orders') }}
                    </button>
                </div>
@@ -85,39 +85,39 @@
            <!-- Quick Actions / Secondary Info -->
            <div class="space-y-6">
                <!-- Quick Actions Card -->
-               <div class="bg-indigo-600 rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-none p-6 text-white overflow-hidden relative">
+               <div class="bg-primary rounded-2xl shadow-lg shadow-primary/20 dark:shadow-none p-6 text-primary-foreground overflow-hidden relative">
                    <div class="relative z-10">
                        <h3 class="font-bold text-lg mb-1">{{ t('dashboard.sections.quick_actions') }}</h3>
-                       <p class="text-indigo-100 text-sm mb-6">{{ t('dashboard.sections.quick_actions_subtitle') }}</p>
+                       <p class="text-primary-foreground/80 text-sm mb-6">{{ t('dashboard.sections.quick_actions_subtitle') }}</p>
                        
                        <div class="space-y-3">
                            <button v-for="action in quickActions" :key="action.label" 
                                    @click="$router.push(action.path)"
-                                   class="w-full bg-white/10 hover:bg-white/20 border border-white/10 transition-colors rounded-xl p-3 flex items-center text-sm font-medium backdrop-blur-sm">
-                               <component :is="action.icon" class="w-4 h-4 mr-3 text-indigo-100" />
+                                   class="w-full bg-background/10 hover:bg-background/20 border border-background/10 transition-colors rounded-xl p-3 flex items-center text-sm font-medium backdrop-blur-sm">
+                               <component :is="action.icon" class="w-4 h-4 mr-3 text-primary-foreground/90" />
                                {{ action.label }}
                            </button>
                        </div>
                    </div>
                    
                    <!-- Decorative bg patterns -->
-                   <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-                   <div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-32 h-32 bg-indigo-500/50 rounded-full blur-2xl"></div>
+                   <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-background/10 rounded-full blur-2xl"></div>
+                   <div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-32 h-32 bg-primary/50 mix-blend-overlay rounded-full blur-2xl"></div>
                </div>
 
                <!-- Product Movements Preview -->
                <div class="bg-card rounded-2xl border border-border shadow-sm p-6">
                    <div class="flex justify-between items-center mb-4">
                        <h3 class="font-bold text-foreground">{{ t('dashboard.sections.recent_movements') }}</h3>
-                       <button @click="$router.push('/product-movements')" class="text-sm text-indigo-600 font-medium hover:text-indigo-700 hover:underline dark:text-indigo-400">
+                       <button @click="$router.push('/product-movements')" class="text-sm text-primary font-medium hover:text-primary/80 hover:underline">
                            {{ t('dashboard.actions.view_all_movements') }}
                        </button>
                    </div>
                    <div class="space-y-3">
                        <div v-for="movement in recentMovements" :key="movement.id" class="flex items-center justify-between p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors">
                            <div class="flex items-center gap-3">
-                               <div class="p-2 bg-indigo-500/10 rounded-lg">
-                                   <Truck class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                               <div class="p-2 bg-primary/10 rounded-lg">
+                                   <Truck class="w-4 h-4 text-primary" />
                                </div>
                                <div>
                                    <p class="text-sm font-medium text-foreground">{{ movement.product_name }}</p>
@@ -138,13 +138,13 @@
                    <h3 class="font-bold text-foreground">{{ t('dashboard.sections.daily_orders_chart') }}</h3>
                    <p class="text-xs text-muted-foreground mt-0.5">{{ t('dashboard.sections.daily_orders_subtitle') }}</p>
                </div>
-               <button @click="$router.push('/analytics')" class="text-sm text-indigo-600 font-medium hover:text-indigo-700 hover:underline dark:text-indigo-400">
+               <button @click="$router.push('/analytics')" class="text-sm text-primary font-medium hover:text-primary/80 hover:underline">
                    {{ t('dashboard.actions.view_full_analysis') }}
                </button>
            </div>
            <div class="flex items-end gap-2 h-64">
                <div v-for="(day, index) in dailyOrders" :key="index" class="flex-1 flex flex-col items-center gap-2">
-                   <div class="w-full bg-indigo-100 dark:bg-indigo-900/40 rounded-t-lg hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors cursor-pointer relative group"
+                   <div class="w-full bg-primary/20 dark:bg-primary/40 rounded-t-lg hover:bg-primary/30 dark:hover:bg-primary/50 transition-colors cursor-pointer relative group"
                         :style="{ height: `${(day.amount / maxDailyAmount) * 100}%` }">
                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-foreground text-background text-xs px-2 py-1 rounded whitespace-nowrap">
                            {{ formatCurrency(day.amount) }}
@@ -221,7 +221,7 @@ const getUserDisplayName = () => {
         }
     }
     
-    return 'User';
+    return t('common.user_fallback');
 };
 
 
