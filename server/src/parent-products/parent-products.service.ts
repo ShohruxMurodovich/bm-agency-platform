@@ -25,27 +25,27 @@ export class ParentProductsService {
         const query = this.parentProductsRepository.createQueryBuilder('product')
             .leftJoinAndSelect('product.seller', 'seller');
 
+        const conditions: string[] = [];
+        const params: any = {};
+
         if (search) {
-            query.where('product.product_name LIKE :search OR product.description LIKE :search', {
-                search: `%${search}%`,
-            });
+            const normalized = `%${search.trim().replace(/\s+/g, ' ')}%`;
+            conditions.push('(LOWER(product.product_name) LIKE LOWER(:search) OR LOWER(product.description) LIKE LOWER(:search))');
+            params.search = normalized;
         }
 
         if (sellerId) {
-            if (search) {
-                query.andWhere('product.seller_id = :sellerId', { sellerId });
-            } else {
-                query.where('product.seller_id = :sellerId', { sellerId });
-            }
+            conditions.push('product.seller_id = :sellerId');
+            params.sellerId = sellerId;
         }
 
-        // Exclude archived products for PUBLIC_USER
         if (excludeArchived) {
-            if (search || sellerId) {
-                query.andWhere('product.is_archived = :archived', { archived: false });
-            } else {
-                query.where('product.is_archived = :archived', { archived: false });
-            }
+            conditions.push('product.is_archived = :archived');
+            params.archived = false;
+        }
+
+        if (conditions.length > 0) {
+            query.where(conditions.join(' AND '), params);
         }
 
         return query.getMany();
@@ -91,31 +91,28 @@ export class ParentProductsService {
     }
 
     /**
-     * Soft delete: set is_archived = true instead of hard delete.
-     * Returns success message.
+     * Hard delete with full cascade:
+     * Removes mappings, inventory, states, movements then the parent product.
      */
-    async softDelete(id: string, user: any): Promise<{ success: boolean; message: string }> {
+    async hardDelete(id: string, user?: any): Promise<{ success: boolean; message: string }> {
         const product = await this.findOne(id);
         if (!product) {
             return { success: false, message: 'Product not found' };
         }
 
-        // For PUBLIC_USER, verify ownership
-        if (user.role === 'public_user' && product.seller_id !== user.seller_id) {
+        if (user && user.role === 'public_user' && product.seller_id !== user.seller_id) {
             return { success: false, message: 'You can only delete your own products' };
         }
 
-        await this.parentProductsRepository.update(id, { is_archived: true });
-
-        return {
-            success: true,
-            message: 'Product archived successfully',
-        };
-    }
-
-    // Keep hard delete for admin use
-    async remove(id: string): Promise<void> {
+        // Cascade deletions via raw SQL for safety
+        const manager = this.parentProductsRepository.manager;
+        await manager.query(`DELETE FROM product_mappings WHERE parent_product_id = $1`, [id]);
+        await manager.query(`DELETE FROM inventory WHERE parent_product_id = $1`, [id]);
+        await manager.query(`DELETE FROM product_states WHERE parent_product_id = $1`, [id]);
+        await manager.query(`DELETE FROM product_movements WHERE parent_product_id = $1`, [id]);
         await this.parentProductsRepository.delete(id);
+
+        return { success: true, message: 'Product and all related data deleted successfully' };
     }
 
     /**

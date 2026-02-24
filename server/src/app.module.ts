@@ -26,6 +26,7 @@ import { PublicSaasGuard } from './auth/public-saas.guard';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ProfitMonitoringModule } from './profit-monitoring/profit-monitoring.module';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { CategoriesModule } from './categories/categories.module';
     DashboardModule,
     AnalyticsModule,
     CategoriesModule,
+    ProfitMonitoringModule,
   ],
   controllers: [AppController],
   providers: [

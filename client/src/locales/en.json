@@ -146,6 +146,7 @@
         "transfer_acts": "Transfer Acts",
         "return_acts": "Return Acts",
         "analytics": "Analytics",
+        "profit_monitoring": "Profit Monitoring",
         "notifications": "Notifications",
         "stock_management": "Stock Management",
         "product_management": "Product Management",
@@ -759,5 +760,30 @@
             "export_excel": "Export to Excel",
             "open_parent_product": "Open Parent Product"
         }
+    },
+    "profit_monitoring": {
+        "title": "Profit Monitoring",
+        "subtitle": "Real-time marketplace data from Yandex, WB and Uzum",
+        "refresh": "Refresh",
+        "search_placeholder": "Search by product name or SKU...",
+        "all_marketplaces": "All Marketplaces",
+        "total_items": "items",
+        "no_data": "No products found",
+        "avg_price": "Avg Price",
+        "total_payout": "Total Payout",
+        "total_commission": "Commission",
+        "total_margin": "Total Margin",
+        "col_marketplace": "Marketplace",
+        "col_sku": "SKU ID",
+        "col_product": "Product",
+        "col_price": "Sell Price",
+        "col_commission": "Commission",
+        "col_logistics": "Logistics",
+        "col_payout": "Payout",
+        "col_margin": "Margin",
+        "showing": "Showing",
+        "of": "of",
+        "prev": "Prev",
+        "next": "Next"
     }
 }

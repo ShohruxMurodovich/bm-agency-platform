@@ -19,9 +19,9 @@ const routes = [
             { path: 'courier-dashboard', component: () => import('./views/CourierDashboard.vue'), meta: { roles: ['admin', 'courier'] } },
             { path: 'parent-products', component: () => import('./views/ParentProducts.vue'), meta: { roles: ['admin', 'staff', 'seller', 'public_user'] } },
             { path: 'products', component: () => import('./views/Products.vue'), meta: { roles: ['admin', 'staff', 'seller', 'public_user'] } },
-            { path: 'marketplace-products', component: () => import('./views/MarketplaceProducts.vue'), meta: { roles: ['admin', 'staff', 'public_user'] } },
+            { path: 'profit-monitoring', component: () => import('./views/ProfitMonitoring.vue'), meta: { roles: ['admin', 'staff', 'public_user'] } },
             { path: 'products/:id', component: () => import('./views/ProductDetail.vue'), meta: { roles: ['admin', 'staff', 'seller'] } },
-            { path: 'inventory', component: () => import('./views/Inventory.vue'), meta: { roles: ['admin', 'staff', 'public_user'] } },
+
             { path: 'send-products', component: () => import('./views/SendProducts.vue'), meta: { roles: ['admin', 'seller'] } },
             { path: 'receive-products', component: () => import('./views/ReceiveProducts.vue'), meta: { roles: ['admin', 'courier'] } },
             { path: 'return-products', component: () => import('./views/ReturnProducts.vue'), meta: { roles: ['admin', 'courier'] } },
@@ -41,6 +41,7 @@ const routes = [
             { path: 'stores', component: () => import('./views/Stores.vue'), meta: { roles: ['admin', 'public_user'] } },
             { path: 'sellers', component: () => import('./views/Sellers.vue'), meta: { roles: ['admin'] } },
             { path: 'users', component: () => import('./views/Users.vue'), meta: { roles: ['admin'] } },
+
         ]
     },
     // Add more routes

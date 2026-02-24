@@ -114,6 +114,7 @@
         "transfer_acts": "Topshirish aktlari",
         "return_acts": "Qaytarish aktlari",
         "analytics": "Analitika",
+        "profit_monitoring": "Foyda monitoringi",
         "notifications": "Bildirishnomalar",
         "stock_management": "Ombor boshqaruvi",
         "product_management": "Mahsulotlarni boshqarish",
@@ -726,5 +727,30 @@
             "export_excel": "Excel ga eksport qilish",
             "open_parent_product": "Asosiy mahsulotni ochish"
         }
+    },
+    "profit_monitoring": {
+        "title": "Foyda monitoringi",
+        "subtitle": "Yandex, WB va Uzum bozor ma'lumotlari",
+        "refresh": "Yangilash",
+        "search_placeholder": "Mahsulot nomi yoki SKU bo'yicha qidirish...",
+        "all_marketplaces": "Barcha bozorlar",
+        "total_items": "ta mahsulot",
+        "no_data": "Mahsulotlar topilmadi",
+        "avg_price": "O'rtacha narx",
+        "total_payout": "Jami to'lov",
+        "total_commission": "Komissiya",
+        "total_margin": "Jami marja",
+        "col_marketplace": "Bozor",
+        "col_sku": "SKU",
+        "col_product": "Mahsulot",
+        "col_price": "Sotuv narxi",
+        "col_commission": "Komissiya",
+        "col_logistics": "Logistika",
+        "col_payout": "To'lov",
+        "col_margin": "Marja",
+        "showing": "Ko'rsatilgan",
+        "of": "dan",
+        "prev": "Oldingi",
+        "next": "Keyingi"
     }
 }

@@ -114,6 +114,7 @@
         "transfer_acts": "Акты передачи",
         "return_acts": "Акты возврата",
         "analytics": "Аналитика",
+        "profit_monitoring": "Мониторинг прибыли",
         "notifications": "Уведомления",
         "stock_management": "Управление складом",
         "product_management": "Управление товарами",
@@ -759,5 +760,30 @@
             "export_excel": "Экспорт в Excel",
             "open_parent_product": "Открыть родительский продукт"
         }
+    },
+    "profit_monitoring": {
+        "title": "Мониторинг прибыли",
+        "subtitle": "Данные маркетплейсов: Яндекс, WB и Uzum",
+        "refresh": "Обновить",
+        "search_placeholder": "Поиск по товару или SKU...",
+        "all_marketplaces": "Все маркетплейсы",
+        "total_items": "товаров",
+        "no_data": "Товары не найдены",
+        "avg_price": "Средняя цена",
+        "total_payout": "Итого выплата",
+        "total_commission": "Комиссия",
+        "total_margin": "Итого маржа",
+        "col_marketplace": "Маркетплейс",
+        "col_sku": "SKU",
+        "col_product": "Продукт",
+        "col_price": "Цена продажи",
+        "col_commission": "Комиссия",
+        "col_logistics": "Логистика",
+        "col_payout": "Выплата",
+        "col_margin": "Маржа",
+        "showing": "Показано",
+        "of": "из",
+        "prev": "Назад",
+        "next": "Вперёд"
     }
 }

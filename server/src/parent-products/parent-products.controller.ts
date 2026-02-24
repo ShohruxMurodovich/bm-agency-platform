@@ -118,12 +118,12 @@ export class ParentProductsController {
 
     /**
      * DELETE /parent-products/:id
-     * Soft delete via is_archived flag.
+     * Hard delete with cascade (mappings, inventory, states, movements).
      */
     @Delete(':id')
     @Roles(UserRole.ADMIN, UserRole.STAFF, UserRole.SELLER, UserRole.PUBLIC_USER)
     async remove(@Param('id') id: string, @Request() req: any): Promise<{ success: boolean; message: string }> {
-        const result = await this.parentProductsService.softDelete(id, req.user);
+        const result = await this.parentProductsService.hardDelete(id, req.user);
         return result;
     }
 }

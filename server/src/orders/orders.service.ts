@@ -32,9 +32,10 @@ export class OrdersService {
                 queryBuilder.andWhere('order.created_at <= :dateTo', { dateTo: query.date_to });
             }
             if (query.product_search) {
+                const normalized = query.product_search.trim().replace(/\s+/g, ' ');
                 queryBuilder.andWhere(
                     '(marketplace_product.sku_name ILIKE :search OR order.invoiceNumber ILIKE :search OR marketplace_product.offer_id ILIKE :search)',
-                    { search: `%${query.product_search}%` }
+                    { search: `%${normalized}%` }
                 );
             }
         }
