@@ -22,7 +22,10 @@ api.interceptors.response.use(
         if (error.response?.status === 401) {
             // Only redirect if not already on login page and not during initial fetch
             const currentPath = window.location.pathname;
-            if (currentPath !== '/login' && error.config?.url !== '/auth/me') {
+            const errorUrl = error.config?.url || '';
+            const isStoreAuthEndpoint = errorUrl.includes('/stores/uzum-token') || errorUrl.includes('/stores/validate');
+
+            if (currentPath !== '/login' && errorUrl !== '/auth/me' && !isStoreAuthEndpoint) {
                 localStorage.removeItem('token');
                 window.location.href = '/login';
             }

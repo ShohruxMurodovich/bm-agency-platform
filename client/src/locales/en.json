@@ -454,13 +454,10 @@
             "edit_title": "Edit Store",
             "desc": "Link an external marketplace store to the platform.",
             "marketplace_label": "Marketplace",
-            "name_label": "Store Name",
-            "name_placeholder": "Friendly display name",
-            "external_id_label": "External ID",
-            "external_id_placeholder": "Optional ID from marketplace",
             "owner_label": "Owner (User Email)",
             "owner_placeholder": "email{'@'}example.com"
-        }
+        },
+        "token_description": "Token is used to integrate with the marketplace and sync store data (products, orders, inventory)"
     },
     "login": {
         "title": "Sign In",

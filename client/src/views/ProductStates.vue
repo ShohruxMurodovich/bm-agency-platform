@@ -44,7 +44,7 @@
                   <label class="text-xs font-medium text-muted-foreground">{{ t('common.business_status') }}</label>
                   <select v-model="filterBusinessStatus" @change="fetchProductStates" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-foreground">
                       <option value="">{{ t('common.all_statuses') }}</option>
-                      <option v-for="status in businessStatuses" :key="status.id" :value="status.id">{{ status.name }}</option>
+                      <option v-for="status in businessStatuses" :key="status.id" :value="status.id">{{ status.code.replace(/_/g, ' ') }}</option>
                   </select>
               </div>
               <div class="flex flex-col gap-1">

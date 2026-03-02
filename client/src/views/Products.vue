@@ -169,7 +169,6 @@
                       </select>
                   </div>
 
-                  <!-- Margin Status -->
                   <div>
                       <label class="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{{ t('marketplace_products.filters.price_status') }}</label>
                       <select v-model="profitFilters.marginStatus" @change="profitPage = 1; applyMarginFilter()"
@@ -182,7 +181,7 @@
                       </select>
                   </div>
 
-                  <!-- Count -->
+
                   <div class="flex items-end pb-1">
                       <div class="flex items-center gap-2 text-muted-foreground text-sm">
                           <BarChart3 class="w-4 h-4" />
@@ -192,7 +191,7 @@
               </div>
           </div>
 
-          <!-- Loading -->
+
           <div v-if="profitLoading" class="flex items-center justify-center py-16">
               <div class="flex flex-col items-center gap-3">
                   <div class="animate-spin rounded-full h-10 w-10 border-2 border-primary border-t-transparent"></div>
@@ -200,7 +199,7 @@
               </div>
           </div>
 
-          <!-- Table -->
+
           <div v-else-if="profitFilteredItems.length > 0" class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
               <div class="overflow-x-auto">
                   <table class="w-full text-sm">
@@ -247,7 +246,6 @@
                   </table>
               </div>
 
-              <!-- Pagination -->
               <div class="p-4 border-t border-border flex items-center justify-between bg-muted/20">
                   <div class="text-xs text-muted-foreground">
                       {{ t('profit_monitoring.showing') }} <span class="font-medium text-foreground">{{ ((profitPage - 1) * profitLimit) + 1 }}–{{ Math.min(profitPage * profitLimit, profitTotal) }}</span> {{ t('profit_monitoring.of') }} {{ profitTotal }}
@@ -266,7 +264,7 @@
               </div>
           </div>
 
-          <!-- Empty -->
+
           <div v-else class="bg-card rounded-xl border border-border p-16 text-center">
               <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <BarChart3 class="w-7 h-7 text-primary" />
@@ -276,7 +274,7 @@
           </div>
       </div>
 
-      <!-- Delete Confirmation Dialog -->
+
       <Dialog
         :isOpen="isDeleteDialogOpen"
         :title="t('products.delete.title')"
@@ -308,13 +306,13 @@ import { useAuthStore } from '../stores/auth';
 
 const authStore = useAuthStore();
 
-// ── Tabs: Profit Monitoring visible only for Admin/Staff ──────
+
 const tabLabels = computed(() => {
     return [t('products.tabs.parent_products'), t('profit_monitoring.title')];
 });
 const activeTab = ref(0);
 
-// ── Parent Products ───────────────────────────────────────────
+
 const parentProducts = ref<any[]>([]);
 const parentLoading = ref(true);
 const parentError = ref('');
@@ -418,7 +416,7 @@ const loadProfitData = async () => {
     }
 };
 
-// Excel export
+
 const exportProfitExcel = async () => {
     profitExporting.value = true;
     try {
@@ -479,7 +477,7 @@ const exportProfitExcel = async () => {
     }
 };
 
-// ── Helpers ───────────────────────────────────────────────────
+
 const formatNumber = (num: string | number) => new Intl.NumberFormat().format(Number(num));
 
 const formatPrice = (val: number | null) => {
@@ -517,7 +515,8 @@ const marketplaceBadge = (mp: string) => {
     return 'bg-muted text-muted-foreground';
 };
 
-// ── Delete ────────────────────────────────────────────────────
+
+
 const isDeleteDialogOpen = ref(false);
 const productToDelete = ref<number | null>(null);
 
@@ -533,7 +532,7 @@ const deleteProduct = async () => {
     } catch (e) { toast.error('Failed to delete product'); }
 };
 
-// ── Init ──────────────────────────────────────────────────────
+
 onMounted(async () => {
     await fetchSellers();
     await fetchParentProducts();

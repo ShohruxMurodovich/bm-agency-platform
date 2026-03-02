@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, OneToMany, Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, OneToMany, Index } from 'typeorm';
 import { Seller } from '../sellers/seller.entity';
 import { Marketplace } from '../marketplaces/marketplace.entity';
 import { StoreCredential } from '../store-credentials/store-credential.entity';
@@ -10,6 +10,12 @@ export enum MarketplaceEnum {
     U = 'U',
     Y = 'Y',
     W = 'W',
+}
+
+export enum ConnectionStatus {
+    CONNECTED = 'connected',
+    EXPIRED = 'expired',
+    DISABLED = 'disabled',
 }
 
 @Entity('stores')
@@ -39,16 +45,49 @@ export class Store {
     @Column({ nullable: false })
     external_shop_id: string;
 
+    /** User-defined display name — e.g. "Store A Uzum" */
+    @Column({ nullable: true })
+    display_name: string;
+
+    /** Store name returned by the marketplace API — e.g. "Uzum Official Store" */
+    @Column({ nullable: true })
+    marketplace_store_name: string;
+
+    // ── AES-256-GCM encrypted token ─────────────────────────
+    @Column({ type: 'text', nullable: true })
+    encrypted_token: string;
+
+    @Column({ type: 'text', nullable: true })
+    token_iv: string;
+
+    @Column({ type: 'text', nullable: true })
+    token_auth_tag: string;
+
+    // ── Connection status ────────────────────────────────────
+    @Column({
+        type: 'varchar',
+        default: ConnectionStatus.CONNECTED,
+        nullable: false,
+    })
+    connection_status: ConnectionStatus;
+
+    // ── Legacy fields (kept for backward compat) ─────────────
     @Column({ nullable: true })
     name: string;
 
     @Column({ nullable: true })
     store_name: string;
 
+    @Column({ nullable: true })
+    token: string;
+
     @CreateDateColumn()
     created_at: Date;
 
-    // Relations
+    @DeleteDateColumn({ nullable: true })
+    deleted_at: Date;
+
+    // ── Relations ────────────────────────────────────────────
     @OneToMany(() => StoreCredential, (credential) => credential.store)
     store_credentials: StoreCredential[];
 

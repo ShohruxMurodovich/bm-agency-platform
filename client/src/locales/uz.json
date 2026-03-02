@@ -442,10 +442,11 @@
             "name_placeholder": "Do'stona nom",
             "external_id_label": "Tashqi ID",
             "external_id_placeholder": "Marketpleysdan ixtiyoriy ID",
-            "owner_label": "Egasi (Email)",
+            "owner_label": "Egasi (Foydalanuvchi Email)",
             "owner_placeholder": "email{'@'}example.com",
             "seller_label": "Sotuvchi"
-        }
+        },
+        "token_description": "Token marketpleys bilan integratsiya qilish va ma'lumotlarni sinxronlash uchun ishlatiladi (mahsulotlar, buyurtmalar, ombor va hokazo)"
     },
     "login": {
         "error": {
