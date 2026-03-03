@@ -298,8 +298,13 @@ const statusDot = (status: string) => {
     return 'bg-muted-foreground';
 };
 
-const mpCodeFromId: Record<number, string> = { 1: 'wb', 2: 'ozon', 3: 'yandex', 4: 'aliexpress', 5: 'uzum', 6: 'alif' };
-const getMarketplaceCode = (store: any): string => mpCodeFromId[store.marketplace_id] ?? store.marketplace?.code ?? '';
+const getMarketplaceCode = (store: any): string => {
+    const code = store.marketplace?.name ?? store.marketplace_code ?? store.marketplace?.code ?? '';
+    if (store.display_name?.toLowerCase().includes('wb') || store.display_name?.toLowerCase().includes('wildberries')) return 'wb';
+    if (store.display_name?.toLowerCase().includes('yandex')) return 'yandex';
+    if (store.display_name?.toLowerCase().includes('uzum')) return 'uzum';
+    return code;
+};
 
 // ── Edit display name ──────────────────────────────────────────
 const openEditName = (store: any) => {

@@ -6,9 +6,10 @@ import {
     UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Store, ConnectionStatus } from './store.entity';
+import { Repository, ILike } from 'typeorm';
+import { Store, ConnectionStatus, MarketplaceEnum } from './store.entity';
 import { Seller } from '../sellers/seller.entity';
+import { Marketplace } from '../marketplaces/marketplace.entity';
 import { encryptToken, decryptStoreToken } from '../common/token-encryption.util';
 import { fetchWithRetry, maskToken } from '../common/fetch-retry.util';
 import { Logger } from '@nestjs/common';
@@ -19,13 +20,14 @@ export interface ValidateResult {
     error?: string;
 }
 
-const MARKETPLACE_ID_MAP: Record<string, number> = {
-    wb: 1,
-    ozon: 2,
-    yandex: 3,
-    aliexpress: 4,
-    uzum: 5,
-    alif: 6,
+// We used to use a hardcoded map, but it causes FK constraint errors if DB IDs differ.
+const MARKETPLACE_KEY_TO_NAME: Record<string, string> = {
+    wb: 'Wildberries',
+    ozon: 'Ozon',
+    yandex: 'Yandex',
+    aliexpress: 'AliExpress',
+    uzum: 'Uzum',
+    alif: 'Alif',
 };
 
 @Injectable()
@@ -54,11 +56,17 @@ export class StoresService {
         return seller.id;
     }
 
-    private async assertOwner(storeId: string, sellerId: string) {
+    private async checkStoreAccess(storeId: string, user: any): Promise<{ store: Store; sellerId: string }> {
         const store = await this.storesRepo.findOne({ where: { id: storeId } });
         if (!store) throw new NotFoundException('Store not found');
+
+        if (user.role === 'admin' || user.role === 'staff') {
+            return { store, sellerId: store.seller_id };
+        }
+
+        const sellerId = await this.resolveSellerId(user);
         if (store.seller_id !== sellerId) throw new ForbiddenException('Access denied to this store');
-        return store;
+        return { store, sellerId };
     }
 
     private mapMarketplaceError(err: any): never {
@@ -136,11 +144,10 @@ export class StoresService {
     }
 
     /**
-     * Wildberries validation (using better /api/v3/suppliers endpoint)
+     * Wildberries validation (using /api/v3/warehouses as per notebook)
      */
     private async validateWB(external_shop_id: string, token: string): Promise<{ marketplace_store_name: string }> {
-        // As per recommendation, we use /api/v3/suppliers for better validation if available
-        const url = `https://marketplace-api.wildberries.ru/api/v3/suppliers`;
+        const url = `https://marketplace-api.wildberries.ru/api/v3/warehouses`;
         try {
             const response = await fetchWithRetry(url, {
                 headers: { 'Authorization': token, 'Accept': 'application/json' },
@@ -304,9 +311,40 @@ export class StoresService {
 
         const { encrypted, iv, authTag } = encryptToken(data.token);
 
-        const store = this.storesRepo.create({
+        // Dynamically find marketplace ID from the DB to avoid FK constraint errors
+        const mpName = MARKETPLACE_KEY_TO_NAME[data.marketplace?.toLowerCase()] || data.marketplace;
+        let mp = await this.storesRepo.manager.findOne(Marketplace, { where: { name: ILike(mpName) } });
+        if (!mp) {
+            // Try to fallback to finding by name prefix (e.g., Yandex Market)
+            mp = await this.storesRepo.manager.findOne(Marketplace, { where: { name: ILike(`%${mpName}%`) } });
+        }
+        if (!mp) {
+            this.logger.warn(`Marketplace ${mpName} not found in DB. Automatically creating it.`);
+            try {
+                mp = await this.storesRepo.manager.save(Marketplace, { name: mpName });
+            } catch (err) {
+                // In case of race conditions
+                mp = await this.storesRepo.manager.findOne(Marketplace, { where: { name: ILike(mpName) } });
+            }
+        }
+
+        if (!mp) {
+            this.logger.error(`Critical: Could not find or create marketplace ${mpName}`);
+            throw new BadRequestException('Invalid marketplace');
+        }
+
+        const marketplaceId = mp.id;
+
+        // Map the string marketplace name to the Enum required by marketplace_code
+        let marketplaceCode = null;
+        if (mpName.toLowerCase().includes('uzum')) marketplaceCode = MarketplaceEnum.U;
+        else if (mpName.toLowerCase().includes('yandex')) marketplaceCode = MarketplaceEnum.Y;
+        else if (mpName.toLowerCase().includes('wildberries') || mpName.toLowerCase().includes('wb')) marketplaceCode = MarketplaceEnum.W;
+
+        const storeFields = {
             seller_id: sellerId,
-            marketplace_id: MARKETPLACE_ID_MAP[data.marketplace] ?? 1,
+            marketplace_id: marketplaceId,
+            marketplace_code: marketplaceCode,
             external_shop_id: data.external_shop_id.trim(),
             display_name: data.display_name?.trim(),
             marketplace_store_name: validation.marketplace_store_name,
@@ -317,8 +355,27 @@ export class StoresService {
             // Legacy compat
             name: data.display_name?.trim(),
             store_name: data.display_name?.trim(),
+        };
+
+        // Check if soft-deleted store exists to prevent unique constraint hit
+        const existingStore = await this.storesRepo.findOne({
+            where: {
+                seller_id: sellerId,
+                marketplace_id: marketplaceId,
+                external_shop_id: data.external_shop_id.trim(),
+            },
+            withDeleted: true,
         });
 
+        if (existingStore) {
+            await this.storesRepo.update(existingStore.id, {
+                ...storeFields,
+                deleted_at: null, // restore the store
+            });
+            return this.storesRepo.findOne({ where: { id: existingStore.id } });
+        }
+
+        const store = this.storesRepo.create(storeFields);
         return this.storesRepo.save(store);
     }
 
@@ -327,8 +384,7 @@ export class StoresService {
      * Owner check + re-validate + encrypt & save.
      */
     async updateToken(storeId: string, token: string, user: any): Promise<Store> {
-        const sellerId = await this.resolveSellerId(user);
-        const store = await this.assertOwner(storeId, sellerId);
+        const { store } = await this.checkStoreAccess(storeId, user);
 
         // Re-validate with new token
         await this.validate({
@@ -358,8 +414,7 @@ export class StoresService {
         const trimmed = displayName?.trim();
         if (!trimmed) throw new BadRequestException('Display name cannot be empty');
 
-        const sellerId = await this.resolveSellerId(user);
-        await this.assertOwner(storeId, sellerId);
+        const { sellerId } = await this.checkStoreAccess(storeId, user);
 
         // Check for duplicate display name within same seller
         const duplicate = await this.storesRepo.findOne({
@@ -382,9 +437,7 @@ export class StoresService {
      * Disable a store — owner-checked.
      */
     async disable(storeId: string, user: any): Promise<Store> {
-        const sellerId = await this.resolveSellerId(user,
-            user.role === 'admin' || user.role === 'staff' ? user.targetSellerId : undefined);
-        await this.assertOwner(storeId, sellerId);
+        await this.checkStoreAccess(storeId, user);
         await this.storesRepo.update(storeId, { connection_status: ConnectionStatus.DISABLED });
         return this.findOne(storeId);
     }
@@ -393,9 +446,7 @@ export class StoresService {
      * Enable a store — owner-checked.
      */
     async enable(storeId: string, user: any): Promise<Store> {
-        const sellerId = await this.resolveSellerId(user,
-            user.role === 'admin' || user.role === 'staff' ? user.targetSellerId : undefined);
-        await this.assertOwner(storeId, sellerId);
+        await this.checkStoreAccess(storeId, user);
         await this.storesRepo.update(storeId, { connection_status: ConnectionStatus.CONNECTED });
         return this.findOne(storeId);
     }
@@ -453,8 +504,20 @@ export class StoresService {
             updateData.name = name;
             updateData.store_name = name;
         }
-        if (storeData.marketplace && MARKETPLACE_ID_MAP[storeData.marketplace]) {
-            updateData.marketplace_id = MARKETPLACE_ID_MAP[storeData.marketplace];
+        if (storeData.marketplace) {
+            const mpName = MARKETPLACE_KEY_TO_NAME[storeData.marketplace?.toLowerCase()] || storeData.marketplace;
+            let mp = await this.storesRepo.manager.findOne(Marketplace, { where: { name: ILike(mpName) } });
+            if (!mp) {
+                mp = await this.storesRepo.manager.findOne(Marketplace, { where: { name: ILike(`%${mpName}%`) } });
+            }
+            if (!mp) {
+                try {
+                    mp = await this.storesRepo.manager.save(Marketplace, { name: mpName });
+                } catch (err) { }
+            }
+            if (mp) {
+                updateData.marketplace_id = mp.id;
+            }
         }
         await this.storesRepo.update(id, updateData);
         return this.findOne(id);
